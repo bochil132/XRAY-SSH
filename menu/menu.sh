@@ -578,7 +578,7 @@ ${or}═════════════════════════
  ${rd}13.${NC} Install Webmin Menu
  ${rd}14.${NC} CloudFlare Setting
  ${rd}15.${NC} CloudFlare Pointing
-echo -e ""
+
 Tap [ ${rd}CTRL + C${NC} ] To Exit Menu AutoScript
 ${or}══════════════════════════════════════════════════════════════════${NC}
 ${cyan}SSH & OpenVPN Websocket  :${NC} ${rd}${sshws}${NC} Accounts
