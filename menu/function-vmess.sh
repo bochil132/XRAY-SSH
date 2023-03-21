@@ -298,6 +298,8 @@ echo "==============================="
 echo "Username  : $user"
 echo "Expired   : $exp4"
 echo "==============================="
+systemctl restart xray
+systemctl restart nginx
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
@@ -340,6 +342,8 @@ echo "==============================="
 echo "Username  : $user"
 echo "Expired   : $exp"
 echo "==============================="
+systemctl restart xray
+systemctl restart nginx
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
