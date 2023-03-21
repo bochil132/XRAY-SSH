@@ -576,7 +576,9 @@ ${or}═════════════════════════
  ${rd}11.${NC} Restart All Service AutoScript
  ${rd}12.${NC} Reboot You VPS
  ${rd}13.${NC} Install Webmin Menu
-
+ ${rd}14.${NC} CloudFlare Setting
+ ${rd}15.${NC} CloudFlare Pointing
+echo -e ""
 Tap [ ${rd}CTRL + C${NC} ] To Exit Menu AutoScript
 ${or}══════════════════════════════════════════════════════════════════${NC}
 ${cyan}SSH & OpenVPN Websocket  :${NC} ${rd}${sshws}${NC} Accounts
@@ -605,4 +607,6 @@ case $opt in
 11) clear ; restart;;
 12) clear : reboot;;
 13) clear ; wbmn;;
+14) clear ; cf-setting;;
+15) clear ; cf-pointing;;
 esac
