@@ -9,6 +9,8 @@ export rd='\e[31;1m'
 export C='\033[0;36m'
 export R='\e[31;1m'
 
+MYIP=$(curl -sS ipv4.icanhazip.com)
+echo -e ""
 function create(){
 clear
 domain=$(cat /etc/xray/domain)
