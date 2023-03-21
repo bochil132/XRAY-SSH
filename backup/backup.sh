@@ -127,8 +127,6 @@ mkdir -p /root/backup
 sleep 1
 
 cp -r /root/.acme.sh /root/backup/ &> /dev/null
-cp -r /etc/xray /root/backup/xray/ &> /dev/null
-cp -r /etc/trojan-go /root/backup/trojan-go/ &> /dev/null
 cp -r /etc/passwd /root/backup/ &> /dev/null
 cp -r /etc/group /root/backup/ &> /dev/null
 cp -r /etc/shadow /root/backup/ &> /dev/null
@@ -139,10 +137,10 @@ cp -r /etc/ppp/chap-secrets /root/backup/chap-secrets &> /dev/null
 #cp -r /etc/shadowsocks-libev/akun.conf /root/backup/ss.conf &> /dev/null
 cp -r /var/lib/fsidvpn/ /root/backup/fsidvpn &> /dev/null
 #cp -r /home/sstp /root/backup/sstp &> /dev/null
-#cp -r /etc/v2ray /root/backup/v2ray &> /dev/null
-#cp -r /etc/xray /root/backup/xray &> /dev/null
+cp -r /etc/v2ray /root/backup/v2ray &> /dev/null
+cp -r /etc/xray /root/backup/xray &> /dev/null
 cp -r /etc/nginx/conf.d /root/backup/conf.d/ &> /dev/null
-#cp -r /etc/trojan-go /root/backup/trojan-go &> /dev/null
+cp -r /etc/trojan-go /root/backup/trojan-go &> /dev/null
 #cp -r /usr/local/shadowsocksr/ /root/backup/shadowsocksr &> /dev/null
 cp -r /home/vps/public_html /root/backup/public_html &> /dev/null
 cp -r /etc/cron.d /root/backup/cron.d &> /dev/null
@@ -285,15 +283,13 @@ sleep 1
 #cp -r /root/backup/ss.conf /etc/shadowsocks-libev/ss.conf &> /dev/null
 #echo -e "[ ${GREEN}INFO${NC} ] • Restoring admin data..."
 #sleep 1
-cp -r /root/backup/xray /etc/ &> /dev/null
-cp -r /root/backup/trojan-go /etc/ &> /dev/null
 cp -r /root/backup/fsidvpn /var/lib/ &> /dev/null
 #cp -r /root/backup/wireguard /etc/ &> /dev/null
 cp -r /root/backup/.acme.sh /root/ &> /dev/null
 #cp -r /root/backup/sstp /home/ &> /dev/null
-#cp -r /root/backup/trojan-go /etc/ &> /dev/null
-#cp -r /root/backup/v2ray /etc/ &> /dev/null
-#cp -r /root/backup/xray /etc/ &> /dev/null
+cp -r /root/backup/trojan-go /etc/ &> /dev/null
+cp -r /root/backup/v2ray /etc/ &> /dev/null
+cp -r /root/backup/xray /etc/ &> /dev/null
 cp -r /root/backup/conf.d /etc/nginx/ &> /dev/null
 #cp -r /root/backup/shadowsocksr /usr/local/ &> /dev/null
 cp -r /root/backup/public_html /home/vps/ &> /dev/null
@@ -304,6 +300,8 @@ echo -e "[ ${GREEN}INFO${NC} ] • Done..."
 sleep 1
 rm -f /root/backup/backup.zip &> /dev/null
 cd
+systemctl restart xray
+systemctl restart nginx
 echo
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
