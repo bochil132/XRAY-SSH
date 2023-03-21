@@ -1,1 +1,1 @@
-# Thanks For You
+SCRIPT SSH & VMESS ONLY
