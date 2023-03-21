@@ -216,6 +216,7 @@ echo "============================"
 echo "Username : $user"
 echo "Expired  : $exp4"
 echo "=========================="
+systemctl restart trojan-go
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
 menu-trgo
@@ -258,6 +259,7 @@ echo "============================"
 echo "Username : $user"
 echo "Expired  : $exp"
 echo "============================"
+systemctl restart trojan-go
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
 menu-trgo
