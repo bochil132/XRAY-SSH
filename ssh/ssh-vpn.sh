@@ -126,6 +126,7 @@ apt install libssl-dev -y
 apt install libssl1.0-dev -y
 apt install dos2unix -y
 gem install lolcat
+apt install squid -y
 
 # set time GMT +7
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
@@ -398,8 +399,8 @@ wget -O clearlog "https://${akbarvpn}/clearlog.sh"
 wget -O wbmn "https://${akbarvpn}/webmin.sh"
 wget -O exp "https://${akbarvpn}/autoremove.sh"
 wget -O swapkvm "https://${akbarvpn}/swapkvm.sh"
-wget -O cloudflare-pointing "https://stn-cloud.my.id/menu/cloudflare-pointing.sh"
-wget -O cloudflare-setting "https://stn-cloud.my.id/menu/cloudflare-setting.sh"
+wget -O cf-pointing "https://stn-cloud.my.id/menu/cloudflare-pointing.sh"
+wget -O cf-setting "https://stn-cloud.my.id/menu/cloudflare-setting.sh"
 wget -O ins-xray "https://stn-cloud.my.id/xray/ins-xray.sh"
 wget -O menu "https://stn-cloud.my.id/menu/menu.sh"
 wget -O backup "https://stn-cloud.my.id/backup/bckp.sh"
@@ -407,8 +408,8 @@ wget -O menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh"
 wget -O menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh"
 wget -O menu-vmess "https://stn-cloud.my.id/menu/function-vmess.sh"
 wget -O license "https://stn-cloud.my.id/menu/license.sh"
-chmod +x cloudflare-pointing
-chmod +x cloudflare-setting
+chmod +x cf-pointing
+chmod +x cf-setting
 chmod +x banner
 chmod +x stat
 chmod +x speedtest
