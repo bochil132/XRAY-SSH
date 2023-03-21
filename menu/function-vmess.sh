@@ -9,7 +9,6 @@ export rd='\e[31;1m'
 export C='\033[0;36m'
 export R='\e[31;1m'
 
-MYIP=$(curl -sS ipv4.icanhazip.com)
 echo -e ""
 function create(){
 clear
@@ -76,7 +75,7 @@ clear
 echo -e ""
 echo -e "======-XRAYS/VMESS-======"
 echo -e "Remarks     : ${user}"
-echo -e "IP Address  : ${MYIP}"
+echo -e "IP Address  : $(curl -sS ipv4.icanhazip.com)"
 echo -e "Domain      : ${domain}"
 echo -e "Port TLS    : ${tls}"
 echo -e "Port No TLS : ${nontls}"
@@ -163,7 +162,7 @@ clear
 echo -e ""
 echo -e "======-XRAYS/VMESS-======"
 echo -e "Remarks     : ${user}"
-echo -e "IP Address  : ${MYIP}"
+echo -e "IP Address  : $(curl -sS ipv4.icanhazip.com)"
 echo -e "Domain      : ${domain}"
 echo -e "Port TLS    : ${tls}"
 echo -e "Port No TLS : ${nontls}"
