@@ -83,7 +83,6 @@ export R='\e[31;1m'
 function create(){
 clear
 uuid=$(cat /etc/trojan-go/uuid.txt)
-source /var/lib/fsidvpn/ipvps.conf
 if [[ "$IP" = "" ]]; then
 domain=$(cat /etc/xray/domain)
 else
@@ -108,6 +107,7 @@ echo -e "### $user $exp" >> /etc/trojan-go/akun.conf
 systemctl restart trojan-go.service
 link="trojan://${user}@${domain}:${trgo}/?sni=${domain}&type=ws&host=${domain}&path=/directpath&encryption=none#$user"
 clear
+sleep 0.8
 echo -e ""
 echo -e "=======-TROJAN-GO-======="
 echo -e "Remarks    : ${user}"
@@ -155,6 +155,7 @@ echo -e "### $user $exp" >> /etc/trojan-go/akun.conf
 systemctl restart trojan-go.service
 link="trojan://${user}@${domain}:${trgo}/?sni=${domain}&type=ws&host=${domain}&path=/directpath&encryption=none#$user"
 clear
+sleep 0.8
 echo -e ""
 echo -e "=======-TROJAN-GO-======="
 echo -e "Remarks    : ${user}"
