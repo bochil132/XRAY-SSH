@@ -19,7 +19,7 @@ Info="${Green_font_prefix}[Installed]${Font_color_suffix}"
 Error="${Red_font_prefix}[Not Installed]${Font_color_suffix}"
 cek=$(netstat -ntlp | grep 10000 | awk '{print $7}' | cut -d'/' -f2)
 function install () {
-IP=$(wget -qO- ifconfig.co);
+IP=$(curl -sS ipv4.icanhazip.com)
 echo " Adding Repositori Webmin"
 sh -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" > /etc/apt/sources.list.d/webmin.list'
 apt install gnupg gnupg1 gnupg2 -y
@@ -38,7 +38,7 @@ echo ""
 echo "===================================" | lolcat
 echo "       Done Install Webmin"
 echo "===================================" | lolcat
-echo "        http://$IP:10000"
+echo "       http://${IP}:10000"
 echo "===================================" | lolcat
 echo "Script By LamVpn"
 echo -e ""
