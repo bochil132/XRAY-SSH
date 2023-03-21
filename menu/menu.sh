@@ -142,16 +142,16 @@ fi
 
 # STATUS SERVICE  TLS 
 if [[ $tls_v2ray_status == "running" ]]; then 
-   status_tls_v2ray="${GREEN}ON${NC}"
+   v2ray_tls="${GREEN}ON${NC}"
 else
-   status_tls_v2ray="${RED}OFF${NC}"
+   v2ray_tls="${RED}OFF${NC}"
 fi
 
 # STATUS SERVICE NON TLS V2RAY
 if [[ $nontls_v2ray_status == "running" ]]; then 
-   status_nontls_v2ray="${GREEN}ON${NC}"
+   v2ray_ntls="${GREEN}ON${NC}"
 else
-   status_nontls_v2ray="${RED}OFF${NC}"
+   v2ray_ntls="${RED}OFF${NC}"
 fi
 
 # STATUS SERVICE VLESS HTTPS
@@ -346,15 +346,18 @@ echo -e " Cpu Model           =>$cpu"
 echo -e " Total Ram           => $tram MB / Used $uram MB"
 echo -e " Available Storage   => $(df -h / | awk '{print $4}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB"
 echo -e " Total Storage       => $(df -h / | awk '{print $2}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB"
-echo -e " Used Storage        => $(df -h / | awk '{print $3}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB"
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo -e " Used Storage        => $(df -h / | awk '{print $3}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB${NC}"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e " ${green}•${NC} NGINX           => $nx"
 echo -e " ${green}•${NC} SSH / TUN       => $status_ssh"
 echo -e " ${green}•${NC} OVPN WS         => $swsovpn"
 echo -e " ${green}•${NC} DROPBEAR        => $status_beruangjatuh"
 echo -e " ${green}•${NC} VNSTAT          => $status_vnstat"
-echo -e " ${green}•${NC} WS STUNNEL      => $swstls"
-echo -e " ${green}•${NC} WS DROPBEAR     => $swsdrop"
+echo -e " ${green}•${NC} SSH WS TLS      => $swstls"
+echo -e " ${green}•${NC} SSH WS NTLS     => $swsdrop"
+echo -e " ${green}•${NC} VMESS TLS       => $v2ray_tls"
+echo -e " ${green}•${NC} VMESS NONE TLS  => $v2ray_ntls"
+echo -e " ${green}•${NC} TROJAN GO TLS   => $status_trgo"
 echo -e " ${green}•${NC} STUNNEL         => $status_stunnel"
 echo -e " ${green}•${NC} SSLH            => $sosslh"
 echo -e " ${green}•${NC} FAIL2BAN        => $status_fail2ban"
@@ -364,6 +367,7 @@ echo -e " ${green}•${NC} SSHD            => $shdd"
 echo -e " ${green}•${NC} BADVPN UDPGW    => $udpw"
 echo -e " ${green}•${NC} CRONTAB         => $cr"
 echo -e " ${green}•${NC} SQUID PROXY     => $sq"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
 menu
@@ -373,7 +377,7 @@ function update(){
 clear
 echo -e "
 =================================================
-      ${or}Progress Update AutoScript XRAY-SSH${NC}
+     ${or}Progress Update AutoScript XRAY-SSH${NC}
 ================================================="
 sleep 1
 wget -q -O /usr/bin/menu "https://stn-cloud.my.id/menu/menu.sh" && chmod +x /usr/bin/menu
@@ -383,7 +387,7 @@ wget -q -O /usr/bin/menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh" &&
 wget -q -O /usr/bin/license "https://stn-cloud.my.id/menu/license.sh" && chmod +x /usr/bin/license
 wget -q -O /usr/bin/backup "https://stn-cloud.my.id/backup/backup.sh" && chmod +x /usr/bin/backup
 sleep 2
-echo -e "${green}Update AutoScript XRAY-SSH Succesfuly${NC}"
+echo -e "${CYAN}Update AutoScript XRAY-SSH Succesfuly${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
 menu
