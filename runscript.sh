@@ -122,6 +122,7 @@ red "Your script need to update first !"
 exit 0
 elif [ "$res" = "Permission Accepted..." ]; then
 green "Yes Your IP Registered"
+sleep 3
 else
 red "IP No Registered Detected.!!"
 rm runscript.sh > /dev/null 2>&1
@@ -144,14 +145,14 @@ tyblue='\e[1;36m'
 
 clear
 echo -e " [${cyan}✓${NC}] • ${or}License Validated To Your IP${NC}"
-sleep 2
+sleep 3
 clear
 echo -e "${or}License Start :${NC} ${lstart}"
-sleep 1
+sleep 1.5
 echo -e "${or}License Ended :${NC} ${lended}"
-sleep 1
+sleep 1.5
 echo -e "${or}Client Name   :${NC} ${client}"
-sleep 1
+sleep 1.5
 echo -e "
 ${or}---------------------------------------------${NC}
   ${multi}Thanks You For Using AutoScript Installer${NC}
