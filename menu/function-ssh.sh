@@ -26,7 +26,7 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $2}')
+dataexp=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $3}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
 
@@ -66,7 +66,7 @@ echo -ne
 else
 echo -e ""
 echo -e "${red}Aksess Script Ditolak.!!${NC}"
-echo -e "${red}Expired=>${NC} $dataexp"
+echo -e "${red}Expired=>${NC} ${dataexp}"
 echo -e ""
 exit 0
 fi
