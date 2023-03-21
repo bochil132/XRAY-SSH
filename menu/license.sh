@@ -17,8 +17,8 @@ color2='\e[34;1m'
 color3='\e[0m'
 #ColorCode===================
 
-key=$(cat /etc/api)
-mail=$(cat /etc/gmail)
+apigit=$(cat /etc/bckp/token.txt)
+emailgit=$(cat /etc/bckp/gmail.txt)
 
 function regip(){
 clear
@@ -53,8 +53,8 @@ if [ -z $client ]; then
 cd
 echo -e " [ ${rd}INFO${NC} ] • Please Input client name"
 echo -e ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 fi
 
 clear
@@ -74,7 +74,7 @@ read -p "Input Exp Date : " exp
 sleep 1
 exp=$(date -d "$exp days" +"%Y-%m-%d")
 hariini=$(date -d "0 days" +"%Y-%m-%d")
-git config --global user.email "${mail}" &> /dev/null
+git config --global user.email "${emailgit}" &> /dev/null
 git config --global user.name "bochil132" &> /dev/null
 git clone https://github.com/bochil132/permission.git &> /dev/null
 cd /root/permission/ &> /dev/null
@@ -94,7 +94,7 @@ git add .
 git commit -m register &> /dev/null
 git branch -M main &> /dev/null
 git remote add origin https://github.com/bochil132/permission.git &> /dev/null
-git push -f https://${key}@github.com/bochil132/permission.git &> /dev/null
+git push -f https://${apigit}@github.com/bochil132/permission.git &> /dev/null
 sleep 1
 clear
 echo -e "${CYAN} Thanks Your For Our Using Service ${NC}"
@@ -109,8 +109,8 @@ cd
 rm -rf /root/permission
 echo -e "${CYAN}===================================${NC}"
 echo ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 
 }
 
@@ -121,7 +121,7 @@ echo -e "${cyan}╒════════════════════�
 echo -e " \E[41;1;39m                 RENEW ACCESS SCRIPT              \E[0m"
 echo -e "${cyan}╘══════════════════════════════════════════════════╛${NC}"
 rm -rf /root/permission
-git config --global user.email "${mail}" &> /dev/null
+git config --global user.email "${emailgit}" &> /dev/null
 git config --global user.name "bochil132" &> /dev/null
 git clone https://github.com/bochil132/permission.git
 cd /root/permission/
@@ -137,8 +137,8 @@ echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━�
 echo -e "            ${red}Please Input Correct Number!${NC}"
 echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
-read -n 1 -s -r -p "Press any key to back on menu"
-menu-set
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 fi
 clear
 echo -e "${cyan}╒══════════════════════════════════════════════════╕${NC}"
@@ -160,8 +160,8 @@ echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━�
 echo -e "            ${red}Please Input Correct Number!${NC}"
 echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 fi
 done
 echo -e ""
@@ -173,8 +173,8 @@ echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━�
 echo -e "            ${red}Please Input Correct Number!${NC}"
 echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 fi
 name1=$(grep -E "^### " "/root/permission/ipmini" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p) #name
 exp=$(grep -E "^### " "/root/permission/ipmini" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p) #exp
@@ -191,7 +191,7 @@ git add .
 git commit -m renew
 git branch -M main
 git remote add origin https://github.com/bochil132/permission.git
-git push -f https://${key}@github.com/bochil132/permission.git
+git push -f https://${apigit}@github.com/bochil132/permission.git
 clear
 echo -e "     ${red}Thanks You For Using AutoScript${NC}"
 echo -e "${cyan}==========================================${NC}"
@@ -204,14 +204,14 @@ echo -e "Expired Date : $exp4"
 echo -e "Client       : $name1"
 echo -e "${cyan}==========================================${NC}"
 echo -e ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 }
 
 function delip(){
 clear
 rm -rf /root/permission &> /dev/null
-git config --global user.email "${mail}" &> /dev/null
+git config --global user.email "${emailgit}" &> /dev/null
 git config --global user.name "bochil132" &> /dev/null
 git clone https://github.com/bochil132/permission.git &> /dev/null
 cd /root/permission/ &> /dev/null
@@ -239,8 +239,8 @@ echo -e " [ ${rd}Note${NC} ] • Please Input Correct Number"
 echo -e ""
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 fi
 clear
 sleep 1
@@ -263,7 +263,7 @@ git add . &> /dev/null
 git commit -m remove &> /dev/null
 git branch -M main &> /dev/null
 git remote add origin https://github.com/bochil132/permission.git &> /dev/null
-git push -f https://${key}@github.com/bochil132/permission.git &> /dev/null
+git push -f https://${apigit}@github.com/bochil132/permission.git &> /dev/null
 clear
 echo -e "${CYAN} Thanks Your For Our Using Service ${NC}"
 echo -e "${CYAN}===================================${NC}"
@@ -276,8 +276,8 @@ cd
 rm -rf /root/permission
 echo -e "${CYAN}===================================${NC}"
 echo ""
-read -n 1 -s -r -p "Press any key to back on menu"
-other
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
 }
 clear
 echo -e ""
