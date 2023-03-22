@@ -198,9 +198,9 @@ fi
 
 # Status Service Trojan GO
 if [[ $strgo == "active" ]]; then
-  status_trgo=" ${GREEN}Running ${NC}( No Error )${NC}"
+  status_trgo=" ${GREEN}ON${NC}"
 else
-  status_trgo="${RED}  Not Running ${NC}  ( Error )${NC}"
+  status_trgo="${RED}OFF${NC}"
 fi
 
 # STATUS SERVICE L2TP
