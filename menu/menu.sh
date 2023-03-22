@@ -205,9 +205,9 @@ fi
 
 # STATUS SERVICE L2TP
 if [[ $trojan_server == "running" ]]; then 
-   status_trgo=" ${GREEN}Running${NC} ( No Error )${NC}"
+   status_trgo=" ${GREEN}ON${NC}"
 else
-   status_trgo="${RED}  Not Running${NC}  ( Error )${NC}"
+   status_trgo="${RED}ON${NC}"
 fi
 
 # STATUS SERVICE DROPBEAR
