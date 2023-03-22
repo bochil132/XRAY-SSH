@@ -49,7 +49,7 @@ oovpn=$(echo "${openvpn_service}" | grep 'ActiveState=' | cut -f2 -d=)
 #status_text=$(echo "${status}" | grep 'ActiveState=' | cut -f2 -d=)
 tls_v2ray_status=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 nontls_v2ray_status=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-trojan_server=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+trojan_server=$(systemctl status trojan-go | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 dropbear_status=$(/etc/init.d/dropbear status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 stunnel_service=$(/etc/init.d/stunnel5 status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 squid_service=$(/etc/init.d/squid status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
@@ -198,16 +198,16 @@ fi
 
 # Status Service Trojan GO
 if [[ $strgo == "active" ]]; then
-  status_trgo=" ${GREEN}ON${NC}"
+  status_trg=" ${GREEN}ON${NC}"
 else
-  status_trgo="${RED}OFF${NC}"
+  status_trg="${RED}OFF${NC}"
 fi
 
 # STATUS SERVICE L2TP
-if [[ $l2tp_status == "running" ]]; then 
-   status_l2tp=" ${GREEN}Running${NC} ( No Error )${NC}"
+if [[ $trojan_server == "running" ]]; then 
+   status_trgo=" ${GREEN}Running${NC} ( No Error )${NC}"
 else
-   status_l2tp="${RED}  Not Running${NC}  ( Error )${NC}"
+   status_trgo="${RED}  Not Running${NC}  ( Error )${NC}"
 fi
 
 # STATUS SERVICE DROPBEAR
