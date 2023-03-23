@@ -198,14 +198,14 @@ fi
 
 # Status Service Trojan GO
 if [[ $strgo == "active" ]]; then
-  status_trg=" ${GREEN}ON${NC}"
+  status_trg="${GREEN}ON${NC}"
 else
   status_trg="${RED}OFF${NC}"
 fi
 
 # STATUS SERVICE L2TP
 if [[ $trojan_server == "running" ]]; then 
-   status_trgo=" ${GREEN}ON${NC}"
+   status_trgo="${GREEN}ON${NC}"
 else
    status_trgo="${RED}ON${NC}"
 fi
@@ -569,6 +569,8 @@ ${or}═════════════════════════
 ${rd}Download Usage  :${NC} ${downusage}
 ${rd}Upload Usage    :${NC} ${upusage}
 ${rd}Total Usage     :${NC} ${tousage}
+${rd}Total Ram VPS   :${NC} ${totalram},mb
+${rd}Usage Ram VPS   :${NC} ${usageram},mb
 ${or}══════════════════════════════════════════════════════════════════${NC}
  ${rd}•1.${NC} Menu SSH & OpenVPN Websocket
  ${rd}•2.${NC} Menu Vmess Websocket
