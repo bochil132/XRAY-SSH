@@ -318,7 +318,7 @@ ${or}═════════════════════════
  ${rd}1.${NC} Buat Akun Trojan-Go
  ${rd}2.${NC} Trial Akun Trojan-Go
  ${rd}3.${NC} Perpanjang Akun Trojan-Go
- ${rd}4.${NC} Hapus Akun Trojan-Go
+ ${rd}4.${NC} Hapus Akun Trojan-Go ( ${rd}Error${NC} )
  ${rd}5.${NC} Cek Login Trojan-Go"
 echo ""
 echo -e " ${rd}0.${NC} Back To Main Menu •••
