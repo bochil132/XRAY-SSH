@@ -583,8 +583,8 @@ ${or}═════════════════════════
  ${rd}11.${NC} Restart All Service AutoScript
  ${rd}12.${NC} Reboot You VPS
  ${rd}13.${NC} Install Webmin Menu
- ${rd}14.${NC} CloudFlare Setting
- ${rd}15.${NC} CloudFlare Pointing
+ ${rd}14.${NC} CloudFlare Setting ( ${rd}Not Fixed Error${NC} )
+ ${rd}15.${NC} CloudFlare Pointing ( ${rd}Not Fixed Error${NC} )
 
 Tap [ ${rd}CTRL + C${NC} ] To Exit Menu AutoScript
 ${or}══════════════════════════════════════════════════════════════════${NC}
