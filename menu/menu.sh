@@ -549,6 +549,8 @@ menu
 }
 
 clear
+totalram=$(free -m | awk 'NR==2 {print $2}')
+usageram=$(free -m | awk 'NR==2 {print $3}')
 ip=$(curl -sS ipv4.icanhazip.com)
 expscript=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $ip | awk '{print $3}')
 d2=$(date -d "$biji" +"+%s")
