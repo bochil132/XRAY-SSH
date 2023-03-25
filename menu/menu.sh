@@ -107,9 +107,9 @@ fi
 
 # STATUS SERVICE  SSH 
 if [[ $ssh_service == "running" ]]; then 
-   status_ssh="${GREEN}ON${NC}"
+   status_ssh="${GREEN}ON ( Running )${NC}"
 else
-   status_ssh="${RED}OFF${NC}"
+   status_ssh="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE  SQUID 
@@ -121,9 +121,9 @@ fi
 
 # STATUS SERVICE  VNSTAT 
 if [[ $vnstat_service == "running" ]]; then 
-   status_vnstat="${GREEN}ON${NC}"
+   status_vnstat="${GREEN}ON ( Running )${NC}"
 else
-   status_vnstat="${RED}OFF${NC}"
+   status_vnstat="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE  CRONS 
@@ -135,23 +135,23 @@ fi
 
 # STATUS SERVICE  FAIL2BAN 
 if [[ $fail2ban_service == "running" ]]; then 
-   status_fail2ban="${GREEN}ON${NC}"
+   status_fail2ban="${GREEN}ON ( Running )${NC}"
 else
-   status_fail2ban="${RED}OFF${NC}"
+   status_fail2ban="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE  TLS 
 if [[ $tls_v2ray_status == "running" ]]; then 
-   v2ray_tls="${GREEN}ON${NC}"
+   v2ray_tls="${GREEN}ON ( Running )${NC}"
 else
-   v2ray_tls="${RED}OFF${NC}"
+   v2ray_tls="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE NON TLS V2RAY
 if [[ $nontls_v2ray_status == "running" ]]; then 
-   v2ray_ntls="${GREEN}ON${NC}"
+   v2ray_ntls="${GREEN}ON ( Running )${NC}"
 else
-   v2ray_ntls="${RED}OFF${NC}"
+   v2ray_ntls="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE VLESS HTTPS
@@ -198,30 +198,30 @@ fi
 
 # Status Service Trojan GO
 if [[ $strgo == "active" ]]; then
-  status_trg="${GREEN}ON${NC}"
+  status_trg="${GREEN}ON ( Running )${NC}"
 else
-  status_trg="${RED}OFF${NC}"
+  status_trg="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE L2TP
 if [[ $trojan_server == "running" ]]; then 
-   status_trgo="${GREEN}ON${NC}"
+   status_trgo="${GREEN}ON ( Running )${NC}"
 else
-   status_trgo="${RED}ON${NC}"
+   status_trgo="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE DROPBEAR
 if [[ $dropbear_status == "running" ]]; then 
-   status_beruangjatuh="${GREEN}ON${NC}"
+   status_beruangjatuh="${GREEN}ON ( Running )${NC}"
 else
-   status_beruangjatuh="${RED}OFF${NC}"
+   status_beruangjatuh="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE STUNNEL
 if [[ $stunnel_service == "running" ]]; then 
-   status_stunnel="${GREEN}ON${NC}"
+   status_stunnel="${GREEN}ON ( Running )${NC}"
 else
-   status_stunnel="${RED}OFF${NC}"
+   status_stunnel="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE SSTP
@@ -233,93 +233,93 @@ fi
 
 # STATUS SERVICE WEBSOCKET TLS
 if [[ $wstls == "running" ]]; then 
-   swstls="${GREEN}ON${NC}"
+   swstls="${GREEN}ON ( Running )${NC}"
 else
-   swstls="${RED}OFF${NC}"
+   swstls="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE WEBSOCKET DROPBEAR
 if [[ $wsdrop == "running" ]]; then 
-   swsdrop="${GREEN}ON${NC}"
+   swsdrop="${GREEN}ON ( Running )${NC}"
 else
-   swsdrop="${RED}OFF${NC}"
+   swsdrop="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE WEBSOCKET OPEN OVPN
 if [[ $wsovpn == "running" ]]; then 
-   swsovpn="${GREEN}ON${NC}"
+   swsovpn="${GREEN}ON ( Running )${NC}"
 else
-   swsovpn="${RED}OFF${NC}"
+   swsovpn="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE SSLH / SSH
 if [[ $osslh == "running" ]]; then 
-   sosslh="${GREEN}ON${NC}"
+   sosslh="${GREEN}ON ( Running )${NC}"
 else
-   sosslh="${RED}OFF${NC}"
+   sosslh="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS OHP DROPBEAR
 if [[ $ohp == "running" ]]; then 
-   sohp="${GREEN}ON${NC}"
+   sohp="${GREEN}ON ( Running )${NC}"
 else
-   sohp="${RED}OFF${NC}"
+   sohp="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS OHP OpenVPN
 if [[ $ohq == "running" ]]; then 
-   sohq="${GREEN}ON${NC}"
+   sohq="${GREEN}ON ( Running )${NC}"
 else
-   sohq="${RED}OFF${NC}"
+   sohq="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS OHP SSH
 if [[ $ohr == "running" ]]; then 
-   sohr="${GREEN}ON${NC}"
+   sohr="${GREEN}ON ( Running )${NC}"
 else
-   sohr="${RED}OFF${NC}"
+   sohr="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE WEBSOCKET OPENSSH
 if [[ $wsopen == "running" ]]; then 
-   swsopen="${GREEN}ON${NC}" 
+   swsopen="${GREEN}ON ( Running )${NC}" 
 else
-   swsopen="${RED}OFF${NC}"
+   swsopen="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE SSHD
 if [[ $shd == "running" ]]; then 
-   shdd="${GREEN}ON${NC}" 
+   shdd="${GREEN}ON ( Running )${NC}" 
 else
-   shdd="${RED}OFF${NC}"
+   shdd="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE BADVPN
 if [[ $udp == "running" ]]; then 
-   udpw="${GREEN}ON${NC}" 
+   udpw="${GREEN}ON ( Running )${NC}" 
 else
-   udpw="${RED}OFF${NC}"
+   udpw="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE CRON
 if [[ $cron == "running" ]]; then 
-   cr="${GREEN}ON${NC}" 
+   cr="${GREEN}ON ( Running )${NC}" 
 else
-   cr="${RED}OFF${NC}"
+   cr="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE SQUID
 if [[ $sqd == "running" ]]; then 
-   sq="${GREEN}ON${NC}" 
+   sq="${GREEN}ON ( Running )${NC}" 
 else
-   sq="${RED}OFF${NC}"
+   sq="${RED}OFF ( Error )${NC}"
 fi
 
 # STATUS SERVICE NGINX
 if [[ $nginx == "running" ]]; then 
-   nx="${GREEN}ON${NC}" 
+   nx="${GREEN}ON ( Running )${NC}" 
 else
-   nx="${RED}OFF${NC}"
+   nx="${RED}OFF ( Error )${NC}"
 fi
 clear
 
