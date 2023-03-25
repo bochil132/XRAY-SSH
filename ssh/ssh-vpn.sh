@@ -429,7 +429,7 @@ chmod +x menu-vmess
 chmod +x menu-trgo
 
 echo "0 9 * * * root clearlog && reboot" >> /etc/crontab
-echo "0 0 * * * root exp" >> /etc/crontab
+echo "0 7 * * * root exp" >> /etc/crontab
 # remove unnecessary files
 cd
 apt autoclean -y
