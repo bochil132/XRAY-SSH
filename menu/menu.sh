@@ -592,9 +592,9 @@ ${or}═════════════════════════
  ${rd}11.${NC} Restart All Service AutoScript
  ${rd}12.${NC} Reboot You VPS
  ${rd}13.${NC} Install Webmin Menu
- ${rd}14.${NC} CloudFlare Setting
- ${rd}15.${NC} CloudFlare Pointing
- ${rd}16.${NC} Port Service Information
+# ${rd}14.${NC} CloudFlare Pointing Subdomain
+ ${rd}14.${NC} CloudFlare Pointing Subdomain
+ ${rd}15.${NC} Port Service Information
 
 Tap [ ${rd}CTRL + C${NC} ] To Exit Menu AutoScript
 ${or}══════════════════════════════════════════════════════════════════${NC}
@@ -624,7 +624,7 @@ case $opt in
 11) clear ; restart;;
 12) clear : reboot;;
 13) clear ; wbmn;;
-14) clear ; cf-setting;;
-15) clear ; cf-pointing;;
-16) clear ; info;;
+14) clear ; cf-pointing;;
+15) clear ; info;;
+16) clear ; xx;;
 esac
