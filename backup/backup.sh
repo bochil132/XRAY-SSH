@@ -111,18 +111,19 @@ clear
 IP=$(curl -sS ipv4.icanhazip.com);
 apigit=$(cat /etc/bckp/token.txt)
 emailgit=$(cat /etc/bckp/gmail.txt)
+bckpdata=$(date)
 date=$(date +"%Y-%m-%d")
 
 clear
-echo -e "[ ${GREEN}INFO${NC} ] Create password for database"
+echo -e "[ ${GREEN}INFO${NC} ] Create Data Backup For VPS"
 #read -rp "Enter Token (Contact Admin) : " -e token
-read -rp "Enter Name File Your Backup  : " -e NameUser
-read -rp "Enter password : " -e InputPass
+read -rp "Enter Name File Backup => " -e NameUser
+read -rp "Create Password => " -e InputPass
 sleep 1
 if [[ -z $InputPass ]]; then
 exit 0
 fi
-echo -e "[ ${GREEN}INFO${NC} ] Processing... "
+echo -e "[ ${GREEN}INFO${NC} ] Prosess... "
 mkdir -p /root/backup
 sleep 1
 
@@ -183,34 +184,36 @@ Save_And_Exit () {
 
 if [ ! -d "/root/user-backup/" ]; then
 sleep 1
-echo -e "[ ${GREEN}INFO${NC} ] Getting database... "
+echo -e "[ ${GREEN}INFO${NC} ] Mengambil Database... "
 Get_Data
 Mkdir_Data
 sleep 1
-echo -e "[ ${GREEN}INFO${NC} ] Getting info server... "
+echo -e "[ ${GREEN}INFO${NC} ] Mengambil info server... "
 Input_Data_Append
 sleep 1
-echo -e "[ ${GREEN}INFO${NC} ] Processing updating server...... "
+echo -e "[ ${GREEN}INFO${NC} ] Prosess update server... "
 Save_And_Exit
 fi
 link="https://backup.stn-cloud.my.id/$NameUser/$NameUser.zip"
 sleep 1
-echo -e "[ ${GREEN}INFO${NC} ] Backup done "
+echo -e "[ ${GREEN}INFO${NC} ] Backup Selesai.!! "
 sleep 1
 echo
 sleep 1
-echo -e "[ ${GREEN}INFO${NC} ] Generete Link Backup "
+echo -e "[ ${GREEN}INFO${NC} ] Prosess Membuat Link Backup... "
 echo
 sleep 2
-echo -e "The following is a link to your vps data backup file.
-Your VPS Backup Name $NameUser
-
-$link
-save the link pliss!
-
-If you want to restore data, please enter the link above.
-Thank You For Using Our Services"
-
+clear
+echo -e "
+Mohon simpan data di bawah ini.!!
+===============================================
+Name Backup  : ${NameUser}
+Backup Date  : ${bckpdata}
+Password nya : ${InputPass}
+IP Address   : ${MYIP}
+Link Backup  : ${linkbckp}
+===============================================
+"
 rm -fr /root/backup &> /dev/null
 rm -fr /root/user-backup &> /dev/null
 rm -f /root/$NameUser.zip &> /dev/null
@@ -237,7 +240,7 @@ backup
 
 function restore(){
 cd
-read -rp "Enter Name File Your Backup  : " -e NameUser
+read -rp "Enter Name Backup => " -e NameUser
 
 cekdata=$(curl -sS https://raw.githubusercontent.com/WanEuy22/backup/main/$NameUser/$NameUser.zip | grep 404 | awk '{print $1}' | cut -d: -f1)
 
@@ -245,11 +248,11 @@ cekdata=$(curl -sS https://raw.githubusercontent.com/WanEuy22/backup/main/$NameU
 red "Data not found / you never backup"
 exit 0
 } || {
-GREEN "Data found for username $NameUser"
+GREEN "Data found for name $NameUser"
 }
 
 echo -e "[ ${GREEN}INFO${NC} ] • Restore Data..."
-read -rp "Password File: " -e InputPass
+read -rp "Password Backup => " -e InputPass
 echo -e "[ ${GREEN}INFO${NC} ] • Downloading data.."
 mkdir -p /root/backup
 wget -q -O /root/backup/backup.zip "https://raw.githubusercontent.com/WanEuy22/backup/main/$NameUser/$NameUser.zip" &> /dev/null
