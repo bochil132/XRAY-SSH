@@ -377,9 +377,11 @@ function update(){
 clear
 echo -e "
 =================================================
-     ${or}Progress Update AutoScript XRAY-SSH${NC}
+     ${multi}Progress Update AutoScript XRAY-SSH${NC}
 ================================================="
 sleep 1
+wget -q -O /usr/bin/cf-pointing "https://stn-cloud.my.id/menu/cloudflare-pointing.sh" && chmod +x /usr/bin/cf-pointing
+wget -q -O /usr/bin/cf-setting "https://stn-cloud.my.id/menu/cloudflare-setting.sh" && chmod +x /usr/bin/cf-setting
 wget -q -O /usr/bin/menu "https://stn-cloud.my.id/menu/menu.sh" && chmod +x /usr/bin/menu
 wget -q -O /usr/bin/menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh" && chmod +x /usr/bin/menu-ssh
 wget -q -O /usr/bin/menu-vmess "https://stn-cloud.my.id/menu/function-vmess.sh" && chmod +x /usr/bin/menu-vmess
@@ -387,7 +389,7 @@ wget -q -O /usr/bin/menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh" &&
 wget -q -O /usr/bin/license "https://stn-cloud.my.id/menu/license.sh" && chmod +x /usr/bin/license
 wget -q -O /usr/bin/backup "https://stn-cloud.my.id/backup/backup.sh" && chmod +x /usr/bin/backup
 sleep 2
-echo -e "${CYAN}Update AutoScript XRAY-SSH Succesfuly${NC}"
+echo -e "${or}Update AutoScript XRAY-SSH Succesfuly${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
 menu
@@ -396,7 +398,7 @@ menu
 function about(){
 clear
 echo -e "================================================="
-echo -e "#        AutoScript Installer XRAY-SSH          #"
+echo -e "#        ${multi}AutoScript Installer XRAY-SSH${NC}          #"
 echo -e "================================================="
 echo -e "# For Debian 10 64 bit                          #"
 echo -e "# For Ubuntu 18.04 & Ubuntu 20.04 64 bit        #"
