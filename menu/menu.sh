@@ -592,7 +592,6 @@ ${or}═════════════════════════
  ${rd}11.${NC} Restart All Service AutoScript
  ${rd}12.${NC} Reboot You VPS
  ${rd}13.${NC} Install Webmin Menu
-# ${rd}14.${NC} CloudFlare Pointing Subdomain
  ${rd}14.${NC} CloudFlare Pointing Subdomain
  ${rd}15.${NC} Port Service Information
 
@@ -626,5 +625,4 @@ case $opt in
 13) clear ; wbmn;;
 14) clear ; cf-pointing;;
 15) clear ; info;;
-16) clear ; xx;;
 esac
