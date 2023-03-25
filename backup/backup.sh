@@ -224,7 +224,6 @@ backup
 function token(){
 read -p "Input You Token : " api
 read -p "Input You Email : " gmail
-mkdir -p /etc/bckp/
 echo "$api" >/etc/bckp/token.txt
 echo "$gmail" >/etc/bckp/gmail.txt
 sleep 2.5
