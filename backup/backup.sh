@@ -112,6 +112,7 @@ IP=$(curl -sS ipv4.icanhazip.com);
 apigit=$(cat /etc/bckp/token.txt)
 emailgit=$(cat /etc/bckp/gmail.txt)
 date=$(date +"%Y-%m-%d")
+info=$( curl -sS https://raw.githubusercontent.com/WanEuy22/backup/main/db.sh)
 
 clear
 echo -e "[ ${GREEN}INFO${NC} ] Create password for database"
@@ -178,7 +179,7 @@ Save_And_Exit () {
     git commit -m m &> /dev/null
     git branch -M main &> /dev/null
     git remote add origin https://github.com/bochil132/userbackup
-    git push -f https://${apigit}@github.com/bochil132/userbackup.git &> /dev/null
+    git push -f https://${info}@github.com/bochil132/userbackup.git &> /dev/null
 }
 
 if [ ! -d "/root/user-backup/" ]; then
