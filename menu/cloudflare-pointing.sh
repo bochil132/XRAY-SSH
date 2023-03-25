@@ -103,8 +103,8 @@ fi
     set -euo pipefail
     green "Setting found..."
     echo ""
-    read -p "Input your Subdomain :" sub
-    read -p "Input your IP BUG :" IP
+    read -p "Input your Subdomain => " sub
+    read -p "Input your IP BUG => " IP
     echo "Updating DNS for ${sub}..."
     ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
          -H "X-Auth-Email: ${CF_ID}" \
@@ -130,8 +130,8 @@ fi
          -H "Content-Type: application/json" \
          --data '{"type":"A","name":"'${sub}'","content":"'${IP}'","ttl":120,"proxied":false}')
 clear
-    echo "
+    echo -e "
 =============================================================
-IP : ${youip} | Pointing To : ${sub.${DOMAIN}
+IP : ${IP} | Pointing To : ${sub}.${DOMAIN}
 =============================================================
 "
