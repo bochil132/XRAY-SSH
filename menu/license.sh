@@ -354,7 +354,7 @@ clear
 echo -e ""
 clear
 echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
-echo -e "\E[44;1;39m                 ⇱ OTHER MENU ⇲                   \E[0m"
+echo -e "\E[44;1;39m                 ⇱ ADMIN MENU ⇲                   \E[0m"
 echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
 echo -e " ${rd}1${NC} • Register Add IP"
 echo -e " ${rd}2${NC} • Register Renew IP"
@@ -374,7 +374,7 @@ case $opt in
 #06 | 6) clear ; stopall ;;
 #07 | 7) clear ; startall ;;
 00 | 00) clear ; menu ;;
-*) clear ; menu-set ;;
+*) clear ; menu ;;
 esac
 
        
