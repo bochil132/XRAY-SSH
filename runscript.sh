@@ -240,7 +240,7 @@ fi
 # // Input Domain TO VPS
 echo "$pp" > /root/domain
 echo "$pp" > /etc/xray/domain
-echo "IP=$pp" > /var/lib/fsidvpn/ipvps.conf
+echo "$pp" > /var/lib/fsidvpn/ipvps.conf
 
 sleep 2
 # // Success
