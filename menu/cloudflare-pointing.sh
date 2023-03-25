@@ -75,7 +75,7 @@ clear
 if [ ! -f "/etc/cf.conf" ]; then
 echo "No setting found for ID and Email cloudflare"
 sleep 2
-read -n 1 -s -r -p "Press any key to settings"
+read -n 1 -s -r -p "Wait To Prosess"
 sleep 1
 echo ""
 read -e -p "[*] Input your Domain : " domain
@@ -121,7 +121,7 @@ fi
          -H "X-Auth-Email: ${CF_ID}" \
          -H "X-Auth-Key: ${CF_KEY}" \
          -H "Content-Type: application/json" \
-         --data '{"type":"A","name":"'${sub}.stn-cloud.my.id'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+         --data '{"type":"A","name":"'${sub}.${DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
     fi
     
     RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
@@ -129,4 +129,9 @@ fi
          -H "X-Auth-Key: ${CF_KEY}" \
          -H "Content-Type: application/json" \
          --data '{"type":"A","name":"'${sub}'","content":"'${IP}'","ttl":120,"proxied":false}')
-    echo "DONE...!"
+clear
+    echo "
+=============================================================
+IP : ${youip} | Pointing To : ${sub.${DOMAIN}
+=============================================================
+"
