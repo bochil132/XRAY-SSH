@@ -587,13 +587,14 @@ ${or}═════════════════════════
  ${rd}•6.${NC} Ganti Domain / Subdomain
  ${rd}•7.${NC} Update AutoScript Installer
  ${rd}•8.${NC} Renew Certificate SSL / XRAY
- ${rd}•9.${NC} Admin Aksess Script
+ ${rd}•9.${NC} Admin Script Menu ( ${cyan}Admin Only${NC} )
  ${rd}10.${NC} About AutoScript Installer
  ${rd}11.${NC} Restart All Service AutoScript
  ${rd}12.${NC} Reboot You VPS
  ${rd}13.${NC} Install Webmin Menu
- ${rd}14.${NC} CloudFlare Setting ( ${rd}Not Fixed Error${NC} )
- ${rd}15.${NC} CloudFlare Pointing ( ${rd}Not Fixed Error${NC} )
+ ${rd}14.${NC} CloudFlare Setting
+ ${rd}15.${NC} CloudFlare Pointing
+ ${rd}16.${NC} Port Service Information
 
 Tap [ ${rd}CTRL + C${NC} ] To Exit Menu AutoScript
 ${or}══════════════════════════════════════════════════════════════════${NC}
@@ -625,4 +626,5 @@ case $opt in
 13) clear ; wbmn;;
 14) clear ; cf-setting;;
 15) clear ; cf-pointing;;
+16) clear ; info;;
 esac
