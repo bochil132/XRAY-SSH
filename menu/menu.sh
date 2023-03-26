@@ -335,18 +335,16 @@ uram=$( free -m | awk 'NR==2 {print $3}' )
 IPVPS=$(curl -s ipinfo.io/ip )
 DOMAIN=$(cat /etc/xray/domain)
 echo -e ""
-echo -e " ${ORANGE}Current Domain      => $DOMAIN"
-echo -e " Current IP VPS      => $IPVPS"
-echo -e " Your Isp Vps        => $sp"
-echo -e " Your City Vps       => $ct"
-echo -e " OS Version          => "`hostnamectl | grep "Operating System" | cut -d ' ' -f5-`
-echo -e " Number Of Cores     => $core Core"
-echo -e " System Uptime       => $up"
-echo -e " Cpu Model           =>$cpu"
-echo -e " Total Ram           => $tram MB / Used $uram MB"
-echo -e " Available Storage   => $(df -h / | awk '{print $4}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB"
-echo -e " Total Storage       => $(df -h / | awk '{print $2}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB"
-echo -e " Used Storage        => $(df -h / | awk '{print $3}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB${NC}"
+echo -e " ${ORANGE}DOMAIN    : $DOMAIN"
+echo -e " IP VPS    : $IPVPS"
+echo -e " ISP VPS   : $sp"
+echo -e " CITY VPS  : $ct"
+echo -e " OS NAME   : "`hostnamectl | grep "Operating System" | cut -d ' ' -f5-`
+echo -e " CORE VPS  : $core Core"
+echo -e " UPTIME    : $up"
+echo -e " CPU MODEL :$cpu"
+echo -e " RAM       : $tram MB / Usage $uram MB"
+echo -e " STORAGE   : $(df -h / | awk '{print $2}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB" "/" "Usage" $(df -h / | awk '{print $3}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e " ${green}•${NC} NGINX                  = $nx"
 echo -e " ${green}•${NC} SSH / TUN              = $status_ssh"
