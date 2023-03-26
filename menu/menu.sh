@@ -335,7 +335,7 @@ uram=$( free -m | awk 'NR==2 {print $3}' )
 IPVPS=$(curl -s ipinfo.io/ip )
 DOMAIN=$(cat /etc/xray/domain)
 echo -e ""
-echo -e " ${ORANGE}DOMAIN    : $DOMAIN"
+echo -e " ${ORANGE}DOMAIN     = $DOMAIN"
 echo -e " IP VPS      = $IPVPS"
 echo -e " ISP VPS     = $sp"
 echo -e " CITY VPS    = $ct"
