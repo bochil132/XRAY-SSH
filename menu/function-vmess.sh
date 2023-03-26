@@ -26,7 +26,7 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
-dataexp=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $3}')
+Name=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $2}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
 
@@ -65,11 +65,17 @@ elif [ "$res" = "Permission Accepted..." ]; then
 echo -ne
 else
 echo -e ""
-echo -e "${red}Aksess Script Ditolak.!!${NC}"
-echo -e "${red}Expired=>${NC} ${dataexp}"
+echo -e "           ${O}Notifications${NC}"
+echo -e "------------------------------------" | lolcat
+echo -e "Hallo Tuan @$Name"
+echo -e "${red}Script Tuan Sudah Expired${NC}"
+echo -e "${green}Silahkan Contact Admin${NC}"
+echo -e "${green}Untuk Memperpanjang${NC}"
+echo -e "------------------------------------" | lolcat
 echo -e ""
 exit 0
 fi
+
 #color code
 export NC='\033[0m'
 export multi='\E[41;1;39m'
