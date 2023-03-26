@@ -88,8 +88,8 @@ color2='\e[34;1m'
 color3='\e[0m'
 #ColorCode===================
 
-apigit=$(cat /etc/bckp/token.txt)
-emailgit=$(cat /etc/bckp/gmail.txt)
+apigit=$(cat /etc/admin/key.txt)
+emailgit=$(cat /etc/admin/gmail.txt)
 
 function regip(){
 clear
@@ -279,6 +279,19 @@ read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
 license
 }
 
+function key(){
+clear
+read -p "Input Key Admin => " key
+read -p "Input Gmail Admin => " gmail
+echo "$key" >/etc/admin/key.txt
+echo "$gmail" >/etc/admin/gmail.txt
+sleep 1
+echo "DONE..!"
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
+license
+}
+
 function delip(){
 clear
 rm -rf /root/permission &> /dev/null
@@ -359,6 +372,7 @@ echo -e "━━━━━━━━━━━━━━━━━━━━━━━�
 echo -e " ${rd}1${NC} • Register Add IP"
 echo -e " ${rd}2${NC} • Register Renew IP"
 echo -e " ${rd}3${NC} • Register Delete IP"
+echo -e " ${rd}4${NC} • Settings Key Admin"
 echo -e ""
 echo -e " ${rd}0.${NC} Back To Menu •••"
 echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
@@ -369,7 +383,7 @@ case $opt in
 01 | 1) clear ; regip ;;
 02 | 2) clear ; renip ;;
 03 | 3) clear ; delip ;;
-#04 | 4) clear ; port80 ;;
+04 | 4) clear ; key ;;
 #05 | 5) clear ; port8880 ;;
 #06 | 6) clear ; stopall ;;
 #07 | 7) clear ; startall ;;
