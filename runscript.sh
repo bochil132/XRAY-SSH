@@ -282,6 +282,7 @@ wget https://${ws}/edu.sh >/dev/null 2>&1
 chmod +x edu.sh >/dev/null 2>&1
 ./edu.sh >/dev/null 2>&1
 # Ohp Server
+clear
 echo -e "${cyan}------------[${NC}${multi} Install OHP ${NC}${cyan}]------------${NC}"
 sleep 3
 wget https://${ssh}/ohp.sh >/dev/null 2>&1
