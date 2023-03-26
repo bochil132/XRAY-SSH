@@ -325,6 +325,7 @@ clear
 
 echo -e ""
 clear
+loadcpu=$(printf '%-0.00001s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
 up="$(uptime -p | cut -d " " -f 2-10)"
 cpu=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo )
 core=$( awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo )
@@ -335,10 +336,11 @@ uram=$( free -m | awk 'NR==2 {print $3}' )
 IPVPS=$(curl -s ipinfo.io/ip )
 DOMAIN=$(cat /etc/xray/domain)
 echo -e ""
-echo -e " ${ORANGE}DOMAIN     = $DOMAIN"
+echo -e " ${ORANGE}DOMAIN      = $DOMAIN"
 echo -e " IP VPS      = $IPVPS"
 echo -e " ISP VPS     = $sp"
 echo -e " CITY VPS    = $ct"
+echo -e " LOAD CPU    = $loadcpu"
 echo -e " OS NAME     = "`hostnamectl | grep "Operating System" | cut -d ' ' -f5-`
 echo -e " CORE VPS    = $core Core"
 echo -e " UPTIME      = $up"
