@@ -220,6 +220,7 @@ elif [[ $choose_domain == "1" ]]; then
 clear
 clear && clear && clear
 clear;clear;clear
+mkdir -p /etc/xray/
 echo -e "-----------------------------------------------------"
 echo -e "${red}Indonesia language${NC} ${green}:${NC}"
 echo -e "Silahkan Masukan Domain Yang Terhubung Ke IP VPS"
