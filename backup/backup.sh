@@ -194,7 +194,7 @@ sleep 1
 echo -e "[ ${GREEN}INFO${NC} ] Prosess update server... "
 Save_And_Exit
 fi
-link="https://backup.stn-cloud.my.id/$NameUser/$NameUser.zip"
+linkbckp="https://backup.stn-cloud.my.id/$NameUser/$NameUser.zip"
 sleep 1
 echo -e "[ ${GREEN}INFO${NC} ] Backup Selesai.!! "
 sleep 1
