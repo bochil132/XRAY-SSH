@@ -406,13 +406,13 @@ echo -e "
 ${or}════════════════════════════════════════════════════${NC}
       ${cyan}―――――――――――――[${NC}${multi} VMESS MENU ${NC}${cyan}]―――――――――――――${NC}
 ${or}════════════════════════════════════════════════════${NC}
- ${rd}1.${NC} Buat Akun Xray/Vmess
- ${rd}2.${NC} Buat Akun Trial Xray/Vmess
- ${rd}3.${NC} Perpanjang Akun Xray/Vmess
- ${rd}4.${NC} Hapus Akun Xray/Vmess
- ${rd}5.${NC} Cek Login Xray/Vmess"
+ ${rd}1${NC} • Buat Akun Xray/Vmess
+ ${rd}2${NC} • Buat Akun Trial Xray/Vmess
+ ${rd}3${NC} • Perpanjang Akun Xray/Vmess
+ ${rd}4${NC} • Hapus Akun Xray/Vmess
+ ${rd}5${NC} • Cek Login Xray/Vmess"
 echo ""
-echo -e " ${rd}0.${NC} Back To Main Menu •••
+echo -e " ${rd}0.${NC} Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
 ${or}════════════════════════════════════════════════════${NC}"
 echo -e ""
 read -p "Input Your Choose : " opt
