@@ -65,13 +65,15 @@ elif [ "$res" = "Permission Accepted..." ]; then
 echo -ne
 else
 echo -e ""
-echo -e "           ${O}Notifications${NC}"
-echo -e "------------------------------------" | lolcat
-echo -e "Hallo Tuan @$Name"
-echo -e "${red}Script Tuan Sudah Expired${NC}"
-echo -e "${green}Silahkan Contact Admin${NC}"
-echo -e "${green}Untuk Memperpanjang${NC}"
-echo -e "------------------------------------" | lolcat
+echo -e "
+${green}Notif By AutoScript Xray-SSH${NC}
+--------------------------------------------------------
+You IP ( ${red}${MYIP}${NC} ) blocked By AutoScript
+${green}The script you are currently using is out of date${NC}
+${green}Please contact the admin to extend the duration${NC}
+${O}My Telegram :${NC} @WaanSuka_Turu
+--------------------------------------------------------
+"
 echo -e ""
 exit 0
 fi
