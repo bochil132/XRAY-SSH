@@ -51,6 +51,8 @@ PERMISSION () {
     fi
     BURIQ
 }
+or='\033[1;33m'
+cyan='\033[0;36m'
 red='\e[1;31m'
 O='\033[0;33m'
 green='\e[1;32m'
@@ -65,13 +67,15 @@ elif [ "$res" = "Permission Accepted..." ]; then
 echo -ne
 else
 echo -e ""
-echo -e "           ${O}Notifications${NC}"
-echo -e "------------------------------------" | lolcat
-echo -e "Hallo Tuan @$Name"
-echo -e "${red}Script Tuan Sudah Expired${NC}"
-echo -e "${green}Silahkan Contact Admin${NC}"
-echo -e "${green}Untuk Memperpanjang${NC}"
-echo -e "------------------------------------" | lolcat
+echo -e "
+${green}Notif By AutoScript Xray-SSH${NC}
+--------------------------------------------------------
+You IP ( ${red}${MYIP}${NC} ) blocked By AutoScript
+${green}The script you are currently using is out of date${NC}
+${green}Please contact the admin to extend the duration${NC}
+${O}My Telegram :${NC} @WaanSuka_Turu
+--------------------------------------------------------
+"
 echo -e ""
 exit 0
 fi
@@ -320,13 +324,13 @@ clear
 echo -e "${or}════════════════════════════════════════════════════${NC}
     ${cyan}―――――――――――――[${NC}${multi} TROJAN-GO MENU ${NC}${cyan}]―――――――――――――${NC}
 ${or}════════════════════════════════════════════════════${NC}
- ${rd}1.${NC} Buat Akun Trojan-Go
- ${rd}2.${NC} Trial Akun Trojan-Go
- ${rd}3.${NC} Perpanjang Akun Trojan-Go
- ${rd}4.${NC} Hapus Akun Trojan-Go ( ${rd}Error${NC} )
- ${rd}5.${NC} Cek Login Trojan-Go"
+ ${rd}1${NC} • Buat Akun Trojan-Go
+ ${rd}2${NC} • Trial Akun Trojan-Go
+ ${rd}3${NC} • Perpanjang Akun Trojan-Go
+ ${rd}4${NC} • Hapus Akun Trojan-Go ( ${rd}Error${NC} )
+ ${rd}5${NC} • Cek Login Trojan-Go"
 echo ""
-echo -e " ${rd}0.${NC} Back To Main Menu •••
+echo -e " ${rd}0.${NC} Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
 ${or}════════════════════════════════════════════════════${NC}"
 echo -e ""
 read -p "Input Your Choose : " opt
