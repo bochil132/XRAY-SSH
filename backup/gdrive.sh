@@ -155,7 +155,7 @@ Tanggal       : $date
 echo "Silahkan cek Kotak Masuk $email"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
-bckp
+backup
 }
 
 function restore(){
