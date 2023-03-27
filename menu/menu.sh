@@ -387,7 +387,7 @@ wget -q -O /usr/bin/menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh" && c
 wget -q -O /usr/bin/menu-vmess "https://stn-cloud.my.id/menu/function-vmess.sh" && chmod +x /usr/bin/menu-vmess
 wget -q -O /usr/bin/menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh" && chmod +x /usr/bin/menu-trgo
 wget -q -O /usr/bin/license "https://stn-cloud.my.id/menu/license.sh" && chmod +x /usr/bin/license
-wget -q -O /usr/bin/backup "https://stn-cloud.my.id/backup/backup.sh" && chmod +x /usr/bin/backup
+wget -q -O /usr/bin/backup "https://stn-cloud.my.id/backup/gdrive.sh" && chmod +x /usr/bin/backup
 wget -q -O /usr/bin/info "https://stn-cloud.my.id/ssh/info.sh" && chmod +x /usr/bin/info
 wget -q -O /usr/bin/exp "https://stn-cloud.my.id/ssh/autoremove.sh" && chmod +x /usr/bin/exp
 wget -q -O /usr/bin/wbmn "https://stn-cloud.my.id/ssh/webmin.sh" && chmod +x /usr/bin/wbmn
