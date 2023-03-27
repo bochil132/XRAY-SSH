@@ -242,7 +242,7 @@ echo ""
 read -p "Select menu : " opt
 echo -e ""
 case $opt in
-1) clear ; bckp;;
+1) clear ; backup;;
 #2) clear ; bckp ;;
 2) clear ; restore;;
 3) clear ; token;;
