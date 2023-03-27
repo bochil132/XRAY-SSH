@@ -26,7 +26,7 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
-dataexp=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $3}')
+Name=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $2}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
 
@@ -65,11 +65,19 @@ elif [ "$res" = "Permission Accepted..." ]; then
 echo -ne
 else
 echo -e ""
-echo -e "${red}Aksess Script Ditolak.!!${NC}"
-echo -e "${red}Expired=>${NC} ${dataexp}"
+echo -e "
+${green}Notif By AutoScript Xray-SSH${NC}
+--------------------------------------------------------
+You IP ( ${red}${MYIP}${NC} ) blocked By AutoScript
+${green}The script you are currently using is out of date${NC}
+${green}Please contact the admin to extend the duration${NC}
+${O}My Telegram :${NC} @WaanSuka_Turu
+--------------------------------------------------------
+"
 echo -e ""
 exit 0
 fi
+
 # ==========================================
 # Color
 RED='\033[0;31m'

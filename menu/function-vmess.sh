@@ -148,11 +148,69 @@ xrayv2ray1="vmess://$(base64 -w 0 /etc/xray/vmess-$user-tls.json)"
 xrayv2ray2="vmess://$(base64 -w 0 /etc/xray/vmess-$user-nontls.json)"
 rm -rf /etc/xray/vmess-$user-tls.json
 rm -rf /etc/xray/vmess-$user-nontls.json
+EOF
+cat >/home/vps/public_html/vmess-$user.txt <<-END
+====================================================================
+                  AUTOSCRIPT INSTALLER XRAY-SSH
+                       [Sikecil_Waan :D]
+====================================================================
+            Berikut dibawah ini adalah format OpenClash
+====================================================================
+_______________________________________________________
+              Format Vmess WS (CDN) TLS
+_______________________________________________________
+
+- name: Vmess-TLS-$user
+  type: vmess
+  server: ${domain}
+  port: 8443
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  skip-cert-verify: true
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /v2ray
+    headers:
+      Host: ${domain}
+_______________________________________________________
+              Format Vmess WS (CDN) Non TLS
+_______________________________________________________
+
+- name: Vmess-NoneTLS-$user
+  type: vmess
+  server: ${domain}
+  port: 8880
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  skip-cert-verify: false
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /v2ray
+    headers:
+      Host: ${domain}
+_______________________________________________________
+                Link Vmess Account
+_______________________________________________________
+Link TLS : ${xrayv2ray1}
+_______________________________________________________
+Link None TLS : ${xrayv2ray2}
+_______________________________________________________
+END
 systemctl restart xray.service
 service cron restart
 clear
 echo -e ""
-echo -e "======-XRAYS/VMESS-======"
+echo -e "•──────────────────•"
+echo -e " Xray/Vmess Account"
+echo -e "•──────────────────•"
 echo -e "Remarks     : ${user}"
 echo -e "IP Address  : $(curl -sS ipv4.icanhazip.com)"
 echo -e "Domain      : ${domain}"
@@ -165,11 +223,13 @@ echo -e "Network     : ws"
 echo -e "Path        : /v2ray"
 echo -e "Created     : $hariini"
 echo -e "Expired     : $exp"
-echo -e "========================="
+echo -e "•──────────────────•"
 echo -e "Link TLS    : ${xrayv2ray1}"
-echo -e "========================="
+echo -e "•──────────────────•"
 echo -e "Link No TLS : ${xrayv2ray2}"
-echo -e "========================="
+echo -e "•──────────────────•"
+echo -e "Format OpenClash :"
+echo -e "${domain}:89/vmess-$user.txt"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
@@ -235,11 +295,69 @@ xrayv2ray1="vmess://$(base64 -w 0 /etc/xray/vmess-$user-tls.json)"
 xrayv2ray2="vmess://$(base64 -w 0 /etc/xray/vmess-$user-nontls.json)"
 rm -rf /etc/xray/vmess-$user-tls.json
 rm -rf /etc/xray/vmess-$user-nontls.json
+EOF
+cat >/home/vps/public_html/vmess-$user.txt <<-END
+====================================================================
+                  AUTOSCRIPT INSTALLER XRAY-SSH
+                       [Sikecil_Waan :D]
+====================================================================
+            Berikut dibawah ini adalah format OpenClash
+====================================================================
+_______________________________________________________
+              Format Vmess WS (CDN) TLS
+_______________________________________________________
+
+- name: Vmess-TLS-$user
+  type: vmess
+  server: ${domain}
+  port: 8443
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  skip-cert-verify: true
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /v2ray
+    headers:
+      Host: ${domain}
+_______________________________________________________
+              Format Vmess WS (CDN) Non TLS
+_______________________________________________________
+
+- name: Vmess-NoneTLS-$user
+  type: vmess
+  server: ${domain}
+  port: 8880
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  skip-cert-verify: false
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /v2ray
+    headers:
+      Host: ${domain}
+_______________________________________________________
+                Link Vmess Account
+_______________________________________________________
+Link TLS : ${xrayv2ray1}
+_______________________________________________________
+Link None TLS : ${xrayv2ray2}
+_______________________________________________________
+END
 systemctl restart xray.service
 service cron restart
 clear
 echo -e ""
-echo -e "======-XRAYS/VMESS-======"
+echo -e "•──────────────────•"
+echo -e " Xray/Vmess Account"
+echo -e "•──────────────────•"
 echo -e "Remarks     : ${user}"
 echo -e "IP Address  : $(curl -sS ipv4.icanhazip.com)"
 echo -e "Domain      : ${domain}"
@@ -252,11 +370,13 @@ echo -e "Network     : ws"
 echo -e "Path        : /v2ray"
 echo -e "Created     : $hariini"
 echo -e "Expired     : $exp"
-echo -e "========================="
+echo -e "•──────────────────•"
 echo -e "Link TLS    : ${xrayv2ray1}"
-echo -e "========================="
+echo -e "•──────────────────•"
 echo -e "Link No TLS : ${xrayv2ray2}"
-echo -e "========================="
+echo -e "•──────────────────•"
+echo -e "Format OpenClash :"
+echo -e "${domain}:89/vmess-$user.txt"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess

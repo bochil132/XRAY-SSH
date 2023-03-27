@@ -115,10 +115,41 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 echo -e "### $user $exp" >> /etc/trojan-go/akun.conf
 systemctl restart trojan-go.service
 link="trojan://${user}@${domain}:${trgo}/?sni=${domain}&type=ws&host=${domain}&path=/directpath&encryption=none#$user"
+EOF
+cat >/home/vps/public_html/trojanGO-$user.txt <<-END
+====================================================================
+                  AUTOSCRIPT INSTALLER XRAY-SSH
+                       [Sikecil_Waan :D]
+====================================================================
+            Berikut dibawah ini adalah format OpenClash
+====================================================================
+
+- name: TrojanGO-TLS-$user
+  server: ${domain}
+  port: 2087
+  type: trojan
+  password: ${user}
+  skip-cert-verify: true
+  sni: ${domain}
+  network: ws
+  ws-opts:
+    path: /directpath
+    headers:
+      Host: ${domain}
+  udp: true
+
+_______________________________________________________
+                Link TrojanGo Account
+_______________________________________________________
+Link TrojanGO : ${link}
+_______________________________________________________
+END
 clear
 sleep 0.8
 echo -e ""
-echo -e "=======-TROJAN-GO-======="
+echo -e "•──────────────────•"
+echo -e "  Trojan-GO Account"
+echo -e "•──────────────────•"
 echo -e "Remarks    : ${user}"
 echo -e "IP Address : $(curl -sS ipv4.icanhazip.com)"
 echo -e "Domain     : ${domain}"
@@ -128,9 +159,11 @@ echo -e "Encryption : none"
 echo -e "Path       : /directpath"
 echo -e "Created    : $hariini"
 echo -e "Expired    : $exp"
-echo -e "========================="
-echo -e "Link TrGo  : ${link}"
-echo -e "========================="
+echo -e "•──────────────────•"
+echo -e "Link Trojan-Go : ${link}"
+echo -e "•──────────────────•"
+echo -e "Format OpenClash :"
+echo -e "${domain}:89/trojanGO-$user.txt"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
 menu-trgo
@@ -163,10 +196,41 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 echo -e "### $user $exp" >> /etc/trojan-go/akun.conf
 systemctl restart trojan-go.service
 link="trojan://${user}@${domain}:${trgo}/?sni=${domain}&type=ws&host=${domain}&path=/directpath&encryption=none#$user"
+EOF
+cat >/home/vps/public_html/trojanGO-$user.txt <<-END
+====================================================================
+                  AUTOSCRIPT INSTALLER XRAY-SSH
+                       [Sikecil_Waan :D]
+====================================================================
+            Berikut dibawah ini adalah format OpenClash
+====================================================================
+
+- name: TrojanGO-TLS-$user
+  server: ${domain}
+  port: 2087
+  type: trojan
+  password: ${user}
+  skip-cert-verify: true
+  sni: ${domain}
+  network: ws
+  ws-opts:
+    path: /directpath
+    headers:
+      Host: ${domain}
+  udp: true
+
+_______________________________________________________
+                Link TrojanGo Account
+_______________________________________________________
+Link TrojanGO : ${link}
+_______________________________________________________
+END
 clear
 sleep 0.8
 echo -e ""
-echo -e "=======-TROJAN-GO-======="
+echo -e "•──────────────────•"
+echo -e "  Trojan-GO Account"
+echo -e "•──────────────────•"
 echo -e "Remarks    : ${user}"
 echo -e "IP Address : $(curl -sS ipv4.icanhazip.com)"
 echo -e "Domain     : ${domain}"
@@ -176,9 +240,11 @@ echo -e "Encryption : none"
 echo -e "Path       : /directpath"
 echo -e "Created    : $hariini"
 echo -e "Expired    : $exp"
-echo -e "========================="
-echo -e "Link TrGo  : ${link}"
-echo -e "========================="
+echo -e "•──────────────────•"
+echo -e "Link Trojan-Go : ${link}"
+echo -e "•──────────────────•"
+echo -e "Format OpenClash :"
+echo -e "${domain}:89/trojanGO-$user.txt"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
 menu-trgo

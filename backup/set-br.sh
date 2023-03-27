@@ -45,8 +45,8 @@ chown -R www-data:www-data /etc/msmtprc
 cd /usr/bin
 wget -O strt "https://${akbarvpn}/strt.sh"
 wget -O limitspeed "https://${akbarvpn}/limitspeed.sh"
-wget -O backup "https://${akbarvpn}/backup.sh"
-chmod +x backup
+wget -O backupv2 "https://${akbarvpn}/backup.sh"
+chmod +x backupv2
 chmod +x strt
 chmod +x limitspeed
 cd
