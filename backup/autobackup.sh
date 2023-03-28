@@ -133,13 +133,13 @@ echo -e ""
 rm -rf /root/$IP-$date.zip
 rm -rf backup
 TEXT="
-Detail Backup Data :
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Detail Backup Data
+━━━━━━━━━━━━━━━━━━━━━━━━
 Backup On : ${date}
 Time Info : ${time}
 Domain    : ${domain}
 IP VPS    : ${IP}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-**Link Backup :** $link
+━━━━━━━━━━━━━━━━━━━━━━━━
+Link Backup : $link
 "
 curl -s --max-time 10 -d "chat_id=${iduser}&disable_web_page_preview=1&text=${TEXT}&parse_mode=html" https://api.telegram.org/bot${apibot}/sendMessage >/dev/null
