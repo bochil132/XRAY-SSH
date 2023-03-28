@@ -130,11 +130,14 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 echo -e ""
 rm -rf /root/$IP-$date.zip
 rm -rf backup
-auto="
-AutoSend Backup By Bot Telegram
-============================================
-Berikut dibawah ini adalah link data backup
-============================================
-Link Backup : $link
+TEXT="
+Detail Backup Data :
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Backup On : ${today}
+Date Info : ${time}
+Domain    : ${domain}
+IP VPS    : ${ipvps}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**Link Backup :** $link
 "
-curl -s -X POST https://api.telegram.org/bot${apibot}/sendMessage -d chat_id=${iduser} -d text="${auto}" &> /dev/null
+curl -s --max-time 10 -d "chat_id=${iduser}&disable_web_page_preview=1&text=${TEXT}&parse_mode=html" https://api.telegram.org/bot${apibot}/sendMessage >/dev/null
