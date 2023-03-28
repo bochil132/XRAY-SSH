@@ -96,6 +96,7 @@ email=$(cat /etc/bot/email.txt)
 apibot=$(cat /etc/bot/api.txt)
 iduser=$(cat /etc/bot/id.txt)
 IP=$(wget -qO- ipinfo.io/ip);
+domain=$(cat /etc/xray/domain)
 date=$(date +"%Y-%m-%d")
 mkdir -p /home/
 echo "$email" >/home/email
@@ -133,10 +134,10 @@ rm -rf backup
 TEXT="
 Detail Backup Data :
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Backup On : ${today}
-Date Info : ${time}
+Backup On : ${date}
+Time Info : ${time}
 Domain    : ${domain}
-IP VPS    : ${ipvps}
+IP VPS    : ${IP}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 **Link Backup :** $link
 "
