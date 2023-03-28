@@ -97,6 +97,7 @@ apibot=$(cat /etc/bot/api.txt)
 iduser=$(cat /etc/bot/id.txt)
 IP=$(wget -qO- ipinfo.io/ip);
 domain=$(cat /etc/xray/domain)
+time=$(date "+%T")
 date=$(date +"%Y-%m-%d")
 mkdir -p /home/
 echo "$email" >/home/email
