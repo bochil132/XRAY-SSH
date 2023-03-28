@@ -96,11 +96,13 @@ clear
 IP=$(wget -qO- ipinfo.io/ip);
 date=$(date +"%Y-%m-%d")
 clear
-mkdir -p /home/
-email=$(cat /home/email)
-if [[ "$email" = "" ]]; then
-echo "Masukkan Email Untuk Menerima Backup"
+if [ ! -f "/home/email" ]; then
+echo -e "${GREEN}Anda belum mengisi email backup..!!${NC}"
+echo -e "${GREEN}silahkan isi terlebih dahulu..!!${NC}"
+echo -e ""
+echo "Masukkan Email Anda.!!"
 read -rp "Email : " -e email
+mkdir -p /home/
 echo "$email" >/home/email
 fi
 clear
@@ -155,7 +157,6 @@ Link Backup   : $link
 Tanggal       : $date
 ==================================
 "
-curl -s -X POST https://api.telegram.org/bot5972770394:AAFz8aRmieB4Q3U_r3EuCg-NhjJSdiqsppA/sendMessage -d chat_id=1668998643 -d text="${auto}" &> /dev/null
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
 backup
@@ -163,9 +164,8 @@ backup
 
 function restore(){
 clear
-echo "This Feature Can Only Be Used According To Vps Data With This Autoscript"
-echo "Please input link to your vps data backup file."
-echo "You can check it on your email if you run backup data vps before."
+echo -e "${GREEN}Silahkan masukan link file backup anda.!!${NC}"
+echo ""
 read -rp "Link File: " -e url
 wget -O backup.zip "$url"
 unzip backup.zip &> /dev/null
@@ -230,13 +230,60 @@ echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
 backup
 }
+
+function set-autobckp(){
+clear
+mkdir -p /etc/bot/
+read -p "ID Telegram : " idtele
+read -p "BotAPI      : " apii
+read -p "Email       : " mail
+echo -e ""
+echo "$idtele" >/etc/bot/id.txt
+echo "$apii" >/etc/bot/api.txt
+echo "$mail" >/etc/bot/email.txt
+echo -e ""
+echo "Setting Done"
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
+backup
+}
+
+function start-auto(){
+clear
+echo "0 5 * * * root bkp" >> /etc/crontab
+systemctl restart cron
+echo -e "AutoBackup Started Succesfuly"
+echo -e "Auto send data to you bot"
+echo -e "Data auto send 05:00 Morning"
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
+backup
+}
+
+function rm-data(){
+clear
+sleep 0.8
+echo -e "${ORANGE}Progress Remove All Data AutoBackup${NC}"
+rm -rf /etc/bot/id.txt
+rm -rf /etc/bot/api.txt
+rm -rf /etc/bot/email.txt
+echo -e ""
+sleep 2
+echo -e "${green}OK DONE${NC}"
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Backup"
+backup
+}
 clear
 echo -e "
 ${CYAN}=========================================${NC}
            ${RED}Backup / Restore${NC}
 ${CYAN}=========================================${NC}
- ${RED}1.${NC} Backup Data VPS
- ${RED}2.${NC} Restore Data VPS"
+ ${RED}1.${NC} Backup Data Manual
+ ${RED}2.${NC} Setting AutoBackup
+ ${RED}3.${NC} Start AutoBackup
+ ${RED}4.${NC} Restore Data VPS
+ ${RED}5.${NC} Remove Data AutoBackup"
 echo -e "
 ${GREEN}must enter the backup token to succeed${NC}
 ${CYAN}=========================================${NC}"
@@ -246,9 +293,10 @@ read -p "Select menu : " opt
 echo -e ""
 case $opt in
 1) clear ; backup;;
-#2) clear ; bckp ;;
-2) clear ; restore;;
-3) clear ; token;;
+2) clear ; set-autobckp ;;
+3) clear ; start-auto;;
+4) clear ; restore;;
+5) clear ; rm-data;;
 0) clear ; menu ;;
 x) exit ;;
 *) echo -e "" ; echo "Press any key to back on menu" ; sleep 1 ; menu ;;

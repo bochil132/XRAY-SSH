@@ -96,8 +96,8 @@ color2='\e[34;1m'
 color3='\e[0m'
 #ColorCode===================
 
-apigit=$(cat /etc/admin/key.txt)
-emailgit=$(cat /etc/admin/gmail.txt)
+apigit=$(cat /etc/access/key.txt)
+emailgit=$(cat /etc/access/gmail.txt)
 
 function regip(){
 clear
@@ -289,12 +289,21 @@ license
 
 function key(){
 clear
+rm -rf /etc/admin/gmail.txt
+rm -rf /etc/admin/key.txt
+if [ ! -f "/etc/access/key.txt" ]; then
 read -p "Input Key Admin => " key
 read -p "Input Gmail Admin => " gmail
-echo "$key" >/etc/admin/key.txt
-echo "$gmail" >/etc/admin/gmail.txt
-sleep 1
+mkdir -p /etc/access/
+echo "$key" >/etc/access/key.txt
+echo "$gmail" >/etc/access/gmail.txt
 echo "DONE..!"
+fi
+echo -e "${or}--------------------------------------${NC}"
+echo -e " ${green}Anda Sudah Mengisi Data Key Admin.!!${NC}"
+echo -e " ${green}Silahkan hapus data lama dulu.!!${NC}"
+echo -e " ${green}Supaya bisa isi data yang baru.!!${NC}"
+echo -e "${or}--------------------------------------${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Admin"
 license
@@ -374,29 +383,41 @@ license
 clear
 echo -e ""
 clear
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
-echo -e "\E[44;1;39m                 ⇱ ADMIN MENU ⇲                   \E[0m"
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
+echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\E[43;1;39m                 ${rd}⇱ ADMIN MENU ⇲                   \E[0m"
+echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e " ${rd}1${NC} • Register Add IP"
 echo -e " ${rd}2${NC} • Register Renew IP"
 echo -e " ${rd}3${NC} • Register Delete IP"
 echo -e " ${rd}4${NC} • Settings Key Admin"
+echo -e " ${rd}5${NC} • Hapus Data Admin"
 echo -e ""
-echo -e " ${rd}0.${NC} Back To Menu •••"
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
+echo -e " ${rd}0.${NC} Back To Menu ${yl}•${NC}${or}•${NC}${CYAN}•${NC}"
+echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -p "Input Your Choose : "  opt
 echo -e   ""
 case $opt in
-01 | 1) clear ; regip ;;
-02 | 2) clear ; renip ;;
-03 | 3) clear ; delip ;;
-04 | 4) clear ; key ;;
-#05 | 5) clear ; port8880 ;;
-#06 | 6) clear ; stopall ;;
-#07 | 7) clear ; startall ;;
-00 | 00) clear ; menu ;;
-*) clear ; menu ;;
+1)
+regip
+;;
+2)
+renip
+;;
+3)
+delip
+;;
+4)
+key
+;;
+5)
+echo -e "${or}Proses Hapus Data Key Admin${NC}"
+rm -rf /etc/access/key.txt
+sleep 1
+echo -e "${or}Proses Hapus Data Gmail Admin${NC}"
+rm -rf /etc/access/gmail.txt
+sleep 1
+echo -e "${green}Berhasil Menghapus Data Admin${NC}"
 esac
 
        

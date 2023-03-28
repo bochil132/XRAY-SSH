@@ -385,96 +385,78 @@ menu-vmess
 function renew(){
 clear
 NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/config.json")
-	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
-		clear
-		echo ""
-		echo "You have no existing clients!"
-		exit 1
-	fi
-
-	clear
-	echo ""
-	echo "Select the existing client you want to renew"
-	echo " Press CTRL+C to return"
-	echo -e "==============================="
-	grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
-	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
-		if [[ ${CLIENT_NUMBER} == '1' ]]; then
-			read -rp "Select one client => " CLIENT_NUMBER
-		else
-			read -rp "Select one client => " CLIENT_NUMBER
-		fi
-	done
-read -p "Expired (Days): " masaaktif
-user=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
+echo -e "[${rd}NOTES${NC}] • You have no existing clients!"
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
+fi
+clear
+grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
+echo -e ""
+echo -e "[${rd}NOTE${NC}] Tap Enter To Back Menu-Vmess"
+read -rp "Input Username : " user
+if [ -z $user ]; then
+menu-vmess
+else
+read -p "Expired (days): " masaaktif
+if [ -z $masaaktif ]; then
+masaaktif="1"
+fi
+exp=$(grep -E "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
 now=$(date +%Y-%m-%d)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 exp3=$(($exp2 + $masaaktif))
 exp4=`date -d "$exp3 days" +"%Y-%m-%d"`
-sed -i "s/### $user $exp/### $user $exp4/g" /etc/xray/config.json
-sed -i "s/### $user $exp/### $user $exp4/g" /etc/xray/config.json
-systemctl restart xray.service
-service cron restart
+sed -i "/### $user/c\### $user $exp4" /etc/xray/config.json
+systemctl restart xray > /dev/null 2>&1
 clear
-echo ""
-echo "==============================="
-echo "  XRAYS/Vmess Account Renewed  "
-echo "==============================="
-echo "Username  : $user"
-echo "Expired   : $exp4"
-echo "==============================="
-systemctl restart xray
-systemctl restart nginx
+echo -e "--------------------------------------------------------------" | lolcat
+echo -e "[${green}INFO${NC}] $user Account Renewed Successfully"
+echo -e ""
+echo -e "Username   : $user"
+echo -e "Days Added : $masaaktif Days"
+echo -e "Expired On : $exp4"
+echo -e "--------------------------------------------------------------" | lolcat
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
+fi
 }
 
 function hapus(){
-clear
+    clear
 NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/config.json")
-	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
-		echo ""
-		echo "You have no existing clients!"
-		exit 1
-	fi
-
-	clear
-	echo ""
-	echo " Select the existing client you want to remove"
-	echo " Press CTRL+C to return"
-	echo " ==============================="
-	echo "     No  User   Expired"
-	grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
-	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
-		if [[ ${CLIENT_NUMBER} == '1' ]]; then
-			read -rp "Select one client => " CLIENT_NUMBER
-		else
-			read -rp "Select one client => " CLIENT_NUMBER
-		fi
-	done
-user=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
-sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
-rm -f /etc/xray/vmess-$user-tls.json /etc/xray/vmess-$user-nontls.json
-systemctl restart xray.service
-clear
+if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
+echo -e "[${rd}NOTES${NC}] • You Dont have any existing clients!"
 echo ""
-echo "==============================="
-echo "  XRAYS/Vmess Account Deleted  "
-echo "==============================="
-echo "Username  : $user"
-echo "Expired   : $exp"
-echo "==============================="
-systemctl restart xray
-systemctl restart nginx
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
+fi
+clear
+grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
+echo -e ""
+echo -e "[${rd}NOTE${NC}] Tap Enter To Back Menu-Vmess"
+read -rp "Input Username : " user
+if [ -z $user ]; then
+menu-vmess
+else
+exp=$(grep -wE "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+systemctl restart xray > /dev/null 2>&1
+clear
+echo -e "--------------------------------------------------------------" | lolcat
+echo -e "[${green}INFO${NC}] • Accound Delete Successfully"
+echo -e ""
+echo -e "Username   : $user"
+echo -e "Expired On : $exp"
+echo -e "--------------------------------------------------------------" | lolcat
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
+fi
 }
 
 function cek(){

@@ -160,7 +160,6 @@ ${or}---------------------------------------------${NC}
    ${cyan}Modded And Update By ( Sikecil_Waan :D )${NC}
 ${or}---------------------------------------------${NC}
 "
-mkdir -p /etc/bckp/
 apt install git curl -y >/dev/null 2>&1
 echo -e "Wait... Progress Installation..."
 sleep 2

@@ -310,9 +310,11 @@ if [ -e "/var/log/secure" ]; then
 fi
                 
 data=( `ps aux | grep -i dropbear | awk '{print $2}'`);
-echo "----------=[ Dropbear User Login ]=-----------";
-echo "ID  |  Username  |  IP Address";
-echo "----------------------------------------------";
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}             Dropbear User Online/Login            ${NC}";  
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "    ${or}ID  |  Username  |  IP Address${NC}";
+echo -e ""
 cat $LOG | grep -i dropbear | grep -i "Password auth succeeded" > /tmp/login-db.txt;
 for PID in "${data[@]}"
 do
@@ -321,13 +323,15 @@ do
         USER=`cat /tmp/login-db-pid.txt | awk '{print $10}'`;
         IP=`cat /tmp/login-db-pid.txt | awk '{print $12}'`;
         if [ $NUM -eq 1 ]; then
-                echo -e "${G}=>${NC} $PID - $USER - $IP";
+                echo -e "${yl}☞${NC} $PID - $USER - $IP";
                 fi
 done
 echo " "
-echo "----------=[ OpenSSH User Login ]=------------";
-echo "ID  |  Username  |  IP Address";
-echo "----------------------------------------------";
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}             OpenSSH User Online/Login             ${NC}";  
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "    ${or}ID  |  Username  |  IP Address${NC}";
+echo -e ""
 cat $LOG | grep -i sshd | grep -i "Accepted password for" > /tmp/login-db.txt
 data=( `ps aux | grep "\[priv\]" | sort -k 72 | awk '{print $2}'`);
 
@@ -338,28 +342,31 @@ do
         USER=`cat /tmp/login-db-pid.txt | awk '{print $9}'`;
         IP=`cat /tmp/login-db-pid.txt | awk '{print $11}'`;
         if [ $NUM -eq 1 ]; then
-                echo -e "${G}=>${nc} $PID - $USER - $IP";
+                echo -e "${yl}☞${NC} $PID - $USER - $IP";
         fi
 done
 if [ -f "/etc/openvpn/server/openvpn-tcp.log" ]; then
 echo ""
-echo "---------=[ OpenVPN TCP User Login ]=---------";
-echo "Username  |  IP Address  |  Connected";
-echo "----------------------------------------------";
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}              OpenVPN TCP User Login               ${NC}";  
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${or}Username  |  IP Address  |  Connected${NC}";
+echo -e ""
         cat /etc/openvpn/server/openvpn-tcp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' > /tmp/vpn-login-tcp.txt
         cat /tmp/vpn-login-tcp.txt
 fi
-echo "----------------------------------------------";
 
 if [ -f "/etc/openvpn/server/openvpn-udp.log" ]; then
 echo " "
-echo "---------=[ OpenVPN UDP User Login ]=---------";
-echo "Username  |  IP Address  |  Connected";
-echo "----------------------------------------------";
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}              OpenVPN UDP User Login               ${NC}";  
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${or}Username  |  IP Address  |  Connected${NC}";
+echo -e ""
         cat /etc/openvpn/server/openvpn-udp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' > /tmp/vpn-login-udp.txt
         cat /tmp/vpn-login-udp.txt
 fi
-echo "----------------------------------------------";
+echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 echo "";
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh

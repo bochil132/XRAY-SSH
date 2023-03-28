@@ -404,6 +404,7 @@ wget -O cf-setting "https://stn-cloud.my.id/menu/cloudflare-setting.sh"
 wget -O ins-xray "https://stn-cloud.my.id/xray/ins-xray.sh"
 wget -O menu "https://stn-cloud.my.id/menu/menu.sh"
 wget -O backup "https://stn-cloud.my.id/backup/gdrive.sh"
+wget -O bkp "https://stn-cloud.my.id/backup/autobackup.sh"
 wget -O menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh"
 wget -O menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh"
 wget -O menu-vmess "https://stn-cloud.my.id/menu/function-vmess.sh"
@@ -427,6 +428,7 @@ chmod +x license
 chmod +x menu-ssh
 chmod +x menu-vmess
 chmod +x menu-trgo
+chmod +x bkp
 
 echo "0 9 * * * root clearlog && reboot" >> /etc/crontab
 echo "0 7 * * * root exp" >> /etc/crontab
