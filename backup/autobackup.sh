@@ -124,22 +124,22 @@ cp -r /home/vps/public_html /root/backup/public_html &> /dev/null
 cp -r /etc/cron.d /root/backup/cron.d &> /dev/null
 cp -r /etc/crontab /root/backup/crontab &> /dev/null
 cd /root
-zip -r $IP-$date.zip backup > /dev/null 2>&1
-rclone copy /root/$IP-$date.zip dr:backup/
-url=$(rclone link dr:backup/$IP-$date.zip)
+zip -r $domain-$date-$time.zip backup > /dev/null 2>&1
+rclone copy /root/$domain-$date-$time.zip dr:backup/
+url=$(rclone link dr:backup/$domain-$date-$time.zip)
 id=(`echo $url | grep '^https' | cut -d'=' -f2`)
 link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 echo -e ""
-rm -rf /root/$IP-$date.zip
+rm -rf /root/$domain-$date-$time.zip
 rm -rf backup
 TEXT="
-Detail Backup Data
-━━━━━━━━━━━━━━━━━━━━━━━━
+👇Detail Backup Data👇
+━━━━━━━━━━━━━━━━━━━━━━
 Backup On : ${date}
 Time Info : ${time}
 Domain    : ${domain}
 IP VPS    : ${IP}
-━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━
 Link Backup : $link
 "
 curl -s --max-time 10 -d "chat_id=${iduser}&disable_web_page_preview=1&text=${TEXT}&parse_mode=html" https://api.telegram.org/bot${apibot}/sendMessage >/dev/null
