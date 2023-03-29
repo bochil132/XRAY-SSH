@@ -80,7 +80,7 @@ fi
 
 #color code
 export NC='\033[0m'
-export multi='\E[41;1;39m'
+export multi='\E[42;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -311,7 +311,7 @@ fi
                 
 data=( `ps aux | grep -i dropbear | awk '{print $2}'`);
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
-echo -e "${multi}             Dropbear User Online/Login            ${NC}";  
+echo -e "${multi}             ${rd}Dropbear User Online/Login            ${NC}";  
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 echo -e "    ${or}ID  |  Username  |  IP Address${NC}";
 echo -e ""
@@ -328,7 +328,7 @@ do
 done
 echo " "
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
-echo -e "${multi}             OpenSSH User Online/Login             ${NC}";  
+echo -e "${multi}             ${rd}OpenSSH User Online/Login             ${NC}";  
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 echo -e "    ${or}ID  |  Username  |  IP Address${NC}";
 echo -e ""
@@ -348,7 +348,7 @@ done
 if [ -f "/etc/openvpn/server/openvpn-tcp.log" ]; then
 echo ""
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
-echo -e "${multi}              OpenVPN TCP User Login               ${NC}";  
+echo -e "${multi}              ${rd}OpenVPN TCP User Login               ${NC}";  
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 echo -e "${or}Username  |  IP Address  |  Connected${NC}";
 echo -e ""
@@ -359,7 +359,7 @@ fi
 if [ -f "/etc/openvpn/server/openvpn-udp.log" ]; then
 echo " "
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
-echo -e "${multi}              OpenVPN UDP User Login               ${NC}";  
+echo -e "${multi}              ${rd}OpenVPN UDP User Login               ${NC}";  
 echo -e "${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 echo -e "${or}Username  |  IP Address  |  Connected${NC}";
 echo -e ""
@@ -442,20 +442,41 @@ read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
 }
 clear
-echo -e "${or}════════════════════════════════════════════════════${NC}"
-echo -e "       ${cyan}―――――――――――――[${NC}${multi} SSH MENU ${NC}${cyan}]―――――――――――――${NC}"
-echo -e "${or}════════════════════════════════════════════════════${NC}"
-echo -e " ${rd}1${NC} • Membuat Akun SSH & OpenVPN"
-echo -e " ${rd}2${NC} • Trial Akun SSH & OpenVPN"
-echo -e " ${rd}3${NC} • Perpanjang Akun SSH & OpenVPN"
-echo -e " ${rd}4${NC} • Hapus Akun SSH & OpenVPN"
-echo -e " ${rd}5${NC} • Cek Login Akun SSH & OpenVPN"
-echo -e " ${rd}6${NC} • List Accounts SSH & OpenVPN"
+# // Status ws tls
+ssh_ws=$( systemctl status ws-nontls | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $ssh_ws == "running" ]]; then
+    ws="${green}Running | Normal${NC}"
+else
+    ws="${rd}Stopped | Error${NC}"
+fi
+
+
+# // Status ws tls
+ssh_ws=$( systemctl status ws-tls | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $ssh_ws == "running" ]]; then
+    wstls="${green}Running | Normal${NC}"
+else
+    wstls="${rd}Stopped | Error${NC}"
+fi
+
+echo ""
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${multi}                ${rd}SSH & OPENVPN MENU                 ${NC}"
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e " SSH WS NONE TLS : $ws"
+echo -e " SSH WS TLS      : $wstls"
 echo -e ""
-echo -e " ${rd}0.${NC} Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}"
-echo -e "${or}════════════════════════════════════════════════════${NC}"
+echo -e " ${rd}1${NC}  Membuat Akun SSH & OpenVPN"
+echo -e " ${rd}2${NC}  Trial Akun SSH & OpenVPN"
+echo -e " ${rd}3${NC}  Perpanjang Akun SSH & OpenVPN"
+echo -e " ${rd}4${NC}  Hapus Akun SSH & OpenVPN"
+echo -e " ${rd}5${NC}  Cek Login Akun SSH & OpenVPN"
+echo -e " ${rd}6${NC}  List Accounts SSH & OpenVPN"
 echo -e ""
-read -p "Input Your Choose : " opt
+echo -e " ${rd}0${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}"
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e ""
+read -p "Select Of Number : " opt
 echo -e ""
 case $opt in
 01 | 1) clear ; create ;;

@@ -80,7 +80,7 @@ fi
 
 #color code
 export NC='\033[0m'
-export multi='\E[41;1;39m'
+export multi='\E[42;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -392,9 +392,13 @@ read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
 fi
 clear
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${multi}     ${rd}Renew Accounts Xray-Vmess       ${NC}"
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
-echo -e ""
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "[${rd}NOTE${NC}] Tap Enter To Back Menu-Vmess"
+echo ""
 read -rp "Input Username : " user
 if [ -z $user ]; then
 menu-vmess
@@ -436,9 +440,13 @@ read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
 fi
 clear
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${multi}     ${rd}Delete Accounts Xray-Vmess      ${NC}"
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
-echo -e ""
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "[${rd}NOTE${NC}] Tap Enter To Back Menu-Vmess"
+echo -e ""
 read -rp "Input Username : " user
 if [ -z $user ]; then
 menu-vmess
@@ -461,11 +469,13 @@ fi
 
 function cek(){
 clear
+time=$(date "+%T")
+echo ""
 echo -n > /tmp/other.txt
 data=( `cat /etc/xray/config.json | grep '^###' | cut -d ' ' -f 2`);
-echo "----------------------------------------";
-echo "---------=[ Vmess User Login ]=---------";
-echo "----------------------------------------";
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}        ${rd}Vmess User Login        ${NC}";
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 for akun in "${data[@]}"
 do
 if [[ -z "$akun" ]]; then
@@ -496,9 +506,10 @@ fi
 rm -rf /tmp/ipvmess.txt
 done
 oth=$(cat /tmp/other.txt | sort | uniq | nl)
+echo -e "${or}Date Time      :${NC} ${time}";
 echo -e "${or}List IP Online :${NC}";
 echo -e "${rd}$oth${NC}";
-echo "----------------------------------------"
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 rm -rf /tmp/other.txt
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
@@ -506,20 +517,38 @@ menu-vmess
 }
 
 clear
-echo -e "
-${or}════════════════════════════════════════════════════${NC}
-      ${cyan}―――――――――――――[${NC}${multi} VMESS MENU ${NC}${cyan}]―――――――――――――${NC}
-${or}════════════════════════════════════════════════════${NC}
- ${rd}1${NC} • Buat Akun Xray/Vmess
- ${rd}2${NC} • Buat Akun Trial Xray/Vmess
- ${rd}3${NC} • Perpanjang Akun Xray/Vmess
- ${rd}4${NC} • Hapus Akun Xray/Vmess
- ${rd}5${NC} • Cek Login Xray/Vmess"
+# // Status Nginx
+ssh_ws=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $ssh_ws == "running" ]]; then
+    nx="${green}Running | Normal${NC}"
+else
+    nx="${rd}Stopped | Error${NC}"
+fi
+
+# // Status Xray
+ssh_ws=$( systemctl status xray | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $ssh_ws == "running" ]]; then
+    xvm="${green}Running | Normal${NC}"
+else
+    xvm="${rd}Stopped | Error${NC}"
+fi
 echo ""
-echo -e " ${rd}0.${NC} Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
-${or}════════════════════════════════════════════════════${NC}"
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${multi}                  ${rd}XRAY VMESS MENU                  ${NC}"
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "XRAY VMESS : $xvm"
+echo -e "NGINX      : $nx"
+echo -e "
+ ${rd}1${NC}  Buat Akun Xray/Vmess
+ ${rd}2${NC}  Buat Akun Trial Xray/Vmess
+ ${rd}3${NC}  Perpanjang Akun Xray/Vmess
+ ${rd}4${NC}  Hapus Akun Xray/Vmess
+ ${rd}5${NC}  Cek Login Xray/Vmess"
+echo ""
+echo -e " ${rd}0${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
+${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
-read -p "Input Your Choose : " opt
+read -p "Select Of Number : " opt
 echo -e ""
 case $opt in
 01 | 1) clear ; create ;;

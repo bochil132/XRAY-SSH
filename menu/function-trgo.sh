@@ -81,7 +81,7 @@ exit 0
 fi
 
 export NC='\033[0m'
-export multi='\E[41;1;39m'
+export multi='\E[42;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -342,11 +342,13 @@ menu-trgo
 
 function cek(){
 clear
+time=$(date "+%T")
+echo ""
 echo -n > /tmp/other.txt
 data=( `cat /etc/trojan-go/akun.conf | grep '^###' | cut -d ' ' -f 2`);
-echo "------------------------------------";
-echo "-----=[ Trojan-Go User Login ]=-----";
-echo "------------------------------------";
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}      ${rd}Trojan-Go User Login      ${NC}";
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 for akun in "${data[@]}"
 do
 if [[ -z "$akun" ]]; then
@@ -377,9 +379,10 @@ fi
 rm -rf /tmp/iptrojango.txt
 done
 oth=$(cat /tmp/other.txt | sort | uniq | nl)
+echo -e "${or}Date Time      :${NC} ${time}";
 echo -e "${or}List IP Online :${NC}";
 echo -e "${rd}$oth${NC}";
-echo "------------------------------------";
+echo -e "${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 rm -rf /tmp/other.txt
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
@@ -387,17 +390,27 @@ menu-trgo
 }
 
 clear
-echo -e "${or}════════════════════════════════════════════════════${NC}
-    ${cyan}―――――――――――――[${NC}${multi} TROJAN-GO MENU ${NC}${cyan}]―――――――――――――${NC}
-${or}════════════════════════════════════════════════════${NC}
- ${rd}1${NC} • Buat Akun Trojan-Go
- ${rd}2${NC} • Trial Akun Trojan-Go
- ${rd}3${NC} • Perpanjang Akun Trojan-Go
- ${rd}4${NC} • Hapus Akun Trojan-Go ( ${rd}Error${NC} )
- ${rd}5${NC} • Cek Login Trojan-Go"
+# // Status Trgo
+ssh_ws=$( systemctl status trojan-go | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $ssh_ws == "running" ]]; then
+    trgo="${green}Running | Normal${NC}"
+else
+    trgo="${rd}Stopped | Error${NC}"
+fi
 echo ""
-echo -e " ${rd}0.${NC} Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
-${or}════════════════════════════════════════════════════${NC}"
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${multi}                  ${rd}TROJAN-GO MENU                   ${NC}"
+echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "Trojan-Go : $trgo"
+echo -e "
+ ${rd}1${NC}  Buat Akun Trojan-Go
+ ${rd}2${NC}  Trial Akun Trojan-Go
+ ${rd}3${NC}  Perpanjang Akun Trojan-Go
+ ${rd}4${NC}  Hapus Akun Trojan-Go ( ${rd}Error${NC} )
+ ${rd}5${NC}  Cek Login Trojan-Go"
+echo ""
+echo -e " ${rd}0${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
+${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -p "Input Your Choose : " opt
 echo -e ""
