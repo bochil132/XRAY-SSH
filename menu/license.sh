@@ -8,7 +8,7 @@ red="\033[0;31m"
 ###########- END COLOR CODE -##########
 
 BURIQ () {
-    curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini > /root/tmp
+    curl -sS https://raw.githubusercontent.com/bochil132/admin/main/ipmini > /root/tmp
     data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
     for user in "${data[@]}"
     do
@@ -26,7 +26,7 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $2}')
+Name=$(curl -sS https://raw.githubusercontent.com/bochil132/admin/main/ipmini | grep $MYIP | awk '{print $2}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
 
@@ -43,7 +43,7 @@ fi
 
 PERMISSION () {
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | awk '{print $4}' | grep $MYIP)
+    IZIN=$(curl -sS https://raw.githubusercontent.com/bochil132/admin/main/ipmini | awk '{print $4}' | grep $MYIP)
     if [ "$MYIP" = "$IZIN" ]; then
     Bloman
     else
@@ -66,13 +66,7 @@ echo -ne
 else
 echo -e ""
 echo -e "
-${green}Notif By AutoScript Xray-SSH${NC}
---------------------------------------------------------
-You IP ( ${red}${MYIP}${NC} ) blocked By AutoScript
-${green}The script you are currently using is out of date${NC}
-${green}Please contact the admin to extend the duration${NC}
-${O}My Telegram :${NC} @WaanSuka_Turu
---------------------------------------------------------
+You IP ( ${red}${MYIP}${NC} ) blocked, you not admin
 "
 echo -e ""
 exit 0

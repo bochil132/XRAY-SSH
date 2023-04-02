@@ -4,13 +4,15 @@ biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 
 #color code
 export NC='\033[0m'
-export multi='\E[41;1;39m'
+export multi='\E[43;1;39m'
+export semua='\E[45;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
 export rd='\e[31;1m'
 export C='\033[0;36m'
 export R='\e[31;1m'
+export G="\033[0;32m"
 
 function status(){
 #########################
@@ -348,27 +350,27 @@ echo -e " CPU MODEL   =$cpu"
 echo -e " RAM         = $tram MB / Usage $uram MB"
 echo -e " STORAGE     = $(df -h / | awk '{print $2}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB" " / Usage $(df -h / | awk '{print $3}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "                       Status All Service                            "
+echo -e "${multi}                ${rd}Status All Service                  ${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e " ${green}•${NC} NGINX                     = $nx"
-echo -e " ${green}•${NC} SSH / TUN                 = $status_ssh"
-echo -e " ${green}•${NC} OVPN WS                   = $swsovpn"
-echo -e " ${green}•${NC} DROPBEAR                  = $status_beruangjatuh"
-echo -e " ${green}•${NC} VNSTAT                    = $status_vnstat"
-echo -e " ${green}•${NC} SSH WS TLS                = $swstls"
-echo -e " ${green}•${NC} SSH WS NTLS               = $swsdrop"
-echo -e " ${green}•${NC} VMESS TLS                 = $v2ray_tls"
-echo -e " ${green}•${NC} VMESS NONE TLS            = $v2ray_ntls"
-echo -e " ${green}•${NC} TROJAN GO TLS             = $status_trgo"
-echo -e " ${green}•${NC} STUNNEL                   = $status_stunnel"
-echo -e " ${green}•${NC} SSLH                      = $sosslh"
-echo -e " ${green}•${NC} FAIL2BAN                  = $status_fail2ban"
-echo -e " ${green}•${NC} OHP SSH                   = $sohr"
-echo -e " ${green}•${NC} OHP DROPBEAR              = $sohp"
-echo -e " ${green}•${NC} SSHD                      = $shdd"
-echo -e " ${green}•${NC} BADVPN UDPGW              = $udpw"
-echo -e " ${green}•${NC} CRONTAB                   = $cr"
-echo -e " ${green}•${NC} SQUID PROXY               = $sq"
+echo -e " ${green}•${NC} NGINX                        = $nx"
+echo -e " ${green}•${NC} SSH / TUN                    = $status_ssh"
+echo -e " ${green}•${NC} OVPN WS                      = $swsovpn"
+echo -e " ${green}•${NC} DROPBEAR                     = $status_beruangjatuh"
+echo -e " ${green}•${NC} VNSTAT                       = $status_vnstat"
+echo -e " ${green}•${NC} SSH WS TLS                   = $swstls"
+echo -e " ${green}•${NC} SSH WS NTLS                  = $swsdrop"
+echo -e " ${green}•${NC} VMESS TLS                    = $v2ray_tls"
+echo -e " ${green}•${NC} VMESS NONE TLS               = $v2ray_ntls"
+echo -e " ${green}•${NC} TROJAN GO TLS                = $status_trgo"
+echo -e " ${green}•${NC} STUNNEL                      = $status_stunnel"
+echo -e " ${green}•${NC} SSLH                         = $sosslh"
+echo -e " ${green}•${NC} FAIL2BAN                     = $status_fail2ban"
+echo -e " ${green}•${NC} OHP SSH                      = $sohr"
+echo -e " ${green}•${NC} OHP DROPBEAR                 = $sohp"
+echo -e " ${green}•${NC} SSHD                         = $shdd"
+echo -e " ${green}•${NC} BADVPN UDPGW                 = $udpw"
+echo -e " ${green}•${NC} CRONTAB                      = $cr"
+echo -e " ${green}•${NC} SQUID PROXY                  = $sq"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
@@ -404,7 +406,7 @@ menu
 function about(){
 clear
 echo -e "================================================="
-echo -e "#        ${multi}AutoScript Installer XRAY-SSH${NC}          #"
+echo -e "#        ${semua}AutoScript Installer XRAY-SSH${NC}          #"
 echo -e "================================================="
 echo -e "# For Debian 10 64 bit                          #"
 echo -e "# For Ubuntu 18.04 & Ubuntu 20.04 64 bit        #"
@@ -430,7 +432,7 @@ read -rp "Input New Domain : " -e domain
 echo "$domain" > /var/lib/fsidvpn/ipvps.conf
 rm -rf /etc/xray/domain
 echo "$domain" >/etc/xray/domain
-echo -e "[ ${green}INFO${NC} ] Start " 
+echo -e "[ ${yl}INFO${NC} ] Start " 
 sleep 0.5
 systemctl stop ws-nontls
 systemctl stop nginx
@@ -438,25 +440,25 @@ domain=$(cat /var/lib/fsidvpn/ipvps.conf | cut -d'=' -f2)
 Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
 if [[ ! -z "$Cek" ]]; then
 sleep 1
-echo -e "[ ${RED}WARNING${NC} ] Detected port 80 used by $Cek " 
+echo -e "[ ${rd}WARNING${NC} ] Detected port 80 used by $Cek " 
 systemctl stop $Cek
 sleep 2
-echo -e "[ ${GREEN}INFO${NC} ] Processing to stop $Cek " 
+echo -e "[ ${yl}INFO${NC} ] Processing to stop $Cek " 
 sleep 1
 fi
-echo -e "[ ${GREEN}INFO${NC} ] Starting renew cert... " 
+echo -e "[ ${yl}INFO${NC} ] Starting renew cert... " 
 sleep 2
 /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 /root/.acme.sh/acme.sh --issue -d $domain --force --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
-echo -e "[ ${GREEN}INFO${NC} ] Renew cert done... " 
+echo -e "[ ${yl}INFO${NC} ] Renew cert done... " 
 sleep 2
-echo -e "[ ${GREEN}INFO${NC} ] Starting service $Cek " 
+echo -e "[ ${yl}INFO${NC} ] Starting service $Cek " 
 sleep 2
 echo "$domain" >/etc/xray/domain
 systemctl restart $Cek
 systemctl restart nginx
-echo -e "[ ${GREEN}INFO${NC} ] All finished... " 
+echo -e "[ ${yl}INFO${NC} ] All finished... " 
 sleep 0.5
 clear
 echo -e ""
@@ -489,11 +491,11 @@ menu
 
 function certscript(){
 clear
-echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$nc"
-echo -e "${GREEN}               • RENEW DOMAIN SSL •               $nc"
-echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$nc"
+echo -e "${rd}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$nc"
+echo -e "${yl}               • RENEW DOMAIN SSL •               $nc"
+echo -e "${rd}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$nc"
 echo -e ""
-echo -e "[ ${green}INFO${NC} ] Start " 
+echo -e "[ ${yl}INFO${NC} ] Start " 
 sleep 0.5
 systemctl stop ws-nontls
 systemctl stop nginx
@@ -501,25 +503,25 @@ domain=$(cat /var/lib/fsidvpn/ipvps.conf | cut -d'=' -f2)
 Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
 if [[ ! -z "$Cek" ]]; then
 sleep 1
-echo -e "[ ${RED}WARNING${NC} ] Detected port 80 used by $Cek " 
+echo -e "[ ${rd}WARNING${NC} ] Detected port 80 used by $Cek " 
 systemctl stop $Cek
 sleep 2
-echo -e "[ ${GREEN}INFO${NC} ] Processing to stop $Cek " 
+echo -e "[ ${yl}INFO${NC} ] Processing to stop $Cek " 
 sleep 1
 fi
-echo -e "[ ${GREEN}INFO${NC} ] Starting renew cert... " 
+echo -e "[ ${yl}INFO${NC} ] Starting renew cert... " 
 sleep 2
 /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 /root/.acme.sh/acme.sh --issue -d $domain --force --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
-echo -e "[ ${GREEN}INFO${NC} ] Renew cert done... " 
+echo -e "[ ${yl}INFO${NC} ] Renew cert done... " 
 sleep 2
-echo -e "[ ${GREEN}INFO${NC} ] Starting service $Cek " 
+echo -e "[ ${yl}INFO${NC} ] Starting service $Cek " 
 sleep 2
 echo "$domain" > /etc/xray/domain
 systemctl restart $Cek
 systemctl restart nginx
-echo -e "[ ${GREEN}INFO${NC} ] All finished... " 
+echo -e "[ ${yl}INFO${NC} ] All finished... " 
 sleep 0.5
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
@@ -556,6 +558,26 @@ read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
 menu
 }
 
+function xol(){
+clear
+echo -e "${G}Bot XolPanel SSH Only${NC}"
+echo -e "${rd}1.${NC} Create SSH Lewat Bot"
+echo -e "${rd}2.${NC} Hapus SSH Lewat Bot"
+echo -e "${rd}3.${NC} Trial SSH Lewat Bot"
+echo -e "${rd}4.${NC} Other Feature..."
+echo -e ""
+read -p "Yakin ingin menginstall ?? (y/n) : " opt
+echo -e ""
+case $opt in
+y | Y)
+wget http://stn-cloud.my.id/install_bot.sh && bash install_bot.sh && rm -rf install_bot.sh
+;;
+n | N)
+menu
+;;
+esac
+}
+
 clear
 totalram=$(free -m | awk 'NR==2 {print $2}')
 usageram=$(free -m | awk 'NR==2 {print $3}')
@@ -574,29 +596,30 @@ sshws="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
 vmess=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
 echo -e "
 ${or}══════════════════════════════════════════════════════════════════${NC}
-     ${cyan}―――――――――――――[${NC}${multi} Menu AutoScript XRAY-SSH ${NC}${cyan}]―――――――――――――${NC}
+     ${cyan}―――――――――――――[${NC}${semua} Menu AutoScript XRAY-SSH ${NC}${cyan}]―――――――――――――${NC}
 ${or}══════════════════════════════════════════════════════════════════${NC}
-${rd}Download Usage  :${NC} ${downusage}
-${rd}Upload Usage    :${NC} ${upusage}
-${rd}Total Usage     :${NC} ${tousage}
-${rd}Total Ram VPS   :${NC} ${totalram},mb
-${rd}Usage Ram VPS   :${NC} ${usageram},mb
+${G}Download Usage  :${NC} ${downusage}
+${G}Upload Usage    :${NC} ${upusage}
+${G}Total Usage     :${NC} ${tousage}
+${G}Total Ram VPS   :${NC} ${totalram},mb
+${G}Usage Ram VPS   :${NC} ${usageram},mb
 ${or}══════════════════════════════════════════════════════════════════${NC}
- ${rd}•1.${NC} Menu SSH & OpenVPN Websocket
- ${rd}•2.${NC} Menu Vmess Websocket
- ${rd}•3.${NC} Menu Trojan-Go / Websocket
- ${rd}•4.${NC} Menu Backup & Restore
- ${rd}•5.${NC} Status Layanan Script
- ${rd}•6.${NC} Ganti Domain / Subdomain
- ${rd}•7.${NC} Update AutoScript Installer
- ${rd}•8.${NC} Renew Certificate SSL / XRAY
- ${rd}•9.${NC} Admin Script Menu ( ${cyan}Admin Only${NC} )
- ${rd}10.${NC} About AutoScript Installer
- ${rd}11.${NC} Restart All Service AutoScript
- ${rd}12.${NC} Reboot You VPS
- ${rd}13.${NC} Install Webmin Menu
- ${rd}14.${NC} CloudFlare Pointing Subdomain
- ${rd}15.${NC} Port Service Information
+ ${rd}[01]${NC} Menu SSH & OpenVPN Websocket
+ ${rd}[02]${NC} Menu Vmess Websocket
+ ${rd}[03]${NC} Menu Trojan-Go / Websocket
+ ${rd}[04]${NC} Menu Backup & Restore
+ ${rd}[05]${NC} Status Layanan Script
+ ${rd}[06]${NC} Ganti Domain / Subdomain
+ ${rd}[07]${NC} Update AutoScript Installer
+ ${rd}[08]${NC} Renew Certificate SSL / XRAY
+ ${rd}[09]${NC} Admin Script Menu ( ${cyan}Admin Only${NC} )
+ ${rd}[10]${NC} About AutoScript Installer
+ ${rd}[11]${NC} Restart All Service AutoScript
+ ${rd}[12]${NC} Reboot You VPS
+ ${rd}[13]${NC} Install Webmin Menu
+ ${rd}[14]${NC} CloudFlare Pointing Subdomain
+ ${rd}[15]${NC} Port Service Information
+ ${rd}[16]${NC} Install Bot XolPanel
 
 Tap [ ${rd}CTRL + C${NC} ] To Exit Menu AutoScript
 ${or}══════════════════════════════════════════════════════════════════${NC}
@@ -605,7 +628,7 @@ ${cyan}V2ray Vmess Websocket    :${NC} ${rd}${vmess}${NC} Accounts
 ${cyan}Trojan-Go / Websocket    :${NC} ${rd}${trojanws}${NC} Accounts
 ${or}══════════════════════════════════════════════════════════════════${NC}
 ${rd}Informasi Date      :${NC} ${datainfo}
-${rd}Nama Pengguna       :${NC} ${client}
+${rd}Nama Pengguna       :${NC} ${G}${client}${NC}
 ${rd}Expired AutoScript  :${NC} ${expscript}
 ${rd}Sisa MasaAktif      :${NC} ${dayleft} Days Left
 ${or}══════════════════════════════════════════════════════════════════${NC}"
@@ -628,4 +651,6 @@ case $opt in
 13) clear ; wbmn;;
 14) clear ; cf-pointing;;
 15) clear ; info;;
+16) clear ; xol;;
+17) clear : speedtest;;
 esac

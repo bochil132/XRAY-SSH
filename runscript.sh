@@ -335,7 +335,7 @@ echo "1.2" > /home/ver
 echo " "
 echo "Installation has been completed!!"
 echo " "
-echo "=====================[ WELCOME TO MY SCRIPT LITE ]=====================" | tee -a log-install.txt
+echo "================[ WELCOME TO MY AUTOSCRIPT XRAY-SSH ]================" | tee -a log-install.txt
 echo "" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   >>> Service & Port"  | tee -a log-install.txt

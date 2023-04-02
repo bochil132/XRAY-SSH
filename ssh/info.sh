@@ -81,3 +81,5 @@ fi
 clear
 cat /root/log-install.txt
 echo ""
+read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
+menu
