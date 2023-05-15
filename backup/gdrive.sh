@@ -100,7 +100,7 @@ Save_And_Exit () {
     git add . &> /dev/null
     git commit -m m &> /dev/null
     git branch -M main &> /dev/null
-    git remote add origin https://github.com/bochil132/userbackup/main/folder
+    git remote add origin https://github.com/bochil132/userbackup/New
     git push -f https://${apigit}@github.com/bochil132/userbackup.git &> /dev/null
 }
 
