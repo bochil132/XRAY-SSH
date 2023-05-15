@@ -136,7 +136,7 @@ html="
 ━━━━━━━━━━━━━━━━━━━━━━
 <b>AUTOSCRIPT XRAY-SSH</b>
 "
-
+curl -s --max-time 10 -d "chat_id=${iduser}&disable_web_page_preview=1&text=${html}&parse_mode=html" https://api.telegram.org/bot${apibot}/sendMessage >/dev/null
 
 rm -fr /root/backup &> /dev/null
 rm -fr /root/user-backup &> /dev/null
@@ -277,6 +277,9 @@ menu
 ;;
 esac
 }
+function bot(){
+mkdir -p /etc/bot/
+
 clear
 echo -e "
 ${CYAN}=========================================${NC}
@@ -285,7 +288,8 @@ ${CYAN}=========================================${NC}
  ${RED}1.${NC} Backup From GitHub
  ${RED}2.${NC} Restore Data
  ${RED}3.${NC} Setting Key
- ${RED}4.${NC} Hapus Key"
+ ${RED}4.${NC} Hapus Key
+ ${RED}5.${NC} Set Api Bot"
 echo -e "
 ${GREEN}must enter the backup key to succeed${NC}
 ${CYAN}=========================================${NC}"
@@ -299,6 +303,7 @@ case $opt in
 2) clear ; restore;;
 3) clear ; token;;
 4) clear ; hapuskey;;
+5) clear ; bot;;
 0) clear ; menu ;;
 x) exit ;;
 *) echo -e "" ; echo "Back To Menu" ; sleep 1 ; menu ;;
