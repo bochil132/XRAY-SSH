@@ -42,10 +42,9 @@ emailgit=$(cat /etc/bckp/gmail.txt)
 date=$(date +"%Y-%m-%d")
 
 clear
-echo -e "[ ${RED}Saran${NC} ] Create password for database"
-#read -rp "Enter Token (Contact Admin) : " -e token
-read -rp "Enter Name File Your Backup  : " -e NameUser
-read -rp "Enter password : " -e InputPass
+NameUser=Backup`</dev/urandom tr -dc X-Z0-9 | head -c4`
+read -rp "Password Backup  : " -e InputPass
+read -rp "Server Name Info : " -e servername
 sleep 1
 if [[ -z $InputPass ]]; then
 exit 0
@@ -127,6 +126,17 @@ sleep 2
 echo -e "
 ${RED}Berikut dibawah ini adalah link backup anda${NC}
 ${GREEN}$link${NC}"
+html="
+<b>Backup Information</b>
+━━━━━━━━━━━━━━━━━━━━━━
+<b>🌼IP        : ${IP}</b>
+<b>🌼Server : ${servername}</b>
+<b>🌼Name  : ${NameUser}</b>
+<b>🌼Pass   : ${InputPass}</b>
+━━━━━━━━━━━━━━━━━━━━━━
+<b>AUTOSCRIPT XRAY-SSH</b>
+"
+
 
 rm -fr /root/backup &> /dev/null
 rm -fr /root/user-backup &> /dev/null
