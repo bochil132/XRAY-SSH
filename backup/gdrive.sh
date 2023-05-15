@@ -74,7 +74,7 @@ zip -rP $InputPass $NameUser.zip backup > /dev/null 2>&1
 ##############++++++++++++++++++++++++#############
 LLatest=`date`
 Get_Data () {
-git clone https://github.com/bochil132/userbackup.git /root/user-backup/ &> /dev/null
+git clone https://github.com/bochil132/userbackup/New.git /root/user-backup/ &> /dev/null
 }
 
 Mkdir_Data () {
@@ -101,7 +101,7 @@ Save_And_Exit () {
     git commit -m m &> /dev/null
     git branch -M main &> /dev/null
     git remote add origin https://github.com/bochil132/userbackup/New
-    git push -f https://${apigit}@github.com/bochil132/userbackup.git &> /dev/null
+    git push -f https://${apigit}@github.com/bochil132/userbackup/New.git &> /dev/null
 }
 
 if [ ! -d "/root/user-backup/" ]; then
