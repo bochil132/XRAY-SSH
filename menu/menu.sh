@@ -27,31 +27,11 @@ Tipe=$NAME
 URL_SUPPORT=$HOME_URL
 basedong=$ID
 
-# VPS ISP INFORMATION
-#ITAM='\033[0;30m'
-echo -e "$ITAM"
-#REGION=$( curl -s ipinfo.io/region )
-#clear
-#COUNTRY=$( curl -s ipinfo.io/country )
-#clear
-#WAKTU=$( curl -s ipinfo.ip/timezone )
-#clear
 CITY=$( curl -s ipinfo.io/city )
-#clear
-#REGION=$( curl -s ipinfo.io/region )
-#clear
 
 # CHEK STATUS 
 openvpn_service="$(systemctl show openvpn.service --no-page)"
 oovpn=$(echo "${openvpn_service}" | grep 'ActiveState=' | cut -f2 -d=)
-#status_openvp=$(/etc/init.d/openvpn status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-#status_ss_tls="$(systemctl show shadowsocks-libev-server@tls.service --no-page)"
-#ss_tls=$(echo "${status_ss_tls}" | grep 'ActiveState=' | cut -f2 -d=)
-#status_ss_http="$(systemctl show shadowsocks-libev-server@http.service --no-page)"
-#ss_http=$(echo "${status_ss_http}" | grep 'ActiveState=' | cut -f2 -d=)
-#sssohtt=$(systemctl status shadowsocks-libev-server@*-http | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-#status="$(systemctl show shadowsocks-libev.service --no-page)"
-#status_text=$(echo "${status}" | grep 'ActiveState=' | cut -f2 -d=)
 tls_v2ray_status=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 nontls_v2ray_status=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 trojan_server=$(systemctl status trojan-go | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
@@ -70,7 +50,6 @@ wsovpn=$(systemctl status ws-ovpn | grep Active | awk '{print $3}' | cut -d "(" 
 cron=$(systemctl status cron | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 sqd=$(systemctl status squid | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 nginx=$(systemctl status nginx | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-#wsopen=$(systemctl status ws-openssh | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 osslh=$(systemctl status sslh | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ohp=$(systemctl status dropbear-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ohq=$(systemctl status openvpn-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
@@ -368,8 +347,6 @@ echo -e " ${green}•${NC} TROJAN GO TLS                = $status_trgo"
 echo -e " ${green}•${NC} STUNNEL                      = $status_stunnel"
 echo -e " ${green}•${NC} SSLH                         = $sosslh"
 echo -e " ${green}•${NC} FAIL2BAN                     = $status_fail2ban"
-echo -e " ${green}•${NC} OHP SSH                      = $sohr"
-echo -e " ${green}•${NC} OHP DROPBEAR                 = $sohp"
 echo -e " ${green}•${NC} SSHD                         = $shdd"
 echo -e " ${green}•${NC} BADVPN UDPGW                 = $udpw"
 echo -e " ${green}•${NC} CRONTAB                      = $cr"
@@ -409,7 +386,7 @@ menu
 function about(){
 clear
 echo -e "================================================="
-echo -e "#        ${semua}AutoScript Installer XRAY-SSH${NC}          #"
+echo -e "#        AutoScript Installer XRAY-SSH          #"
 echo -e "================================================="
 echo -e "# For Debian 10 64 bit                          #"
 echo -e "# For Ubuntu 18.04 & Ubuntu 20.04 64 bit        #"
@@ -573,7 +550,7 @@ read -p "Yakin ingin menginstall ?? (y/n) : " opt
 echo -e ""
 case $opt in
 y | Y)
-wget http://stn-cloud.my.id/install_bot.sh && bash install_bot.sh && rm -rf install_bot.sh
+wget http://stn-cloud.my.id/install_bot.sh && chmod +x install_bot.sh && ./install_bot.sh && rm -rf install_bot.sh
 ;;
 n | N)
 menu
