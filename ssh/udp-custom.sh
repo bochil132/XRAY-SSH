@@ -5,7 +5,6 @@ rm -rf /root/udp
 mkdir -p /root/udp
 
 # change to time GMT+7
-echo "change to time GMT+7"
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 # install udp-custom
@@ -44,18 +43,9 @@ Type=simple
 ExecStart=/root/udp/udp-custom server -exclude $1
 WorkingDirectory=/root/udp/
 Restart=always
-RestartSec=0.2s
+RestartSec=2s
 
 [Install]
 WantedBy=default.target
 EOF
 fi
-
-echo start service udp-custom
-systemctl start udp-custom &>/dev/null
-
-echo enable service udp-custom
-systemctl enable udp-custom &>/dev/null
-
-echo reboot
-reboot

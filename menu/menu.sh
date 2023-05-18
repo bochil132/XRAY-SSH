@@ -6,7 +6,7 @@ biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 export NC='\033[0m'
 export multi='\E[43;1;39m'
 export semua='\E[45;1;39m'
-export new='\E[42;1;39m'
+export new='\E[45;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -54,6 +54,7 @@ osslh=$(systemctl status sslh | grep Active | awk '{print $3}' | cut -d "(" -f2 
 ohp=$(systemctl status dropbear-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ohq=$(systemctl status openvpn-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 ohr=$(systemctl status ssh-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+udpsts=$(systemctl status udp-custom | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 
 # COLOR VALIDATION
 RED='\033[0;31m'
@@ -68,27 +69,6 @@ c='\033[0;36m'
 LIGHT='\033[0;37m'
 clear
 
-# STATUS SERVICE Shadowsocks HTTPS
-if [[ $sst_status == "running" ]]; then
-  status_sst=" ${GREEN}Running ${NC}( No Error )"
-else
-  status_sst="${RED}  Not Running ${NC}  ( Error )"
-fi
-
-# STATUS SERVICE Shadowsocks HTTP
-if [[ $ssh_status == "running" ]]; then 
-   status_ssh="${GREEN}Online [ Aktif ]${NC}"
-else
-   status_ssh="${RED}Offline [ Error ]${NC}"
-fi
-
-# STATUS SERVICE OPENVPN
-if [[ $oovpn == "active" ]]; then
-  status_openvpn="${GREEN}Online [ Aktif ]${NC}"
-else
-  status_openvpn="${RED}Offline [ Error ]${NC}"
-fi
-
 # STATUS SERVICE  SSH 
 if [[ $ssh_service == "running" ]]; then 
    status_ssh="${GREEN}ON ( Running )${NC}"
@@ -96,25 +76,11 @@ else
    status_ssh="${RED}OFF ( Error )${NC}"
 fi
 
-# STATUS SERVICE  SQUID 
-if [[ $squid_service == "running" ]]; then 
-   status_squid=" ${GREEN}Running ${NC}( No Error )"
-else
-   status_squid="${RED}  Not Running"
-fi
-
 # STATUS SERVICE  VNSTAT 
 if [[ $vnstat_service == "running" ]]; then 
    status_vnstat="${GREEN}ON ( Running )${NC}"
 else
    status_vnstat="${RED}OFF ( Error )${NC}"
-fi
-
-# STATUS SERVICE  CRONS 
-if [[ $cron_service == "running" ]]; then 
-   status_cron=" ${GREEN}Running ${NC}( No Error )"
-else
-   status_cron="${RED}  Not Running ${NC}  ( Error )"
 fi
 
 # STATUS SERVICE  FAIL2BAN 
@@ -136,48 +102,6 @@ if [[ $nontls_v2ray_status == "running" ]]; then
    v2ray_ntls="${GREEN}ON ( Running )${NC}"
 else
    v2ray_ntls="${RED}OFF ( Error )${NC}"
-fi
-
-# STATUS SERVICE VLESS HTTPS
-if [[ $vless_tls_v2ray_status == "running" ]]; then
-  status_tls_vless=" ${GREEN}Running${NC} ( No Error )"
-else
-  status_tls_vless="${RED}  Not Running ${NC}  ( Error )${NC}"
-fi
-
-# STATUS SERVICE VLESS HTTP
-if [[ $vless_nontls_v2ray_status == "running" ]]; then
-  status_nontls_vless=" ${GREEN}Running${NC}"
-else
-  status_nontls_vless="${RED}  Not Running ${NC}"
-fi
-
-# SHADOWSOCKSR STATUS
-if [[ $ssr_status == "running" ]] ; then
-  status_ssr=" ${GREEN}Running${NC} ( No Error )${NC}"
-else
-  status_ssr="${RED}  Not Running ${NC}  ( Error )${NC}"
-fi
-
-# SODOSOK
-if [[ $status_text == "active" ]] ; then
-  status_sodosok=" ${GREEN}Running${NC} ( No Error )${NC}"
-else
-  status_sodosok="${RED}  Not Running ${NC}  ( Error )${NC}"
-fi
-
-# STATUS SERVICE TROJAN
-if [[ $trojan_server == "running" ]]; then 
-   status_virus_trojan=" ${GREEN}Running ${NC}( No Error )${NC}"
-else
-   status_virus_trojan="${RED}  Not Running ${NC}  ( Error )${NC}"
-fi
-
-# STATUS SERVICE WIREGUARD
-if [[ $swg == "active" ]]; then
-  status_wg=" ${GREEN}Running ${NC}( No Error )${NC}"
-else
-  status_wg="${RED}  Not Running ${NC}  ( Error )${NC}"
 fi
 
 # Status Service Trojan GO
@@ -206,13 +130,6 @@ if [[ $stunnel_service == "running" ]]; then
    status_stunnel="${GREEN}ON ( Running )${NC}"
 else
    status_stunnel="${RED}OFF ( Error )${NC}"
-fi
-
-# STATUS SERVICE SSTP
-if [[ $sstp_service == "running" ]]; then 
-   status_sstp=" ${GREEN}Running ${NC}( No Error )"
-else
-   status_sstp="${RED}  Not Running ${NC}  ( Error )"
 fi
 
 # STATUS SERVICE WEBSOCKET TLS
@@ -307,6 +224,13 @@ else
 fi
 clear
 
+# STATUS UDP CUSTOM
+if [[ ${udpsts} == "running" ]]; then
+   udp="${GREEN}ON ( Running )${NC}"
+else
+   udp="${RED}OFF ( Error )${NC}"
+fi
+
 echo -e ""
 clear
 loadcpu=$(printf '%-0.00001s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
@@ -340,7 +264,7 @@ echo -e " ${green}•${NC} OVPN WS                      = $swsovpn"
 echo -e " ${green}•${NC} DROPBEAR                     = $status_beruangjatuh"
 echo -e " ${green}•${NC} VNSTAT                       = $status_vnstat"
 echo -e " ${green}•${NC} SSH WS TLS                   = $swstls"
-echo -e " ${green}•${NC} SSH WS NTLS                  = $swsdrop"
+echo -e " ${green}•${NC} SSH WS NONE TLS              = $swsdrop"
 echo -e " ${green}•${NC} VMESS TLS                    = $v2ray_tls"
 echo -e " ${green}•${NC} VMESS NONE TLS               = $v2ray_ntls"
 echo -e " ${green}•${NC} TROJAN GO TLS                = $status_trgo"
@@ -351,6 +275,7 @@ echo -e " ${green}•${NC} SSHD                         = $shdd"
 echo -e " ${green}•${NC} BADVPN UDPGW                 = $udpw"
 echo -e " ${green}•${NC} CRONTAB                      = $cr"
 echo -e " ${green}•${NC} SQUID PROXY                  = $sq"
+echo -e " ${green}•${NC} UDP CUSTOM                   = ${udp}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
@@ -540,11 +465,14 @@ menu
 
 function xol(){
 clear
-echo -e "${G}Bot XolPanel SSH Only${NC}"
-echo -e "${rd}1.${NC} Create SSH Lewat Bot"
-echo -e "${rd}2.${NC} Hapus SSH Lewat Bot"
-echo -e "${rd}3.${NC} Trial SSH Lewat Bot"
-echo -e "${rd}4.${NC} Other Feature..."
+echo -e "${O}============================================${NC}"
+echo -e "  ${G}Bot XolPanel SSH Only${NC}"
+echo -e "  ${rd}1.${NC} Created Ssh By Bot"
+echo -e "  ${rd}2.${NC} Delete Ssh By Bot"
+echo -e "  ${rd}3.${NC} Trial Ssh By Bot"
+echo -e "  ${rd}4.${NC} And Other Feature..."
+echo -e "${O}============================================${NC}"
+echo -e "  ${yl}Credit By : @xolv4${NC}"
 echo -e ""
 read -p "Yakin ingin menginstall ?? (y/n) : " opt
 echo -e ""
@@ -579,21 +507,23 @@ vmess=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t 
 echo -e "
   ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
  ${C}│${NC}         ${yl}Hi, Wellcome To AutoScript SSH & Xray Only${NC}         ${C}│${NC}
- ${C}│${NC}             ${yl}This script is free, not for sale${NC}              ${C}│${NC}
+ ${C}│${NC}            ${yl}Thanks You For Using This AutoScript${NC}            ${C}│${NC}
  ${C}│${NC}                  ${rd}Script credit by @Horass${NC}                  ${C}│${NC}
   ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
    ${O}Tanggal : ${biji}   Waktu : ${jam}   Hari : ${day}${NC}
   ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
-                  ${new} ${rd}☟☟ FOR MENU AUTOSCRIPT ☟☟ ${NC}
+                 ${C}┌───────────────────────────┐${NC}
+                 ${C}│${NC}${new} ☟☟ FOR MENU AUTOSCRIPT ☟☟ ${NC}${C}│${NC}
+                 ${C}└───────────────────────────┘${NC}
   ${C}┌───────────────────────────────────────────────────────────┐${NC}
-  ${C}│${NC}     ${rd}1.${NC} ${O}MENU SSH-WS${NC}              ${rd}9.${NC} ${O}ADMIN REGIS IP${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}2.${NC} ${O}MENU VMESS-WS${NC}           ${rd}10.${NC} ${O}ABOUT SCRIPT${NC}           ${C}│${NC}
-  ${C}│${NC}     ${rd}3.${NC} ${O}MENU TROJAN-WS${NC}          ${rd}11.${NC} ${O}RESTART SERVICE${NC}        ${C}│${NC}
-  ${C}│${NC}     ${rd}4.${NC} ${O}BACKUP & RESTORE${NC}        ${rd}12.${NC} ${O}REBOOT SYSTEM${NC}          ${C}│${NC}
-  ${C}│${NC}     ${rd}5.${NC} ${O}RUNNING SERVICE${NC}         ${rd}13.${NC} ${O}INSTALL WEBMIN${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}6.${NC} ${O}CHANGE DOMAIN${NC}           ${rd}14.${NC} ${O}CLOUDFLARE DNS${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}7.${NC} ${O}UPDATE SCRIPT${NC}           ${rd}15.${NC} ${O}PORT INFO${NC}              ${C}│${NC}
-  ${C}│${NC}     ${rd}8.${NC} ${O}RENEW CERT SSL${NC}          ${rd}16.${NC} ${O}INSTALL BOT${NC}            ${C}│${NC}
+  ${C}│${NC}     ${rd}1.)${NC} ${O}MENU SSH-WS${NC}            ${rd}9.)${NC} ${O}ADMIN REGIS IP${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}2.)${NC} ${O}MENU VMESS-WS${NC}         ${rd}10.)${NC} ${O}ABOUT SCRIPT${NC}           ${C}│${NC}
+  ${C}│${NC}     ${rd}3.)${NC} ${O}MENU TROJAN-WS${NC}        ${rd}11.)${NC} ${O}RESTART SERVICE${NC}        ${C}│${NC}
+  ${C}│${NC}     ${rd}4.)${NC} ${O}BACKUP & RESTORE${NC}      ${rd}12.)${NC} ${O}REBOOT SYSTEM${NC}          ${C}│${NC}
+  ${C}│${NC}     ${rd}5.)${NC} ${O}RUNNING SERVICE${NC}       ${rd}13.)${NC} ${O}INSTALL WEBMIN${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}6.)${NC} ${O}CHANGE DOMAIN${NC}         ${rd}14.)${NC} ${O}CLOUDFLARE DNS${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}7.)${NC} ${O}UPDATE SCRIPT${NC}         ${rd}15.)${NC} ${O}PORT INFO${NC}              ${C}│${NC}
+  ${C}│${NC}     ${rd}8.)${NC} ${O}RENEW CERT SSL${NC}        ${rd}16.)${NC} ${O}INSTALL BOT${NC}            ${C}│${NC}
   ${C}└───────────────────────────────────────────────────────────┘${NC}
   ${C}┌─────────────────────────────────────┐${NC}
   ${C}│${NC}   ${O}• Client Script Info •${NC}
@@ -607,7 +537,7 @@ echo -e "
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess
   ${C}└─────────────────────────────────────┘${NC}"
 echo -e ""
-read -p " Select Menu (1-16) : " opt
+read -p " Select Number Of Menu (1-16) : " opt
 echo -e ""
 case $opt in
 1) clear ; menu-ssh;;
