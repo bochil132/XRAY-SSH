@@ -343,5 +343,7 @@ sleep 5
 echo ""
 rm -f runscript.sh
 rm -f autopointing.sh
-rm -f log-install.txt
+rm -f log-indtall.txt
+rm -rf run.1
+rm -rf run
 reboot
