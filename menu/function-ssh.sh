@@ -114,9 +114,7 @@ ovpn2="$(netstat -nlpu | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | 
 clear
 systemctl restart ws-tls
 systemctl restart ws-nontls
-systemctl restart ssh-ohp
-systemctl restart dropbear-ohp
-systemctl restart openvpn-ohp
+
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 echo -e "${C}Wait.. Sett Up Accounts${NC}"
 sleep 1
@@ -179,9 +177,6 @@ Pass=1
 clear
 systemctl restart ws-tls
 systemctl restart ws-nontls
-systemctl restart ssh-ohp
-systemctl restart dropbear-ohp
-systemctl restart openvpn-ohp
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 echo -e "${C}Wait.. Sett Up Accounts${NC}"
 sleep 1
