@@ -442,6 +442,165 @@ echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
 }
+
+function limit(){
+# ==========================================
+# Color
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHT='\033[0;37m'
+# ==========================================
+# Getting
+MYIP=$(wget -qO- ipinfo.io/ip);
+echo "Checking VPS"
+IZIN=$( curl ipinfo.io/ip | grep $MYIP )
+if [ $MYIP = $MYIP ]; then
+echo -e "${NC}${GREEN}Permission Accepted...${NC}"
+else
+echo -e "${NC}${RED}Permission Denied!${NC}";
+echo -e "${NC}${LIGHT}Fuck You!!"
+exit 0
+fi
+clear
+echo " "
+echo "===========================================";
+echo " ";
+if [ -e "/root/log-limit.txt" ]; then
+echo "User Who Violate The Maximum Limit";
+echo "Time - Username - Number of Multilogin"
+echo "-------------------------------------";
+cat /root/log-limit.txt
+else
+echo " No user has committed a violation"
+echo " "
+echo " or"
+echo " "
+echo " The user-limit script not been executed."
+fi
+echo " ";
+echo "===========================================";
+echo " ";
+}
+
+function kil(){
+# ==========================================
+# Color
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHT='\033[0;37m'
+# ==========================================
+# Getting
+MYIP=$(wget -qO- ipinfo.io/ip);
+echo "Checking VPS"
+IZIN=$( curl ipinfo.io/ip | grep $MYIP )
+if [ $MYIP = $MYIP ]; then
+echo -e "${NC}${GREEN}Permission Accepted...${NC}"
+else
+echo -e "${NC}${RED}Permission Denied!${NC}";
+echo -e "${NC}${LIGHT}Fuck You!!"
+exit 0
+fi
+clear
+Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
+Info="${Green_font_prefix}[ON]${Font_color_suffix}"
+Error="${Red_font_prefix}[OFF]${Font_color_suffix}"
+cek=$(grep -c -E "^# Autokill" /etc/cron.d/tendang)
+if [[ "$cek" = "1" ]]; then
+sts="${Info}"
+else
+sts="${Error}"
+fi
+clear
+echo -e ""
+echo -e "=================================="
+echo -e "       Status Autokill $sts       "
+echo -e "=================================="
+echo -e "1. AutoKill After 5 Minutes"
+echo -e "2. AutoKill After 10 Minutes"
+echo -e "3. AutoKill After 15 Minutes"
+echo -e "4. Turn Off AutoKill/MultiLogin"
+echo -e "5. Exit"
+echo -e "=================================="                                                                                                          
+echo -e ""
+read -p "Select From Options [1-4 or x] :  " AutoKill
+read -p "Multilogin Maximum Number Of Allowed: " max
+echo -e ""
+case $AutoKill in
+                1)
+                echo -e ""
+                sleep 1
+                clear
+                echo > /etc/cron.d/tendang
+                echo "# Autokill" >>/etc/cron.d/tendang
+                echo "*/5 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+                echo -e ""
+                echo -e "======================================"
+                echo -e ""
+                echo -e "      Allowed MultiLogin : $max"
+                echo -e "      AutoKill Every     : 5 Minutes"      
+                echo -e ""
+                echo -e "======================================"                                                                                                                                 
+                exit                                                                  
+                ;;
+                2)
+                echo -e ""
+                sleep 1
+                clear
+                echo > /etc/cron.d/tendang
+                echo "# Autokill" >>/etc/cron.d/tendang
+                echo "*/10 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+                echo -e ""
+                echo -e "======================================"
+                echo -e ""
+                echo -e "      Allowed MultiLogin : $max"
+                echo -e "      AutoKill Every     : 10 Minutes"
+                echo -e ""
+                echo -e "======================================"
+                exit
+                ;;
+                3)
+                echo -e ""
+                sleep 1
+                clear
+                echo > /etc/cron.d/tendang
+                echo "# Autokill" >>/etc/cron.d/tendang
+                echo "*/15 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+                echo -e ""
+                echo -e "======================================"
+                echo -e ""
+                echo -e "      Allowed MultiLogin : $max"
+                echo -e "      AutoKill Every     : 15 Minutes"
+                echo -e ""
+                echo -e "======================================"
+                exit
+                ;;
+                4)
+                clear
+                echo > /etc/cron.d/tendang
+                echo -e ""
+                echo -e "======================================"
+                echo -e ""
+                echo -e "      AutoKill MultiLogin Turned Off  "
+                echo -e ""
+                echo -e "======================================"
+                exit
+                ;;
+                x)
+                clear
+                exit
+                ;;
+        esac
+}
 clear
 # // Status ws tls
 ssh_ws=$( systemctl status ws-nontls | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
@@ -474,6 +633,9 @@ echo -e " ${rd}4.)${NC}  Hapus Akun SSH & OpenVPN"
 echo -e " ${rd}5.)${NC}  Cek Login Akun SSH & OpenVPN"
 echo -e " ${rd}6.)${NC}  List Accounts SSH & OpenVPN"
 echo -e ""
+echo -e " ${rd}7.)${NC}  Autokill testing"
+echo -e " ${rd}8.)${NC}  Cek Limit testing"
+echo -e ""
 echo -e " ${rd}x.)${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}"
 echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
@@ -486,5 +648,7 @@ case $opt in
 04 | 4) clear ; hapus ;;
 05 | 5) clear ; cek ;;
 06 | 6) clear ; list ;;
+07 | 7) clear ; kil ;;
+08 | 8) clear ; limit ;;
 xx | x) clear ; menu ;;
 esac
