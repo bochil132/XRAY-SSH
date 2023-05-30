@@ -82,6 +82,7 @@ fi
 #color code
 export NC='\033[0m'
 export multi='\E[42;1;39m'
+export multi1='\E[41;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -455,44 +456,32 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 # ==========================================
-# Getting
-MYIP=$(wget -qO- ipinfo.io/ip);
-echo "Checking VPS"
-IZIN=$( curl ipinfo.io/ip | grep $MYIP )
-if [ $MYIP = $MYIP ]; then
-echo -e "${NC}${GREEN}Permission Accepted...${NC}"
-else
-echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Fuck You!!"
-exit 0
-fi
 clear
 echo " "
-echo "===========================================";
-echo " ";
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 if [ -e "/root/log-limit.txt" ]; then
-echo "User Who Violate The Maximum Limit";
-echo "Time - Username - Number of Multilogin"
-echo "-------------------------------------";
+echo -e "${multi1}     List of users who do multi-login     ${NC}";
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 cat /root/log-limit.txt
 else
-echo " No user has committed a violation"
+echo " User Multilogin No Detected.!!"
 echo " "
 echo " or"
 echo " "
-echo " The user-limit script not been executed."
+echo " Autokill Script Not Been Executed."
 fi
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 echo " ";
-echo "===========================================";
-echo " ";
+read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
+menu-ssh
 }
 
 function kil(){
 # ==========================================
 # Color
-RED='\033[0;31m'
-NC='\033[0m'
-GREEN='\033[0;32m'
+r='\033[0;31m'
+nc='\033[0m'
+g='\033[0;32m'
 ORANGE='\033[0;33m'
 BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
@@ -500,20 +489,10 @@ CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 # ==========================================
 # Getting
-MYIP=$(wget -qO- ipinfo.io/ip);
-echo "Checking VPS"
-IZIN=$( curl ipinfo.io/ip | grep $MYIP )
-if [ $MYIP = $MYIP ]; then
-echo -e "${NC}${GREEN}Permission Accepted...${NC}"
-else
-echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Fuck You!!"
-exit 0
-fi
 clear
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
-Info="${Green_font_prefix}[ON]${Font_color_suffix}"
-Error="${Red_font_prefix}[OFF]${Font_color_suffix}"
+Info="${Green_font_prefix}Running ( ON )${Font_color_suffix}"
+Error="${Red_font_prefix}Disable ( OFF )${Font_color_suffix}"
 cek=$(grep -c -E "^# Autokill" /etc/cron.d/tendang)
 if [[ "$cek" = "1" ]]; then
 sts="${Info}"
@@ -522,84 +501,104 @@ sts="${Error}"
 fi
 clear
 echo -e ""
-echo -e "=================================="
-echo -e "       Status Autokill $sts       "
-echo -e "=================================="
-echo -e "1. AutoKill After 5 Minutes"
-echo -e "2. AutoKill After 10 Minutes"
-echo -e "3. AutoKill After 15 Minutes"
-echo -e "4. Turn Off AutoKill/MultiLogin"
-echo -e "5. Exit"
-echo -e "=================================="                                                                                                          
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${multi1}              AUTOKILL MENU               ${NC}"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e " Autokill Is : $sts"
+echo ""
+echo -e " ${r}1.)${nc} AutoKill After 1 Minutes"
+echo -e " ${r}2.)${nc} AutoKill After 3 Minutes"
+echo -e " ${r}3.)${nc} AutoKill After 5 Minutes"
+echo -e " ${r}4.)${nc} Off Autokill Multilogin"
+echo ""
+echo -e " ${r}x.)${nc} Back To Menu"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"                                                                            
 echo -e ""
-read -p "Select From Options [1-4 or x] :  " AutoKill
-read -p "Multilogin Maximum Number Of Allowed: " max
+read -p "Input Your Choose :  " AutoKill
 echo -e ""
 case $AutoKill in
-                1)
-                echo -e ""
-                sleep 1
-                clear
-                echo > /etc/cron.d/tendang
-                echo "# Autokill" >>/etc/cron.d/tendang
-                echo "*/5 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-                echo -e ""
-                echo -e "======================================"
-                echo -e ""
-                echo -e "      Allowed MultiLogin : $max"
-                echo -e "      AutoKill Every     : 5 Minutes"      
-                echo -e ""
-                echo -e "======================================"                                                                                                                                 
-                exit                                                                  
-                ;;
-                2)
-                echo -e ""
-                sleep 1
-                clear
-                echo > /etc/cron.d/tendang
-                echo "# Autokill" >>/etc/cron.d/tendang
-                echo "*/10 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-                echo -e ""
-                echo -e "======================================"
-                echo -e ""
-                echo -e "      Allowed MultiLogin : $max"
-                echo -e "      AutoKill Every     : 10 Minutes"
-                echo -e ""
-                echo -e "======================================"
-                exit
-                ;;
-                3)
-                echo -e ""
-                sleep 1
-                clear
-                echo > /etc/cron.d/tendang
-                echo "# Autokill" >>/etc/cron.d/tendang
-                echo "*/15 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-                echo -e ""
-                echo -e "======================================"
-                echo -e ""
-                echo -e "      Allowed MultiLogin : $max"
-                echo -e "      AutoKill Every     : 15 Minutes"
-                echo -e ""
-                echo -e "======================================"
-                exit
-                ;;
-                4)
-                clear
-                echo > /etc/cron.d/tendang
-                echo -e ""
-                echo -e "======================================"
-                echo -e ""
-                echo -e "      AutoKill MultiLogin Turned Off  "
-                echo -e ""
-                echo -e "======================================"
-                exit
-                ;;
-                x)
-                clear
-                exit
-                ;;
-        esac
+1)
+echo -e ""
+read -p "$( echo -e "${r}=>${nc} ${g}Input Limit Allowed :${nc}") " max
+sleep 1
+clear
+echo > /etc/cron.d/tendang
+echo "# Autokill" >>/etc/cron.d/tendang
+echo "*/1 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+echo "*/2 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo -e ""
+echo -e "${r}┌────────────────────────────────────┐${nc}"
+echo -e ""
+echo -e "      ${g}Login Allowed   :${nc} $max Client"
+echo -e "      ${g}AutoKill Every  :${nc} 1 Minutes"      
+echo -e ""
+echo -e "${r}└────────────────────────────────────┘${nc}"                                                                                                                                 
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
+menu-ssh
+;;
+2)
+echo -e ""
+read -p "$( echo -e "${r}=>${nc} ${g}Input Limit Allowed :${nc}") " max
+sleep 1
+clear
+echo > /etc/cron.d/tendang
+echo "# Autokill" >>/etc/cron.d/tendang
+echo "*/3 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+echo "*/4 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo -e ""
+echo -e "${r}┌────────────────────────────────────┐${nc}"
+echo -e ""
+echo -e "      ${g}Login Allowed   :${nc} $max Client"
+echo -e "      ${g}AutoKill Every  :${nc} 3 Minutes"      
+echo -e ""
+echo -e "${r}└────────────────────────────────────┘${nc}"
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
+menu-ssh
+;;
+3)
+echo -e ""
+read -p "$( echo -e "${r}=>${nc} ${g}Input Limit Allowed :${nc}") " max
+sleep 1
+clear
+echo > /etc/cron.d/tendang
+echo "# Autokill" >>/etc/cron.d/tendang
+echo "*/5 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+echo "*/6 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo -e ""
+echo -e "${r}┌────────────────────────────────────┐${nc}"
+echo -e ""
+echo -e "      ${g}Login Allowed   :${nc} $max Client"
+echo -e "      ${g}AutoKill Every  :${nc} 5 Minutes"      
+echo -e ""
+echo -e "${r}└────────────────────────────────────┘${nc}"
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
+menu-ssh
+;;
+4)
+clear
+echo > /etc/cron.d/tendang
+echo -e ""
+echo -e "${g}======================================${nc}"
+echo -e ""
+echo -e "    ${r}AutoKill MultiLogin Turned Off${nc}  "
+echo -e ""
+echo -e "${g}======================================${nc}"
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
+menu-ssh
+;;
+x)
+clear
+menu
+;;
+x)
+clear
+exit
+;;
+esac
 }
 clear
 # // Status ws tls
@@ -633,8 +632,8 @@ echo -e " ${rd}4.)${NC}  Hapus Akun SSH & OpenVPN"
 echo -e " ${rd}5.)${NC}  Cek Login Akun SSH & OpenVPN"
 echo -e " ${rd}6.)${NC}  List Accounts SSH & OpenVPN"
 echo -e ""
-echo -e " ${rd}7.)${NC}  Autokill testing"
-echo -e " ${rd}8.)${NC}  Cek Limit testing"
+echo -e " ${rd}7.)${NC}  Autokill User Multilogin"
+echo -e " ${rd}8.)${NC}  Show User Multilogin"
 echo -e ""
 echo -e " ${rd}x.)${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}"
 echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
