@@ -586,6 +586,7 @@ echo -e ""
 echo -e "    ${r}AutoKill MultiLogin Turned Off${nc}  "
 echo -e ""
 echo -e "${g}======================================${nc}"
+rm -rf log-limit.txt
 echo ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
