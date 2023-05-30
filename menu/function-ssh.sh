@@ -525,7 +525,7 @@ clear
 echo > /etc/cron.d/tendang
 echo "# Autokill" >>/etc/cron.d/tendang
 echo "*/1 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-echo "*/2 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo "*/1 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
 echo -e ""
 echo -e "${r}┌────────────────────────────────────┐${nc}"
 echo -e ""
@@ -545,7 +545,7 @@ clear
 echo > /etc/cron.d/tendang
 echo "# Autokill" >>/etc/cron.d/tendang
 echo "*/3 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-echo "*/4 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo "*/3 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
 echo -e ""
 echo -e "${r}┌────────────────────────────────────┐${nc}"
 echo -e ""
@@ -565,7 +565,7 @@ clear
 echo > /etc/cron.d/tendang
 echo "# Autokill" >>/etc/cron.d/tendang
 echo "*/5 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-echo "*/6 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo "*/5 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
 echo -e ""
 echo -e "${r}┌────────────────────────────────────┐${nc}"
 echo -e ""
