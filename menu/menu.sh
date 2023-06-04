@@ -373,9 +373,6 @@ systemctl restart ws-tls
 systemctl restart ws-nontls
 systemctl restart xray
 systemctl restart ws-ovpn
-systemctl restart ssh-ohp
-systemctl restart dropbear-ohp
-systemctl restart openvpn-ohp
 /etc/init.d/ssh restart
 /etc/init.d/dropbear restart
 /etc/init.d/sslh restart
