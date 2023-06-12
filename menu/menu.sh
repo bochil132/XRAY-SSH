@@ -51,9 +51,6 @@ cron=$(systemctl status cron | grep Active | awk '{print $3}' | cut -d "(" -f2 |
 sqd=$(systemctl status squid | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 nginx=$(systemctl status nginx | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 osslh=$(systemctl status sslh | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-ohp=$(systemctl status dropbear-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-ohq=$(systemctl status openvpn-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-ohr=$(systemctl status ssh-ohp | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 udpsts=$(systemctl status udp-custom | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 
 # COLOR VALIDATION
@@ -275,7 +272,7 @@ echo -e " ${green}•${NC} SSHD                         = $shdd"
 echo -e " ${green}•${NC} BADVPN UDPGW                 = $udpw"
 echo -e " ${green}•${NC} CRONTAB                      = $cr"
 echo -e " ${green}•${NC} SQUID PROXY                  = $sq"
-echo -e " ${green}•${NC} UDP CUSTOM                   = ${udp}"
+echo -e " ${green}•${NC} SSH UDP                      = ${udp}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
@@ -439,9 +436,6 @@ systemctl restart ws-tls
 systemctl restart ws-nontls
 systemctl restart xray
 systemctl restart ws-ovpn
-systemctl restart ssh-ohp
-systemctl restart dropbear-ohp
-systemctl restart openvpn-ohp
 /etc/init.d/ssh restart
 /etc/init.d/dropbear restart
 /etc/init.d/sslh restart
@@ -454,7 +448,7 @@ systemctl restart openvpn-ohp
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 1000
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 1000
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 1000
-echo -e "Restart All Service Berhasil"
+echo -e "Restart All Service Succesfully"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
 menu
@@ -486,6 +480,7 @@ esac
 clear
 day=$(date "+%A")
 jam=$(date "+%T")
+script_info=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/script-update)
 totalram=$(free -m | awk 'NR==2 {print $2}')
 usageram=$(free -m | awk 'NR==2 {print $3}')
 ip=$(curl -sS ipv4.icanhazip.com)
@@ -533,7 +528,10 @@ echo -e "
   ${C}│${NC}   ${yl}TROJAN-WS   :${NC} $trojanws
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess
   ${C}└─────────────────────────────────────┘${NC}"
-echo -e ""
+echo -e "
+${yl}${script_info}${NC}
+"
+echo ""
 read -p " Select Number Of Menu (1-16) : " opt
 echo -e ""
 case $opt in
