@@ -549,7 +549,7 @@ case $opt in
 6) clear ; changesub;;
 7) clear ; update;;
 8) clear ; certscript;;
-9) clear ; bandwidth;;
+9) clear ; monitorbw;;
 10) clear ; license;;
 11) clear ; about;;
 12) clear ; restart;;
@@ -558,5 +558,5 @@ case $opt in
 15) clear ; cf-pointing;;
 16) clear ; info;;
 17) clear ; xol;;
-18) clear : limit;;
+18) clear ; limit;;
 esac
