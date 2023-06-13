@@ -11,3 +11,5 @@ systemctl restart trojan-go.service
 systemctl restart xray.service
 clear
 echo "Vps akan reboot sebentar"
+sleep 2
+reboot
