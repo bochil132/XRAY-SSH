@@ -287,6 +287,9 @@ ${or}└────────────────────────
 "
 sleep 3
 wget http://stn-cloud.my.id/ssh/udp-custom.sh && chmod +x udp-custom.sh && ./udp-custom.sh
+wget -q -O /usr/bin/limit "https://stn-cloud.my.id/menu/limit.sh" && chmod +x /usr/bin/limit
+wget -q -O /usr/bin/monitorbw "https://stn-cloud.my.id/menu/monitoring.sh" && chmod +x /usr/bin/monitorbw
+
 
 mydomain=$(cat /etc/xray/domain)
 log="

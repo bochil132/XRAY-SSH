@@ -298,6 +298,8 @@ wget -q -O /usr/bin/bkp "https://stn-cloud.my.id/backup/autobackup.sh" && chmod 
 wget -q -O /usr/bin/info "https://stn-cloud.my.id/ssh/info.sh" && chmod +x /usr/bin/info
 wget -q -O /usr/bin/exp "https://stn-cloud.my.id/ssh/autoremove.sh" && chmod +x /usr/bin/exp
 wget -q -O /usr/bin/wbmn "https://stn-cloud.my.id/ssh/webmin.sh" && chmod +x /usr/bin/wbmn
+wget -q -O /usr/bin/limit "https://stn-cloud.my.id/menu/limit.sh" && chmod +x /usr/bin/limit
+wget -q -O /usr/bin/monitorbw "https://stn-cloud.my.id/menu/monitoring.sh" && chmod +x /usr/bin/monitorbw
 sleep 2
 echo -e "${or}Update AutoScript XRAY-SSH Succesfuly${NC}"
 echo -e ""
@@ -508,14 +510,15 @@ echo -e "
                  ${C}│${NC}${new} ☟☟ FOR MENU AUTOSCRIPT ☟☟ ${NC}${C}│${NC}
                  ${C}└───────────────────────────┘${NC}
   ${C}┌───────────────────────────────────────────────────────────┐${NC}
-  ${C}│${NC}     ${rd}1.)${NC} ${O}MENU SSH-WS${NC}            ${rd}9.)${NC} ${O}ADMIN REGIS IP${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}2.)${NC} ${O}MENU VMESS-WS${NC}         ${rd}10.)${NC} ${O}ABOUT SCRIPT${NC}           ${C}│${NC}
-  ${C}│${NC}     ${rd}3.)${NC} ${O}MENU TROJAN-WS${NC}        ${rd}11.)${NC} ${O}RESTART SERVICE${NC}        ${C}│${NC}
-  ${C}│${NC}     ${rd}4.)${NC} ${O}BACKUP & RESTORE${NC}      ${rd}12.)${NC} ${O}REBOOT SYSTEM${NC}          ${C}│${NC}
-  ${C}│${NC}     ${rd}5.)${NC} ${O}RUNNING SERVICE${NC}       ${rd}13.)${NC} ${O}INSTALL WEBMIN${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}6.)${NC} ${O}CHANGE DOMAIN${NC}         ${rd}14.)${NC} ${O}CLOUDFLARE DNS${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}7.)${NC} ${O}UPDATE SCRIPT${NC}         ${rd}15.)${NC} ${O}PORT INFO${NC}              ${C}│${NC}
-  ${C}│${NC}     ${rd}8.)${NC} ${O}RENEW CERT SSL${NC}        ${rd}16.)${NC} ${O}INSTALL BOT${NC}            ${C}│${NC}
+  ${C}│${NC}     ${rd}1.)${NC} ${O}MENU SSH-WS${NC}           ${rd}10.)${NC} ${O}ADMIN REGIS IP${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}2.)${NC} ${O}MENU VMESS-WS${NC}         ${rd}11.)${NC} ${O}ABOUT SCRIPT${NC}           ${C}│${NC}
+  ${C}│${NC}     ${rd}3.)${NC} ${O}MENU TROJAN-WS${NC}        ${rd}12.)${NC} ${O}RESTART SERVICE${NC}        ${C}│${NC}
+  ${C}│${NC}     ${rd}4.)${NC} ${O}BACKUP & RESTORE${NC}      ${rd}13.)${NC} ${O}REBOOT SYSTEM${NC}          ${C}│${NC}
+  ${C}│${NC}     ${rd}5.)${NC} ${O}RUNNING SERVICE${NC}       ${rd}14.)${NC} ${O}INSTALL WEBMIN${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}6.)${NC} ${O}CHANGE DOMAIN${NC}         ${rd}15.)${NC} ${O}CLOUDFLARE DNS${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}7.)${NC} ${O}UPDATE SCRIPT${NC}         ${rd}16.)${NC} ${O}PORT INFO${NC}              ${C}│${NC}
+  ${C}│${NC}     ${rd}8.)${NC} ${O}RENEW CERT SSL${NC}        ${rd}17.)${NC} ${O}INSTALL BOT${NC}            ${C}│${NC}
+  ${C}│${NC}     ${rd}9.)${NC} ${O}BANDWIDTH USAGE${NC}       ${rd}18.)${NC} ${O}LIMIT SPEED${NC}            ${C}│${NC}
   ${C}└───────────────────────────────────────────────────────────┘${NC}
   ${C}┌─────────────────────────────────────┐${NC}
   ${C}│${NC}   ${O}• Client Script Info •${NC}
@@ -529,10 +532,14 @@ echo -e "
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess
   ${C}└─────────────────────────────────────┘${NC}"
 echo -e "
- ${yl}${script_info}${NC}
+   ${yl}${script_info}${NC}
 "
-read -p " Select Number Of Menu (1-16) : " opt
+read -p " Select Options Number ($( echo -e "${O}1-18${NC})") : " opt
 echo -e ""
+if [ -z $opt ]; then
+echo -e "${rd}Options Number Not Selected.!!${NC}"
+echo ""
+fi
 case $opt in
 1) clear ; menu-ssh;;
 2) clear ; menu-vmess;;
@@ -542,13 +549,14 @@ case $opt in
 6) clear ; changesub;;
 7) clear ; update;;
 8) clear ; certscript;;
-9) clear ; license;;
-10) clear ; about;;
-11) clear ; restart;;
-12) clear : reboot;;
-13) clear ; wbmn;;
-14) clear ; cf-pointing;;
-15) clear ; info;;
-16) clear ; xol;;
-17) clear : speedtest;;
+9) clear ; bandwidth;;
+10) clear ; license;;
+11) clear ; about;;
+12) clear ; restart;;
+13) clear : reboot;;
+14) clear ; wbmn;;
+15) clear ; cf-pointing;;
+16) clear ; info;;
+17) clear ; xol;;
+18) clear : limit;;
 esac
