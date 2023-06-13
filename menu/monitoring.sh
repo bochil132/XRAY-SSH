@@ -84,5 +84,5 @@ day
 month
 ;;
 *)
-echo -e "" ; sleep 1 ; monitorbw
+echo -e "" ; sleep 1 ; menu
 esac
