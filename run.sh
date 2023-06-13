@@ -373,7 +373,8 @@ sleep 5
 echo ""
 rm -f runscript.sh
 rm -f autopointing.sh
+rm -f udp-custom.sh
 rm -f log-indtall.txt
-rm -rf run.1
-rm -rf run
+rm -rf run.sh
+rm -rf run.sh.1
 reboot

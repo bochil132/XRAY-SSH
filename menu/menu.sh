@@ -529,9 +529,8 @@ echo -e "
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess
   ${C}└─────────────────────────────────────┘${NC}"
 echo -e "
-${yl}${script_info}${NC}
+ ${yl}${script_info}${NC}
 "
-echo ""
 read -p " Select Number Of Menu (1-16) : " opt
 echo -e ""
 case $opt in
