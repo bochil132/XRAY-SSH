@@ -16,6 +16,10 @@ export R='\e[31;1m'
 export G="\033[0;32m"
 export B='\033[0;34m'
 export O='\033[0;33m'
+export light='\033[0;37m'
+export W='\033[0;97m'
+export end='\033[0m'
+export all='\E[42;1;39m'
 
 function status(){
 #########################
@@ -309,6 +313,8 @@ menu
 
 function about(){
 clear
+echo -e " Saya Berkarya Sesuai Kemampuan Saya Sendiri :)"
+echo -e " Maafkan Saya Jika Saya Salah Dalam Menulis Kata²"
 echo -e "================================================="
 echo -e "#        AutoScript Installer XRAY-SSH          #"
 echo -e "================================================="
@@ -431,28 +437,131 @@ menu
 
 function restart(){
 clear
-echo -e ""
-echo -e "Starting Restart All Service"
-sleep 2
-systemctl restart ws-tls
-systemctl restart ws-nontls
-systemctl restart xray
-systemctl restart ws-ovpn
-/etc/init.d/ssh restart
-/etc/init.d/dropbear restart
-/etc/init.d/sslh restart
-/etc/init.d/stunnel5 restart
-/etc/init.d/openvpn restart
-/etc/init.d/fail2ban restart
-/etc/init.d/cron restart
-/etc/init.d/nginx restart
-/etc/init.d/squid restart
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+clear
+fun_bar() {
+    CMD[0]="$1"
+    CMD[1]="$2"
+    (
+        [[ -e $HOME/fim ]] && rm $HOME/fim
+        ${CMD[0]} -y >/dev/null 2>&1
+        ${CMD[1]} -y >/dev/null 2>&1
+        touch $HOME/fim
+    ) >/dev/null 2>&1 &
+    tput civis
+    echo -ne "  \033[0;33m\033[1;37m- \033[0;33m["
+    while true; do
+        for ((i = 0; i < 8; i++)); do
+            echo -ne "\033[0;32m🟣"
+            sleep 0.1s
+        done
+        [[ -e $HOME/fim ]] && rm $HOME/fim && break
+        echo -e "\033[0;33m]"
+        sleep 1s
+        tput cuu1
+        tput dl1
+        echo -ne "  \033[0;33m\033[1;37m- \033[0;33m["
+    done
+    echo -e "\033[0;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
+    tput cnorm
+}
+res1() {
+    systemctl daemon-reload
+}
+res2() {
+    systemctl restart nginx.service
+}
+res3() {
+    systemctl restart xray.service
+}
+res4() {
+    systemctl restart rc-local.service
+}
+res5() {
+    systemctl restart dropbear.service
+}
+res6() {
+    systemctl restart stunnel5.service
+}
+res7() {
+    systemctl restart sshd.service
+}
+res8() {
+    systemctl restart sslh.service
+}
+res9() {
+    systemctl restart openvpn.service
+}
+res10() {
+    systemctl restart cron.service
+}
+res11() {
+    systemctl restart trojan-go.service
+}
+res12() {
+    systemctl restart ws-tls.service
+}
+res13() {
+    systemctl restart ws-nontls.service
+}
+res14() {
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 1000
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 1000
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 1000
-echo -e "Restart All Service Succesfully"
+}
+
+res15() {
+systemctl restart udp-custom.service
+}
+
+res16() {
+systemctl restart fail2ban.service
+}
+
+res17() {
+systemctl restart squid.service
+}
+
+
+clear
+echo -e "\e[31;1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+  echo -e "\E[47;1;39m       RESTART SERVICE YOU SERVER         \e[0m"
+  echo -e "\e[31;1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "  \033[1;33m Service Daemon-Reload\033[1;37m"
+fun_bar 'res1'
+echo -e "  \033[1;33m Service Restart Nginx\033[1;37m"
+fun_bar 'res2'
+echo -e "  \033[1;33m Service Restart Xray\033[1;37m"
+fun_bar 'res3'
+echo -e "  \033[1;33m Service Restart Rc-Local\033[1;37m"
+fun_bar 'res4'
+echo -e "  \033[1;33m Service Restart Dropbear\033[1;37m"
+fun_bar 'res5'
+echo -e "  \033[1;33m Service Restart Stunnel5\033[1;37m"
+fun_bar 'res6'
+echo -e "  \033[1;33m Service Restart Sshd\033[1;37m"
+fun_bar 'res7'
+echo -e "  \033[1;33m Service Restart Sslh\033[1;37m"
+fun_bar 'res8'
+echo -e "  \033[1;33m Service Restart OpenVpn\033[1;37m"
+fun_bar 'res9'
+echo -e "  \033[1;33m Service Restart Cron\033[1;37m"
+fun_bar 'res10'
+echo -e "  \033[1;33m Service Restart Trojan-Go\033[1;37m"
+fun_bar 'res11'
+echo -e "  \033[1;33m Service Restart Ws-TLS\033[1;37m"
+fun_bar 'res12'
+echo -e "  \033[1;33m Service Restart Ws-NonTLS\033[1;37m"
+fun_bar 'res13'
+echo -e "  \033[1;33m Service Restart Ssh-UDP\033[1;37m"
+fun_bar 'res14'
+echo -e "  \033[1;33m Service Restart Fail2ban\033[1;37m"
+fun_bar 'res15'
+echo -e "  \033[1;33m Service Restart Squid-Proxy\033[1;37m"
+fun_bar 'res16'
+  echo -e "\e[31;1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e ""
-read -n 1 -s -r -p "Tap Enter To Back Home-Menu"
+read -n 1 -s -r -p "Tap ( Enter ) to back menu.!!"
 menu
 }
 
@@ -498,26 +607,25 @@ downusage="$(vnstat -i eth0 | grep "today" | awk '{print $2" "substr ($3, 1, 1)}
 trojanws=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
 sshws="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
 vmess=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
-echo -e "
-  ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
- ${C}│${NC}         ${yl}Hi, Wellcome To AutoScript SSH & Xray Only${NC}         ${C}│${NC}
+echo -e "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
+echo -e " ${C}│${NC}         ${yl}Hi, Wellcome To AutoScript SSH & Xray Only${NC}         ${C}│${NC}
  ${C}│${NC}            ${yl}Thanks You For Using This AutoScript${NC}            ${C}│${NC}
- ${C}│${NC}                  ${rd}Script credit by @Horass${NC}                  ${C}│${NC}
-  ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
-   ${O}Tanggal : ${biji}   Waktu : ${jam}   Hari : ${day}${NC}
+ ${C}│${NC}                  ${rd}Script credit by @Horass${NC}                  ${C}│${NC}"
+echo -e "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
+echo -e "   ${O}Tanggal :${NC} ${light}${biji}${NC}   ${O}Waktu :${NC} ${light}${jam}${NC}   ${O}Hari :${NC} ${light}${day}${NC}
   ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
                  ${C}┌───────────────────────────┐${NC}
-                 ${C}│${NC}${new} ☟☟ FOR MENU AUTOSCRIPT ☟☟ ${NC}${C}│${NC}
+                 ${C}│${NC}${new} ☟☟ FOR MENU AUTOSCRIPT ☟☟ ${end}${C}│${NC}
                  ${C}└───────────────────────────┘${NC}
   ${C}┌───────────────────────────────────────────────────────────┐${NC}
-  ${C}│${NC}     ${rd}1.)${NC} ${O}MENU SSH-WS${NC}           ${rd}10.)${NC} ${O}ADMIN REGIS IP${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}1.)${NC} ${O}MENU SSH-WS${NC}           ${rd}10.)${NC} ${O}REGISTER IP CLIENT${NC}     ${C}│${NC}
   ${C}│${NC}     ${rd}2.)${NC} ${O}MENU VMESS-WS${NC}         ${rd}11.)${NC} ${O}ABOUT SCRIPT${NC}           ${C}│${NC}
   ${C}│${NC}     ${rd}3.)${NC} ${O}MENU TROJAN-WS${NC}        ${rd}12.)${NC} ${O}RESTART SERVICE${NC}        ${C}│${NC}
-  ${C}│${NC}     ${rd}4.)${NC} ${O}BACKUP & RESTORE${NC}      ${rd}13.)${NC} ${O}REBOOT SYSTEM${NC}          ${C}│${NC}
+  ${C}│${NC}     ${rd}4.)${NC} ${O}BACKUP/RESTORE${NC}        ${rd}13.)${NC} ${O}REBOOT SERVER${NC}          ${C}│${NC}
   ${C}│${NC}     ${rd}5.)${NC} ${O}RUNNING SERVICE${NC}       ${rd}14.)${NC} ${O}INSTALL WEBMIN${NC}         ${C}│${NC}
-  ${C}│${NC}     ${rd}6.)${NC} ${O}CHANGE DOMAIN${NC}         ${rd}15.)${NC} ${O}CLOUDFLARE DNS${NC}         ${C}│${NC}
+  ${C}│${NC}     ${rd}6.)${NC} ${O}CHANGE DOMAIN${NC}         ${rd}15.)${NC} ${O}POINTING DNS${NC}           ${C}│${NC}
   ${C}│${NC}     ${rd}7.)${NC} ${O}UPDATE SCRIPT${NC}         ${rd}16.)${NC} ${O}PORT INFO${NC}              ${C}│${NC}
-  ${C}│${NC}     ${rd}8.)${NC} ${O}RENEW CERT SSL${NC}        ${rd}17.)${NC} ${O}INSTALL BOT${NC}            ${C}│${NC}
+  ${C}│${NC}     ${rd}8.)${NC} ${O}RENEW CERT SSL${NC}        ${rd}17.)${NC} ${O}SIMPLE BOT${NC}             ${C}│${NC}
   ${C}│${NC}     ${rd}9.)${NC} ${O}BANDWIDTH USAGE${NC}       ${rd}18.)${NC} ${O}LIMIT SPEED${NC}            ${C}│${NC}
   ${C}└───────────────────────────────────────────────────────────┘${NC}
   ${C}┌─────────────────────────────────────┐${NC}
@@ -532,7 +640,7 @@ echo -e "
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess
   ${C}└─────────────────────────────────────┘${NC}"
 echo -e "
-   ${yl}${script_info}${NC}
+   ${light}${script_info}${NC}
 "
 read -p " Select Options Number ($( echo -e "${O}1-18${NC})") : " opt
 echo -e ""

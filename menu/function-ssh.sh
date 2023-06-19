@@ -25,6 +25,7 @@ BURIQ () {
     rm -f /root/tmp
 }
 
+todaytime=$(date +"%H:%M:%S")
 cityinfo=$(curl -s ipinfo.io/city )
 MYIP=$(curl -sS ipv4.icanhazip.com)
 Name=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $MYIP | awk '{print $2}')
@@ -125,31 +126,30 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 clear
 echo -e ""
-echo -e "•──────────────────•"
-echo -e " Your Premium Accounts"
-echo -e "•──────────────────•"
-echo -e "Username : $Login"
-echo -e "Password : $Pass"
-echo -e "Created = $hariini"
-echo -e "Expired = $expi"
-echo -e "•──────────────────•"
-echo -e "» City : $cityinfo"
-echo -e "» Domain : ${domain}"
-echo -e "» Ws None Tls : $ws2"
-echo -e "» Ws Tls : $ws"
-echo -e "» Dropbear : 143, 109"
-echo -e "» UDP Custom : 1-65535"
-echo -e "» SSL/TLS :$ssl"
-echo -e "» Squid :$sqd"
-echo -e "» OpenVPN WS : 2086"
-echo -e "» OpenVPN SSL : 990"
-echo -e "» UDPGW : 7100 - 7300"
-echo -e "•──────────────────•"
+echo -e "Account Created Successfully"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "°Username : $Login"
+echo -e "°Password : $Pass"
+echo -e "°Created : $hariini"
+echo -e "°Expired : $expi"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "City : $cityinfo"
+echo -e "Domain : ${domain}"
+echo -e "Port Ws None Tls : $ws2"
+echo -e "Port Ws Tls : $ws"
+echo -e "Port Dropbear : 143, 109"
+echo -e "Port SSH UDP: 1-65535"
+echo -e "Port Stunnel :$ssl"
+echo -e "Port Squid :$sqd"
+echo -e "Port OpenVPN WS : 2086"
+echo -e "Port OpenVPN SSL : 990"
+echo -e "Port UDPGW : 7100 - 7300"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
 echo -e "•Link Config OpenVPN•"
 echo -e "TCP: http://${domain}:89/tcp.ovpn"
 echo -e "UDP: http://${domain}:89/udp.ovpn"
 echo -e "SSL: http://${domain}:89/ssl.ovpn"
-echo -e "•──────────────────•"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
@@ -187,32 +187,30 @@ expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 clear
 echo -e ""
-echo -e ""
-echo -e "•──────────────────•"
-echo -e " Your Premium Accounts"
-echo -e "•──────────────────•"
-echo -e "Username : $Login"
-echo -e "Password : $Pass"
-echo -e "Created = $hariini"
-echo -e "Expired = $expi"
-echo -e "•──────────────────•"
-echo -e "» City : $cityinfo"
-echo -e "» Domain : ${domain}"
-echo -e "» Ws None Tls : $ws2"
-echo -e "» Ws Tls : $ws"
-echo -e "» Dropbear : 143, 109"
-echo -e "» UDP Custom : 1-65535"
-echo -e "» SSL/TLS :$ssl"
-echo -e "» Squid :$sqd"
-echo -e "» OpenVPN WS : 2086"
-echo -e "» OpenVPN SSL : 990"
-echo -e "» UDPGW : 7100 - 7300"
-echo -e "•──────────────────•"
+echo -e "Account Created Successfully"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "°Username : $Login"
+echo -e "°Password : $Pass"
+echo -e "°Created : $hariini"
+echo -e "°Expired : $expi"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "City : $cityinfo"
+echo -e "Domain : ${domain}"
+echo -e "Port Ws None Tls : $ws2"
+echo -e "Port Ws Tls : $ws"
+echo -e "Port Dropbear : 143, 109"
+echo -e "Port SSH UDP : 1-65535"
+echo -e "Port Stunnel :$ssl"
+echo -e "Port Squid :$sqd"
+echo -e "Port OpenVPN WS : 2086"
+echo -e "Port OpenVPN SSL : 990"
+echo -e "Port UDPGW : 7100 - 7300"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
 echo -e "•Link Config OpenVPN•"
 echo -e "TCP: http://${domain}:89/tcp.ovpn"
 echo -e "UDP: http://${domain}:89/udp.ovpn"
 echo -e "SSL: http://${domain}:89/ssl.ovpn"
-echo -e "•──────────────────•"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
@@ -458,6 +456,9 @@ LIGHT='\033[0;37m'
 # ==========================================
 clear
 echo " "
+echo -e "${ORANGE}[√] • Auto delete log user multilogin${NC}";
+echo -e "${ORANGE}[√] • Time auto delete log : 09:00:00${NC}";
+echo -e "${ORANGE}[√] • Today Time           : ${todaytime}${NC}";
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
 if [ -e "/root/log-limit.txt" ]; then
 echo -e "${multi1}     List of users who do multi-login     ${NC}";
@@ -525,7 +526,7 @@ clear
 echo > /etc/cron.d/tendang
 echo "# Autokill" >>/etc/cron.d/tendang
 echo "*/1 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-echo "*/1 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo "0 9 * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
 echo -e ""
 echo -e "${r}┌────────────────────────────────────┐${nc}"
 echo -e ""
@@ -545,7 +546,7 @@ clear
 echo > /etc/cron.d/tendang
 echo "# Autokill" >>/etc/cron.d/tendang
 echo "*/3 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-echo "*/3 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo "0 9 * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
 echo -e ""
 echo -e "${r}┌────────────────────────────────────┐${nc}"
 echo -e ""
@@ -565,7 +566,7 @@ clear
 echo > /etc/cron.d/tendang
 echo "# Autokill" >>/etc/cron.d/tendang
 echo "*/5 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
-echo "*/5 * * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
+echo "0 9 * * * root rm -rf log-limit.txt" >>/etc/cron.d/tendang
 echo -e ""
 echo -e "${r}┌────────────────────────────────────┐${nc}"
 echo -e ""
@@ -634,7 +635,7 @@ echo -e " ${rd}5.)${NC}  Cek Login Akun SSH & OpenVPN"
 echo -e " ${rd}6.)${NC}  List Accounts SSH & OpenVPN"
 echo -e ""
 echo -e " ${rd}7.)${NC}  Autokill User Multilogin"
-echo -e " ${rd}8.)${NC}  Show User Multilogin"
+echo -e " ${rd}8.)${NC}  View Log User Multilogim"
 echo -e ""
 echo -e " ${rd}x.)${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}"
 echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
