@@ -91,6 +91,9 @@ export R='\e[31;1m'
 export G="\033[0;32m"
 export B='\033[0;34m'
 export O='\033[0;33m'
+# // My Code
+limit_down=$(cat /etc/mylimit/limit_download.txt)
+limit_up=$(cat /etc/mylimit/limit_upload.txt)
 
 #/ Start Limit Speed
 function start(){
@@ -107,6 +110,10 @@ wondershaper -a eth0 -d $down -u $up
 sleep 1
 clear
 echo -e "${yl}Limit Speed Server Success Started.!!${NC}"
+sleep 0.5
+mkdir -p /etc/mylimit
+echo "${up}" >/etc/mylimit/limit_upload.txt
+echo "${down}" >/etc/mylimit/limit_download.txt
 echo ""
 read -n 1 -s -r -p "Enter to back.!!"
 limit
@@ -126,7 +133,8 @@ echo "3"
 sleep 3
 clear
 wondershaper -c -a eth0
-echo -e "${y}Successfuly.. stop limit speed${NC}"
+echo -e "${yl}Successfuly.. stop limit speed${NC}"
+rm -rf /etc/mylimit
 echo ""
 read -n 1 -s -r -p "Enter to back.!!"
 limit
@@ -149,27 +157,28 @@ wondershaper -a eth0 -d $down_change -u $up_change
 sleep 2
 clear
 echo -e "${yl}Change Limit Speed Successfully.!!${NC}"
+rm -rf /etc/mylimit/limit_upload.txt
+rm -rf /etc/mylimit/limit_download.txt
+echo "${up_change}" >/etc/mylimit/limit_upload.txt
+echo "${down_change}" >/etc/mylimit/limit_download.txt
 echo ""
 read -n 1 -s -r -p "Enter to back.!!"
 limit
 }
 #//
 clear
-limit_down=$(cat /etc/limit_download.txt)
-limit_up=$(cat /etc/limit_upload.txt)
+
 echo -e "
 ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
 ${multi}               • LIMIT SPEED SERVER •              ${NC}
 ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
- ${O}~ Limit Download :${NC} $limit_down
- ${O}~ Limit Upload   :${NC} $limit_up"
+ ${O}~ Limit Download :${NC} ${limit_down} kbps
+ ${O}~ Limit Upload   :${NC} ${limit_up} kbps"
 echo -e "
  ${rd}1.)${NC} Start Limit Speed Server
  ${rd}2.)${NC} Stop Limit Speed Server
  ${rd}3.)${NC} Change Limit Speed Server"
 echo -e "
- ${yl}Please select start, so that the following
- text disappears (no such file or directory)${NC}
 ${C}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo "Tap enter to go back menu"
 echo ""

@@ -291,6 +291,7 @@ echo -e "
 ================================================="
 sleep 1
 wget -q -O /usr/bin/cf-pointing "https://stn-cloud.my.id/menu/cloudflare-pointing.sh" && chmod +x /usr/bin/cf-pointing
+wget -q -O /usr/bin/aubckp "https://stn-cloud.my.id/backup/autobckp.sh" && chmod +x /usr/bin/aubckp
 wget -q -O /usr/bin/cf-setting "https://stn-cloud.my.id/menu/cloudflare-setting.sh" && chmod +x /usr/bin/cf-setting
 wget -q -O /usr/bin/menu "https://stn-cloud.my.id/menu/menu.sh" && chmod +x /usr/bin/menu
 wget -q -O /usr/bin/menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh" && chmod +x /usr/bin/menu-ssh

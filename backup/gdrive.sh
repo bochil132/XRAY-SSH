@@ -111,20 +111,23 @@ export multi='\E[41;1;39m'
 export NC='\033[0m'
 GREEN() { echo -e "\\033[32;1m${*}\\033[0m"; }
 RED() { echo -e "\\033[31;1m${*}\\033[0m"; }
-
-
-clear
-
-function backup(){
-clear
-if [ -f "/etc/show/dia.txt" ]; then
+# // My Code
 IP=$(curl -sS ipv4.icanhazip.com);
 apigit=$(cat /etc/bckp/token.txt)
 emailgit=$(cat /etc/bckp/gmail.txt)
+gue=$(cat /etc/show/gue.txt)
+dia=$(cat /etc/show/dia.txt)
+domainname=$(cat /etc/xray/domain)
+namegit=$(cat /etc/bckp/name.txt)
+reponame=$(cat /etc/bckp/repo.txt)
 date=$(date +"%Y-%m-%d")
 
 clear
-NameUser=Backup`</dev/urandom tr -dc X-Z0-9 | head -c4`
+function bckp_manual(){
+clear
+if [ -f "/etc/show/dia.txt" ]; then
+clear
+NameUser=bckp`</dev/urandom tr -dc X-Z0-9 | head -c4`
 read -rp "$(echo -e "${IWhite}Server Name Info : ${NC}")" -e servername
 read -rp "$(echo -e "${IWhite}Password Backup  : ${NC}")" -e InputPass
 sleep 1
@@ -135,6 +138,8 @@ echo -e "[ ${GREEN}Wait${NC} ] Processing... "
 mkdir -p /root/backup
 sleep 1
 
+cp -r /etc/bckp /root/backup/bckp/ &> /dev/null
+cp -r /etc/show /root/backup/show/ &> /dev/null
 cp -r /root/.acme.sh /root/backup/ &> /dev/null
 cp -r /etc/xray /root/backup/xray/ &> /dev/null
 cp -r /etc/trojan-go /root/backup/trojan-go/ &> /dev/null
@@ -154,7 +159,7 @@ zip -rP $InputPass $NameUser.zip backup > /dev/null 2>&1
 ##############++++++++++++++++++++++++#############
 LLatest=`date`
 Get_Data () {
-git clone https://github.com/bochil132/userbackup.git /root/user-backup/ &> /dev/null
+git clone https://github.com/${namegit}/${reponame}.git /root/user-backup/ &> /dev/null
 }
 
 Mkdir_Data () {
@@ -174,14 +179,14 @@ mv /root/$NameUser.zip /root/user-backup/$NameUser/
 Save_And_Exit () {
     cd /root/user-backup
     git config --global user.email "${emailgit}" &> /dev/null
-    git config --global user.name "bochil132" &> /dev/null
+    git config --global user.name "${namegit}" &> /dev/null
     rm -fr .git &> /dev/null
     git init &> /dev/null
     git add . &> /dev/null
     git commit -m m &> /dev/null
     git branch -M main &> /dev/null
-    git remote add origin https://github.com/bochil132/userbackup
-    git push -f https://${apigit}@github.com/bochil132/userbackup.git &> /dev/null
+    git remote add origin https://github.com/${namegit}/${reponame}
+    git push -f https://${apigit}@github.com/${namegit}/${reponame}.git &> /dev/null
 }
 
 if [ ! -d "/root/user-backup/" ]; then
@@ -196,27 +201,24 @@ sleep 0.5
 echo -e "[ ${RED}Wait${NC} ] Processing updating server...... "
 Save_And_Exit
 fi
-link="https://you.autooo.cfd/$NameUser/$NameUser.zip"
+link="https://raw.githubusercontent.com/${namegit}/${reponame}/main/${NameUser}/${NameUser}.zip"
 sleep 0.5
 echo -e "[ ${GREEN}Note${NC} ] Backup done "
 sleep 1
 echo -e "
 ${RED}Berikut dibawah ini adalah link backup anda${NC}
 ${GREEN}$link${NC}"
-gue=$(cat /etc/show/gue.txt)
-dia=$(cat /etc/show/dia.txt)
-domainname=$(cat /etc/xray/domain)
 html="
-<b>Backup Information</b>
-━━━━━━━━━━━━━━━━━━━━━━
-<b>🌼IP        : ${IP}</b>
-<b>🌼Server : ${servername}</b>
-<b>🌼Name  : ${NameUser}</b>
-<b>🌼Pass   : ${InputPass}</b>
-<b>🌼Domain : ${domainname}</b>
+<b>====🍀Backup Manual🍀====</b>
+────────────────────
+<i>Domain     : ${domainname}</i>
+<i>My IP         : ${IP}</i>
+<i>Server       : ${servername}</i>
+<i>Name        : ${NameUser}</i>
+<i>Password : ${InputPass}</i>
+────────────────────
 <i>${link}</i>
-━━━━━━━━━━━━━━━━━━━━━━
-<b>AUTOSCRIPT XRAY-SSH</b>
+────────────────────
 "
 curl -s --max-time 10 -d "chat_id=${gue}r&disable_web_page_preview=1&text=${html}&parse_mode=html" https://api.telegram.org/bot${dia}/sendMessage >/dev/null
 
@@ -227,51 +229,58 @@ cd
 echo
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu"
-menu
+backup
 exit 0
 fi
-echo -e "${RED}Failed to detect api bot.!!${NC}"
+echo -e "${RED}Key No Detected :(${NC}"
 }
 
-function token(){
+function Input_key(){
 if [ -f "/etc/bckp/gmail.txt" ]; then
 echo -e "===============================" | lolcat
-echo -e " ${RED}Error Crush.!!!${NC}"
+echo -e " ${RED}Duplicate Detected.!!${NC}"
 echo -e "===============================" | lolcat
 echo ""
 read -n 1 -s -r -p "Tap enter to back"
-menu
+backup
+exit 0
 fi
-read -p "Input Github Key   : " api
+read -p "Input Github Key   : " key
 sleep 0.3
-read -p "Input Email Github : " gmail
+read -p "Input Github Email : " gmail
 sleep 0.3
-read -p "Input Bot Token    : " uyy
+read -p "Input Github Name  : " namegit
 sleep 0.3
-read -p "Input ID User      : " uy
+read -p "Input Github Repo  : " repogit
+sleep 0.3
+read -p "Input Bot Token    : " bottoken
+sleep 0.3
+read -p "Input ID User      : " myid
 sleep 1
-rm -rf /etc/bckp/
-rm -rf /etc/show/
+rm -rf /etc/bckp
+rm -rf /etc/show
 mkdir -p /etc/bckp/
 mkdir -p /etc/show/
-echo "$api" >/etc/bckp/token.txt
+echo "$namegit" >/etc/bckp/name.txt
+echo "$repogit" >/etc/bckp/repo.txt
+echo "$key" >/etc/bckp/token.txt
 echo "$gmail" >/etc/bckp/gmail.txt
-echo "$uyy" >/etc/show/dia.txt
-echo "$uy" >/etc/show/gue.txt
+echo "$bottoken" >/etc/show/dia.txt
+echo "$myid" >/etc/show/gue.txt
 sleep 2.5
 echo -e "
 [${GREEN}✓${NC}] × ${RED}OK Done Setting Key Backup${NC}
 [${GREEN}✓${NC}] × ${RED}Backup Is Ready${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu"
-menu
+backup
 }
 
 function restore(){
 cd
 read -rp "Enter Backup Name  : " -e NameUser
 read -rp "Password Backup    : " -e InputPass
-cekdata=$(curl -sS https://raw.githubusercontent.com/bochil132/userbackup/main/$NameUser/$NameUser.zip | grep 404 | awk '{print $1}' | cut -d: -f1)
+cekdata=$(curl -sS https://raw.githubusercontent.com/${namegit}/${reponame}/main/$NameUser/$NameUser.zip | grep 404 | awk '{print $1}' | cut -d: -f1)
 
 [[ "$cekdata" = "404" ]] && {
 echo -e "${IRed}Backup name $NameUser not available.!${NC}"
@@ -284,7 +293,7 @@ echo -e "[ ${RED}Wait${NC} ] • Restore Data..."
 sleep 1
 echo -e "[ ${GREEN}Note${NC} ] • Downloading data.."
 mkdir -p /root/backup
-wget -q -O /root/backup/backup.zip "https://raw.githubusercontent.com/bochil132/userbackup/main/$NameUser/$NameUser.zip" &> /dev/null
+wget -q -O /root/backup/backup.zip "https://raw.githubusercontent.com/${namegit}/${reponame}/main/$NameUser/$NameUser.zip" &> /dev/null
 echo -e "[ ${GREEN}Note${NC} ] • Getting your data..."
 unzip -P $InputPass /root/backup/backup.zip &> /dev/null
 echo -e "[ ${GREEN}Note${NC} ] • Starting to restore data..."
@@ -314,6 +323,8 @@ echo -e "[ ${GREEN}Note${NC} ] • Restoring xray data.."
 cp -r /root/backup/xray /etc/ &> /dev/null
 sleep 1
 echo -e "[ ${GREEN}Note${NC} ] • Restoring etc data.."
+cp -r /root/backup/bckp /etc/ &> /dev/null
+cp -r /root/backup/show /etc/ &> /dev/null
 cp -r /root/backup/trojan-go /etc/ &> /dev/null
 cp -r /root/backup/fsidvpn /var/lib/ &> /dev/null
 cp -r /root/backup/.acme.sh /root/ &> /dev/null
@@ -329,9 +340,9 @@ cd
 echo
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu"
-menu
+backup
 }
-function hapuskey(){
+function Delete_key(){
 clear
 read -p "Yakin ingin menghapus ? y/n : " choose
 echo -e ""
@@ -354,10 +365,8 @@ echo -e "======[ ${GREEN}85%${NC} ]======"
 sleep 2
 echo -e "======[ ${CYAN}100%${NC} ]====="
 sleep 1
-rm -rf /etc/bckp/token.txt
-rm -rf /etc/show/dia.txt
-rm -rf /etc/show/gue.txt
-rm -rf /etc/bckp/gmail.txt
+rm -rf /etc/show
+rm -rf /etc/bckp
 echo -e "
 =====================================
  Deleted data completed succesfully
@@ -365,41 +374,95 @@ echo -e "
 " | lolcat
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back"
-menu
+backup
 ;;
 n)
 echo -e "${RED}Penghapusan dibatalkan by user${NC}"
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back"
-menu
+backup
 ;;
 esac
 }
 
+function bckp_auto(){
+clear
+echo -e "${CYAN}Only use automatic backups if necessary.!!${NC}"
+echo -e "(${BLUE}Y${NC}) Start (${RED}N${NC}) Stop"
+echo ""
+read -p "Type y/n : " type
+echo -e ""
+case $type in
+y | Y)
+sleep 1
+clear
+echo "0 18 * * * root aubckp" >> /etc/crontab
+echo ""
+sleep 0.5
+echo -e "${CYAN}Auto backup started in${NC} ${RED}18:00 wib${NC}"
+echo -e "${CYAN}Auto send data to your bot${NC}"
+;;
+n | N)
+clear
+sleep 0.5
+echo -e "      👇Stop auto backup in here👇"
+echo -e "${PURPLE}────────────────────────────────────────${NC}"
+echo -e "    ${IWhite}Type command${NC} ${CYAN}nano /etc/crontab${NC}"
+echo -e "  ${IWhite}Delete text${NC} ${RED}0 18 * * * root aubckp${NC}"
+echo -e "    ${IWhite}Save Tap${NC} [ ${RED}CTRL + X & y Enter${NC} ]"
+echo -e "     ${IWhite}And restart all service. Done${NC}"
+echo -e "   ${RED}Or delete key to stop auto backup${NC}"
+echo -e "${PURPLE}────────────────────────────────────────${NC}"
+echo ""
+read -n 1 -s -r -p "Tap Enter To Back.!!"
+backup
+esac
+}
+
+function show_key(){
+if [ -f "/etc/bckp/gmail.txt" ]; then
+clear
+echo -e "
+${PURPLE}• Github_Email :${NC} ${emailgit}
+${PURPLE}• Github_Name  :${NC} ${namegit}
+${PURPLE}• Github_Repo  :${NC} ${reponame}
+${PURPLE}• Github_Key   :${NC} ${apigit}
+${PURPLE}• User_ID      :${NC} ${gue}
+${PURPLE}• Bot_Token    :${NC} ${dia}
+"
+read -n 1 -s -r -p "Tap Enter To Back.!!"
+backup
+exit 0
+fi
+echo -e "${RED}Key No Detected :(${NC}"
+echo ""
+}
 clear
 echo -e "
 ${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
 ${multi}            Backup / Restore              ${NC}
 ${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
- ${RED}1.)${NC} Backup From GitHub
- ${RED}2.)${NC} Restore Data
- ${RED}3.)${NC} Setting Key
- ${RED}4.)${NC} Remove Key"
+ ${RED}1.)${NC} Backup Manual
+ ${RED}2.)${NC} Backup Auto
+ ${RED}3.)${NC} Restore Data"
+ echo -e "
+ ${RED}4.)${NC} Input Key
+ ${RED}5.)${NC} Delete Key
+ ${RED}6.)${NC} Show Key"
 echo -e "
-${GREEN}Backup From Github Need Token.!!${NC}
+${GREEN}input key is required first!!${NC}
 ${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo "Tap Enter To Back Home-Menu"
 echo ""
 read -p "Select menu : " opt
 echo -e ""
 case $opt in
-1) clear ; backup;;
-#2) clear ; bckp ;;
-2) clear ; restore;;
-3) clear ; token;;
-4) clear ; hapuskey;;
-5) clear ; bot;;
-0) clear ; menu ;;
+1) clear ; bckp_manual;;
+2) clear ; bckp_auto;;
+3) clear ; restore;;
+4) clear ; Input_key;;
+5) clear ; Delete_key;;
+6) clear ; show_key ;;
 x) exit ;;
 *) echo -e "" ; echo "Back To Menu" ; sleep 1 ; menu ;;
 esac
