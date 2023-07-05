@@ -277,6 +277,15 @@ backup
 }
 
 function restore(){
+if [ -f "/etc/bckp/token.txt" ]; then
+echo -e "===============================" | lolcat
+echo -e " ${RED}Key Not Faund :(${NC}"
+echo -e "===============================" | lolcat
+echo ""
+read -n 1 -s -r -p "Tap enter to back"
+backup
+exit 0
+fi
 cd
 read -rp "Enter Backup Name  : " -e NameUser
 read -rp "Password Backup    : " -e InputPass
@@ -337,7 +346,10 @@ echo -e "[ ${GREEN}Success${NC} ] • Done..."
 sleep 1
 rm -f /root/backup/backup.zip &> /dev/null
 cd
-echo
+clear
+echo -e "${GREEN}Change password, please input new password${NC}"
+echo -e ""
+passwd
 echo -e ""
 read -n 1 -s -r -p "Tap Enter To Back Menu"
 backup
