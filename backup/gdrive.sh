@@ -449,6 +449,94 @@ fi
 echo -e "${RED}Key No Detected :(${NC}"
 echo ""
 }
+
+function restore_v2(){
+if [ -f "/etc/bckp/token.txt" ]; then
+cd
+echo -e "
+             ${RED}• Please read it to the end •${NC}"
+echo -e "---------------------------------------------------------" | lolcat
+echo -e "          ${IWhite}Restore V.2 will not work for you
+Please select restore v.1 only so that it works for you${NC}"
+echo -e "---------------------------------------------------------" | lolcat
+echo ""
+read -rp "Enter Backup Name  : " -e NameUser
+cekdata=$(curl -sS https://raw.githubusercontent.com/bochil132/userbackup/main/$NameUser/$NameUser.zip | grep 404 | awk '{print $1}' | cut -d: -f1)
+
+[[ "$cekdata" = "404" ]] && {
+echo ""
+echo -e "${IRed}Backup name $NameUser not available.!${NC}"
+echo ""
+exit 0
+} || {
+echo ""
+GREEN "Backup name $NameUser available.!"
+echo ""
+}
+read -rp "Password Backup    : " -e InputPass
+echo ""
+echo -e "[ ${RED}Wait${NC} ] • Restore Data..."
+sleep 1
+echo -e "[ ${GREEN}Note${NC} ] • Downloading data.."
+mkdir -p /root/backup
+wget -q -O /root/backup/backup.zip "https://raw.githubusercontent.com/bochil132/userbackup/main/$NameUser/$NameUser.zip" &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Getting your data..."
+unzip -P $InputPass /root/backup/backup.zip &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Starting to restore data..."
+rm -f /root/backup/backup.zip &> /dev/null
+sleep 1
+cd /root/backup
+echo -e "[ ${GREEN}Note${NC} ] • Restoring passwd data..."
+sleep 1
+cp -r /root/backup/passwd /etc/ &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Restoring group data..."
+sleep 1
+cp -r /root/backup/group /etc/ &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Restoring shadow data..."
+sleep 1
+cp -r /root/backup/shadow /etc/ &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Restoring gshadow data..."
+sleep 1
+cp -r /root/backup/gshadow /etc/ &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Restoring chap-secrets data..."
+sleep 1
+cp -r /root/backup/chap-secrets /etc/ppp/ &> /dev/null
+echo -e "[ ${GREEN}Note${NC} ] • Restoring passwd1 data..."
+sleep 1
+cp -r /root/backup/passwd1 /etc/ipsec.d/passwd &> /dev/null
+sleep 1
+echo -e "[ ${GREEN}Note${NC} ] • Restoring xray data.."
+cp -r /root/backup/xray /etc/ &> /dev/null
+sleep 1
+echo -e "[ ${GREEN}Note${NC} ] • Restoring etc data.."
+cp -r /root/backup/bckp /etc/ &> /dev/null
+cp -r /root/backup/show /etc/ &> /dev/null
+cp -r /root/backup/trojan-go /etc/ &> /dev/null
+cp -r /root/backup/fsidvpn /var/lib/ &> /dev/null
+cp -r /root/backup/.acme.sh /root/ &> /dev/null
+cp -r /root/backup/conf.d /etc/nginx/ &> /dev/null
+cp -r /root/backup/public_html /home/vps/ &> /dev/null
+cp -r /root/backup/crontab /etc/ &> /dev/null
+cp -r /root/backup/cron.d /etc/ &> /dev/null
+rm -fr /root/backup &> /dev/null
+echo -e "[ ${GREEN}Success${NC} ] • Done..."
+sleep 1
+rm -f /root/backup/backup.zip &> /dev/null
+cd
+clear
+echo -e "${GREEN}Change password, please input new password${NC}"
+echo -e ""
+passwd
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu"
+backup
+exit 0
+fi
+echo -e "===============================" | lolcat
+echo -e " ${RED}Key Not Faund :(${NC}"
+echo -e "===============================" | lolcat
+echo ""
+}
 clear
 echo -e "
 ${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
@@ -456,11 +544,12 @@ ${multi}            Backup / Restore              ${NC}
 ${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
  ${RED}1.)${NC} Backup Manual
  ${RED}2.)${NC} Backup Auto
- ${RED}3.)${NC} Restore Data"
+ ${RED}3.)${NC} Restore V.1"
  echo -e "
  ${RED}4.)${NC} Input Key
  ${RED}5.)${NC} Delete Key
- ${RED}6.)${NC} Show Key"
+ ${RED}6.)${NC} Show Key
+ ${RED}7.)${NC} Restore V.2"
 echo -e "
 ${GREEN}input key is required first!!${NC}
 ${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -475,6 +564,7 @@ case $opt in
 4) clear ; Input_key;;
 5) clear ; Delete_key;;
 6) clear ; show_key ;;
+7) clear ; restore_v2;;
 x) exit ;;
 *) echo -e "" ; echo "Back To Menu" ; sleep 1 ; menu ;;
 esac

@@ -246,15 +246,15 @@ IPVPS=$(curl -s ipinfo.io/ip )
 DOMAIN=$(cat /etc/xray/domain)
 echo -e ""
 echo -e " ${ORANGE}DOMAIN      = $DOMAIN"
-echo -e " IP VPS      = $IPVPS"
-echo -e " ISP VPS     = $sp"
-echo -e " CITY VPS    = $ct"
+echo -e " IP          = $IPVPS"
+echo -e " ISP         = $sp"
+echo -e " CITY        = $ct"
 echo -e " LOAD CPU    = $loadcpu %"
 echo -e " OS NAME     = "`hostnamectl | grep "Operating System" | cut -d ' ' -f5-`
-echo -e " CORE VPS    = $core Core"
+echo -e " CORE        = $core"
 echo -e " UPTIME      = $up"
 echo -e " CPU MODEL   =$cpu"
-echo -e " RAM         = $tram MB / Usage $uram MB"
+echo -e " RAM         = $tram MB / $uram MB"
 echo -e " STORAGE     = $(df -h / | awk '{print $2}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB" " / Usage $(df -h / | awk '{print $3}' | tail -n1 | sed 's/G//g' | sed 's/ //g') GB${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${multi}                ${rd}Status All Service                  ${NC}"
@@ -285,10 +285,9 @@ menu
 
 function update(){
 clear
-echo -e "
-=================================================
-     ${multi}Progress Update AutoScript XRAY-SSH${NC}
-================================================="
+echo -e "------------------------------------------------------" | lolcat
+echo -e "  ${W}Please wait processing update autoscript xray-ssh${NC}"
+echo -e "------------------------------------------------------" | lolcat
 sleep 1
 wget -q -O /usr/bin/cf-pointing "https://stn-cloud.my.id/menu/cloudflare-pointing.sh" && chmod +x /usr/bin/cf-pointing
 wget -q -O /usr/bin/aubckp "https://stn-cloud.my.id/backup/autobckp.sh" && chmod +x /usr/bin/aubckp
