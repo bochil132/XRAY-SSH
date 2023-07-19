@@ -1,14 +1,16 @@
 #!/bin/bash
+IWhite='\033[0;97m'
+NC='\e[0m'
 clear
-if [ -f "/etc/show/dia.txt" ]; then
-IP=$(curl -sS ipv4.icanhazip.com);
-apigit=$(cat /etc/bckp/token.txt)
-emailgit=$(cat /etc/bckp/gmail.txt)
-gue=$(cat /etc/show/gue.txt)
-dia=$(cat /etc/show/dia.txt)
+if [ -f "/etc/settbackup/bot_token" ]; then
+IP=$(curl -sS ipv4.icanhazip.com)
+apigit=$(cat /etc/settbackup/github_token)
+emailgit=$(cat /etc/settbackup/github_email)
+gue=$(cat /etc/settbackup/userid)
+dia=$(cat /etc/settbackup/bot_token)
 domainname=$(cat /etc/xray/domain)
-namegit=$(cat /etc/bckp/name.txt)
-repogit=$(cat /etc/bckp/repo.txt)
+namegit=$(cat /etc/settbackup/github_name)
+reponame=$(cat /etc/settbackup/github_repo)
 date=$(date +"%Y-%m-%d")
 
 clear
@@ -19,8 +21,7 @@ exit 0
 fi
 mkdir -p /root/backup
 
-cp -r /etc/show /root/backup/show/ &> /dev/null
-cp -r /etc/bckp /root/backup/bckp/ &> /dev/null
+cp -r /etc/settbackup /root/backup/settbackup &> /dev/null
 cp -r /root/.acme.sh /root/backup/ &> /dev/null
 cp -r /etc/xray /root/backup/xray/ &> /dev/null
 cp -r /etc/trojan-go /root/backup/trojan-go/ &> /dev/null
@@ -95,5 +96,10 @@ rm -fr /root/backup &> /dev/null
 rm -fr /root/user-backup &> /dev/null
 rm -f /root/$NameUser.zip &> /dev/null
 cd
-fi
 exit 0
+fi
+clear
+echo -e "-------------------------------------------------" | lolcat
+echo -e "      ${IWhite}Bot token and user id not available${NC}"
+echo -e "            ${IWhite}Please setting first.!!${NC}"
+echo -e "-------------------------------------------------" | lolcat
