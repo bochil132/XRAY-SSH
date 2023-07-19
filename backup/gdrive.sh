@@ -435,7 +435,7 @@ echo ""
 
 function backup_v2(){
 clear
-if [ -f "/etc/settbackup/github_token" ]; then
+if [ -f "/etc/settbackup/github_token_v2" ]; then
 NameUser=bckp`</dev/urandom tr -dc X-Z0-9 | head -c4`
 read -rp "$(echo -e "${IWhite}Server Name : ${NC}")" -e servername
 InputPass=$(tr -dc Q-Xa-y0-9 </dev/urandom | head -c 10 ; echo '')
