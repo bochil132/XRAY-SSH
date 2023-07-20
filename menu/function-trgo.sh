@@ -81,7 +81,7 @@ exit 0
 fi
 
 export NC='\033[0m'
-export multi='\E[42;1;39m'
+export multi='\E[44;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -179,7 +179,6 @@ menu-trgo
 function trial(){
 clear
 uuid=$(cat /etc/trojan-go/uuid.txt)
-source /var/lib/fsidvpn/ipvps.conf
 if [[ "$IP" = "" ]]; then
 domain=$(cat /etc/xray/domain)
 else
@@ -259,92 +258,12 @@ menu-trgo
 
 function renew(){
 clear
-NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/trojan-go/akun.conf")
-	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
-		clear
-		echo ""
-		echo "You have no existing clients!"
-		exit 1
-	fi
-
-	clear
-	echo ""
-	echo "Select the existing client you want to renew"
-	echo " Press CTRL+C to return"
-	echo -e "==============================="
-	grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
-	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
-		if [[ ${CLIENT_NUMBER} == '1' ]]; then
-			read -rp "Select one client => " CLIENT_NUMBER
-		else
-			read -rp "Select one client => " CLIENT_NUMBER
-		fi
-	done
-read -p "Expired (Hari) : " masaaktif
-user=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-now=$(date +%Y-%m-%d)
-d1=$(date -d "$exp" +%s)
-d2=$(date -d "$now" +%s)
-exp2=$(( (d1 - d2) / 86400 ))
-exp3=$(($exp2 + $masaaktif))
-exp4=`date -d "$exp3 days" +"%Y-%m-%d"`
-sed -i "s/### $user $exp/### $user $exp4/g" /etc/trojan-go/akun.conf
-clear
-echo ""
-echo "============================"
-echo "  TrojanGo Account Renewed  "
-echo "============================"
-echo "Username : $user"
-echo "Expired  : $exp4"
-echo "=========================="
-systemctl restart trojan-go
-echo -e ""
-read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
-menu-trgo
+echo "Error :("
 }
 
 function hapus(){
 clear
-NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/trojan-go/akun.conf")
-	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
-		echo ""
-		echo "You have no existing clients!"
-		exit 1
-	fi
-
-	echo ""
-	echo " Select the existing client you want to remove"
-	echo " Press CTRL+C to return"
-	echo " ==============================="
-	echo "     No  User  Expired"
-	grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
-	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
-		if [[ ${CLIENT_NUMBER} == '1' ]]; then
-			read -rp "Select one client => " CLIENT_NUMBER
-		else
-			read -rp "Select one client => " CLIENT_NUMBER
-		fi
-	done
-CLIENT_NAME=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2-3 | sed -n "${CLIENT_NUMBER}"p)
-user=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-sed -i "/^### $user $exp/d" /etc/trojan-go/akun.conf
-sed -i '/^,"'"$user"'"$/d' /etc/trojan-go/config.json
-systemctl restart trojan-go.service
-service cron restart
-clear
-echo ""
-echo "============================"
-echo "  TrojanGo Account Deleted  "
-echo "============================"
-echo "Username : $user"
-echo "Expired  : $exp"
-echo "============================"
-systemctl restart trojan-go
-echo -e ""
-read -n 1 -s -r -p "Tap Enter To Back Menu-TrojanGO"
-menu-trgo
+echo "Error :("
 }
 
 function cek(){
@@ -405,19 +324,18 @@ else
     trgo="${rd}Stopped | Error${NC}"
 fi
 echo ""
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${multi}                  ${rd}TROJAN-GO MENU                   ${NC}"
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e " ${multi}                    ${rd}TROJAN-GO MENU                   ${NC}"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
 echo -e "Trojan-Go : $trgo"
 echo -e "
- ${rd}1${NC}  Buat Akun Trojan-Go
- ${rd}2${NC}  Trial Akun Trojan-Go
- ${rd}3${NC}  Perpanjang Akun Trojan-Go
- ${rd}4${NC}  Hapus Akun Trojan-Go ( ${rd}Error${NC} )
- ${rd}5${NC}  Cek Login Trojan-Go"
-echo ""
-echo -e " ${rd}0${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
-${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+ ${rd}1.)${NC}  Create Accounts Trojan-Go
+ ${rd}2.)${NC}  Trial Accounts Trojan-Go
+ ${rd}3.)${NC}  Renew Accounts Trojan-Go
+ ${rd}4.)${NC}  Remove Accounts Trojan-Go
+ ${rd}5.)${NC}  Check User Online Trojan-Go"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e "Press enter to return to the menu"
 echo -e ""
 read -p "Input Your Choose : " opt
 echo -e ""
@@ -427,5 +345,5 @@ case $opt in
 03 | 3) clear ; renew ;;
 04 | 4) clear ; hapus ;;
 05 | 5) clear ; cek ;;
-00 | 0) clear ; menu ;;
+*) clear ; menu ;;
 esac

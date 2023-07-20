@@ -80,7 +80,7 @@ fi
 
 #color code
 export NC='\033[0m'
-export multi='\E[42;1;39m'
+export multi='\E[44;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
 export yl='\e[32;1m'
@@ -540,20 +540,19 @@ else
     xvm="${rd}Stopped | Error${NC}"
 fi
 echo ""
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${multi}                  ${rd}XRAY VMESS MENU                  ${NC}"
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "XRAY VMESS : $xvm"
-echo -e "NGINX      : $nx"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e " ${multi}                    ${rd}XRAY VMESS MENU                  ${NC}"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e " XRAY VMESS : $xvm"
+echo -e " NGINX      : $nx"
 echo -e "
- ${rd}1${NC}  Buat Akun Xray/Vmess
- ${rd}2${NC}  Buat Akun Trial Xray/Vmess
- ${rd}3${NC}  Perpanjang Akun Xray/Vmess
- ${rd}4${NC}  Hapus Akun Xray/Vmess
- ${rd}5${NC}  Cek Login Xray/Vmess"
-echo ""
-echo -e " ${rd}0${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}
-${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+ ${rd}1.)${NC}  Create Accounts Xray/Vmess
+ ${rd}2.)${NC}  Create Accounts Trial Xray/Vmess
+ ${rd}3.)${NC}  Renew Accounts Xray/Vmess
+ ${rd}4.)${NC}  Remove Accounts Xray/Vmess
+ ${rd}5.)${NC}  Check User Online Xray/Vmess"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e "Press enter to return to the menu"
 echo -e ""
 read -p "Select Of Number : " opt
 echo -e ""
@@ -563,5 +562,5 @@ case $opt in
 03 | 3) clear ; renew ;;
 04 | 4) clear ; hapus ;;
 05 | 5) clear ; cek ;;
-0) clear ; menu ;;
+*) clear ; menu ;;
 esac

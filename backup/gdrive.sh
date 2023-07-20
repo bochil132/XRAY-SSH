@@ -107,8 +107,9 @@ export BLUE='\033[0;34m'
 export PURPLE='\033[0;35m'
 export CYAN='\033[0;36m'
 export LIGHT='\033[0;37m'
-export multi='\E[41;1;39m'
+export multi='\E[44;1;39m'
 export NC='\033[0m'
+export rd='\e[31;1m'
 GREEN() { echo -e "\\033[32;1m${*}\\033[0m"; }
 RED() { echo -e "\\033[31;1m${*}\\033[0m"; }
 # // My Code
@@ -718,9 +719,9 @@ echo ""
 
 clear
 echo -e "
-${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}
-${multi}            Backup / Restore              ${NC}
-${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+${CYAN}───────────────────────────────────────────────${NC}
+  ${multi}             ${rd}Backup / Restore              ${NC}
+${CYAN}───────────────────────────────────────────────${NC}"
 echo -e "  ${LIGHT}Choose V.1 so it can work.!!${NC}"
 echo -e "
  ${RED}1.)${NC} Backup       | ${CYAN}V.1${NC}
@@ -734,7 +735,7 @@ echo -e "
  ${RED}8.)${NC} Sett Data    | ${CYAN}V.2${NC}"
 echo -e "
 ${GREEN}input data is required first!!${NC}
-${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+${CYAN}───────────────────────────────────────────────${NC}"
 echo "Tap Enter To Back Home-Menu"
 echo ""
 read -p "Select menu : " opt

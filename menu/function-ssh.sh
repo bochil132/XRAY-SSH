@@ -82,7 +82,7 @@ fi
 
 #color code
 export NC='\033[0m'
-export multi='\E[42;1;39m'
+export multi='\E[44;1;39m'
 export multi1='\E[41;1;39m'
 export cyan='\033[0;36m'
 export or='\033[1;33m'
@@ -143,6 +143,8 @@ echo -e "Port Stunnel :$ssl"
 echo -e "Port Squid :$sqd"
 echo -e "Port OpenVPN WS : 2086"
 echo -e "Port OpenVPN SSL : 990"
+echo -e "Port OpenVPN UDP : 2200"
+echo -e "Port OpenVPN TCP : 1194"
 echo -e "Port UDPGW : 7100 - 7300"
 echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
 echo -e "•Link Config OpenVPN•"
@@ -204,6 +206,8 @@ echo -e "Port Stunnel :$ssl"
 echo -e "Port Squid :$sqd"
 echo -e "Port OpenVPN WS : 2086"
 echo -e "Port OpenVPN SSL : 990"
+echo -e "Port OpenVPN UDP : 2200"
+echo -e "Port OpenVPN TCP : 1194"
 echo -e "Port UDPGW : 7100 - 7300"
 echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
 echo -e "•Link Config OpenVPN•"
@@ -459,10 +463,10 @@ echo " "
 echo -e "${ORANGE}[√] • Auto delete log user multilogin${NC}";
 echo -e "${ORANGE}[√] • Time auto delete log : 09:00:00${NC}";
 echo -e "${ORANGE}[√] • Today Time           : ${todaytime}${NC}";
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${CYAN}───────────────────────────────────────────────${NC}";
 if [ -e "/root/log-limit.txt" ]; then
-echo -e "${multi1}     List of users who do multi-login     ${NC}";
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${multi}        List of users who do multi-login       ${NC}";
+echo -e "${CYAN}───────────────────────────────────────────────${NC}";
 cat /root/log-limit.txt
 else
 echo " User Multilogin No Detected.!!"
@@ -471,7 +475,7 @@ echo " or"
 echo " "
 echo " Autokill Script Not Been Executed."
 fi
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}";
+echo -e "${CYAN}───────────────────────────────────────────────${NC}";
 echo " ";
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
@@ -502,18 +506,17 @@ sts="${Error}"
 fi
 clear
 echo -e ""
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${multi1}              AUTOKILL MENU               ${NC}"
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}───────────────────────────────────────────────${NC}"
+echo -e " ${multi}               ${rd}AUTOKILL MENU                 ${NC}"
+echo -e "${CYAN}───────────────────────────────────────────────${NC}"
 echo -e " Autokill Is : $sts"
 echo ""
 echo -e " ${r}1.)${nc} AutoKill After 1 Minutes"
 echo -e " ${r}2.)${nc} AutoKill After 3 Minutes"
 echo -e " ${r}3.)${nc} AutoKill After 5 Minutes"
 echo -e " ${r}4.)${nc} Off Autokill Multilogin"
-echo ""
-echo -e " ${r}x.)${nc} Back To Menu"
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"                                                                            
+echo -e "${CYAN}───────────────────────────────────────────────${NC}"
+echo -e " Press enter to return to the menu"                                                                        
 echo -e ""
 read -p "Input Your Choose :  " AutoKill
 echo -e ""
@@ -592,13 +595,8 @@ echo ""
 read -n 1 -s -r -p "Tap Enter To Back Menu-SSH"
 menu-ssh
 ;;
-x)
-clear
-menu
-;;
-x)
-clear
-exit
+*)
+menu-ssh
 ;;
 esac
 }
@@ -621,24 +619,23 @@ else
 fi
 
 echo ""
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${multi}                ${rd}SSH & OPENVPN MENU                 ${NC}"
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e " ${multi}                 ${rd}SSH & OPENVPN MENU                  ${NC}"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
 echo -e " SSH WS NONE TLS : $ws"
 echo -e " SSH WS TLS      : $wstls"
 echo -e ""
-echo -e " ${rd}1.)${NC}  Membuat Akun SSH & OpenVPN"
-echo -e " ${rd}2.)${NC}  Trial Akun SSH & OpenVPN"
-echo -e " ${rd}3.)${NC}  Perpanjang Akun SSH & OpenVPN"
-echo -e " ${rd}4.)${NC}  Hapus Akun SSH & OpenVPN"
-echo -e " ${rd}5.)${NC}  Cek Login Akun SSH & OpenVPN"
+echo -e " ${rd}1.)${NC}  Create Accounts SSH & OpenVPN"
+echo -e " ${rd}2.)${NC}  Trial Accounts SSH & OpenVPN"
+echo -e " ${rd}3.)${NC}  Renew Accounts SSH & OpenVPN"
+echo -e " ${rd}4.)${NC}  Remove Accounts SSH & OpenVPN"
+echo -e " ${rd}5.)${NC}  Check User Online SSH & OpenVPN"
 echo -e " ${rd}6.)${NC}  List Accounts SSH & OpenVPN"
 echo -e ""
 echo -e " ${rd}7.)${NC}  Autokill User Multilogin"
 echo -e " ${rd}8.)${NC}  View Log User Multilogin"
-echo -e ""
-echo -e " ${rd}x.)${NC}  Back To Main Menu ${yl}•${NC}${cyan}•${NC}${or}•${NC}"
-echo -e "${or}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
+echo -e " Press enter to return to the menu"
 echo -e ""
 read -p "Select Of Number : " opt
 echo -e ""
@@ -651,5 +648,5 @@ case $opt in
 06 | 6) clear ; list ;;
 07 | 7) clear ; kil ;;
 08 | 8) clear ; limit ;;
-xx | x) clear ; menu ;;
+*) clear ; menu ;;
 esac
