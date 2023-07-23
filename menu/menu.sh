@@ -304,6 +304,8 @@ wget -q -O /usr/bin/exp "https://stn-cloud.my.id/ssh/autoremove.sh" && chmod +x 
 wget -q -O /usr/bin/wbmn "https://stn-cloud.my.id/ssh/webmin.sh" && chmod +x /usr/bin/wbmn
 wget -q -O /usr/bin/limit "https://stn-cloud.my.id/menu/limit.sh" && chmod +x /usr/bin/limit
 wget -q -O /usr/bin/monitorbw "https://stn-cloud.my.id/menu/monitoring.sh" && chmod +x /usr/bin/monitorbw
+wget -q -O /usr/bin/autov1 "https://stn-cloud.my.id/backup/autobckp_v1.sh" && chmod +x /usr/bin/autov1
+wget -q -O /usr/bin/autov2 "https://stn-cloud.my.id/backup/autobckp_v2.sh" && chmod +x /usr/bin/autov2
 sleep 2
 echo -e "${or}Update AutoScript XRAY-SSH Succesfuly${NC}"
 echo -e ""

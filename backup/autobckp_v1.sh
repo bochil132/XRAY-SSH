@@ -10,7 +10,7 @@ gue=$(cat /etc/settbackup/userid)
 dia=$(cat /etc/settbackup/bot_token)
 domainname=$(cat /etc/xray/domain)
 namegit=$(cat /etc/settbackup/github_name)
-reponame=$(cat /etc/settbackup/github_repo)
+repogit=$(cat /etc/settbackup/github_repo)
 date=$(date +"%Y-%m-%d")
 
 clear
