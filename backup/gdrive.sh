@@ -559,49 +559,93 @@ backup
 esac
 }
 
-function auto_backup_v2(){
-clear
-if [ -f "/etc/settbackup/github_token_v2" ]; then
-echo -e "--------------------------------------------------" | lolcat
-echo -e "               ${IWhite}Note for auto backup"
-echo -e "        ${CYAN}Y${NC} = ${IWhite}Start${NC} | ${RED}N${NC} = ${IWhite}Stop${NC} | ${IYellow}B${NC} = ${IWhite}Back${NC}"
-echo -e "--------------------------------------------------" | lolcat
-echo -e ""
-read -p "Option Y/N/B : " opsiyn2
-echo -e ""
-case $opsiyn2 in
-y | Y)
-clear
-echo "# AutobackupV2" >>/etc/cron.d/autobckpv2
-echo "0 5 * * * root autov2" >>/etc/cron.d/autobckpv2
+function start_autobckp_bot(){
+if [ -f "/etc/bckp-bot/userid.conf" ]; then
 clear
 sleep 1
-echo -e "${GREEN}Auto backup started on 05:00${NC}"
-;;
-n | N)
-clear
-rm -rf /etc/cron.d/autobckpv2
-sleep 1
-echo -e "${GREEN}Auto backup stopped${NC}"
-;;
-b | B)
+echo "# Autobackup" >>/etc/cron.d/bckpbot
+echo "18 0 * * * root autobckpbot" >>/etc/cron.d/bckpbot
+systemctl restart cron.service
+echo -e "   ${LIGHT}Autobackup started on 18:00${NC}"
+echo -e " ${LIGHT}Check notif your bot after 18:00${NC}"
+echo ""
+read -n 1 -s -r -p "Press any key to back menu"
 backup
-esac
 exit 0
 fi
-echo -e "-------------------------------------------------" | lolcat
-echo -e "      ${IWhite}Github token and email not available${NC}"
-echo -e "            ${IWhite}Please setting first.!!${NC}"
-echo -e "-------------------------------------------------" | lolcat
+echo -e "------------------------------------------" | lolcat
+echo -e "      ${RED}(( Your UserID Not Found ))${NC}"
+echo -e "         ${CYAN}Please settings first.!!${NC}"
+echo -e "------------------------------------------" | lolcat
+echo ""
+}
+
+function stop_autobckp_bot(){
+clear
+if [ -f "/etc/cron.d/bckpbot" ]; then
+rm -rf /etc/cron.d/bckpbot
+sleep 1
+echo -e "
+${LIGHT}Autobackup Stopped Successfully...${NC}
+"
+systemctl restart cron.service
+echo ""
+exit 0
+fi
+sleep 1
+echo -e "
+${LIGHT}Autobackup has been turned off${NC}
+"
+}
+
+function sett_userid(){
+clear
+if [ -f "/etc/bckp-bot/userid.conf" ]; then
+echo -e "---------------------------------------------" | lolcat
+echo -e "              ${LIGHT}UserID Available${NC}"
+echo -e "---------------------------------------------" | lolcat
+echo ""
+exit 0
+fi
+echo -e "                ${RED}Solution For You${NC}"
+echo -e "---------------------------------------------------" | lolcat
+echo -e " ${LIGHT}Getting your id, type /info to bot @MissRose_bot${NC}"
+echo -e "---------------------------------------------------" | lolcat
+echo ""
+read -p "Input Your ID : " myid
+sleep 0.2
+read -p "Server Info   : " servinf
+rm -rf /etc/bckp-bot
+mkdir -p /etc/bckp-bot/
+echo "$myid" >/etc/bckp-bot/userid.conf
+echo "$servinf" >/etc/bckp-bot/servinfo.conf
+sleep 1
+echo -e "
+${LIGHT}Settings UserID Successfully....${NC}"
+}
+
+
+function backup_bot(){
+clear
+echo -e "----------------------------------------------" | lolcat
+echo -e "           ${RED}(( OPTION AUTOBACKUP ))${NC}"
+echo -e "----------------------------------------------" | lolcat
+echo -e "  ${GREEN}Y${NC} = ${LIGHT}Start AutoBackup${NC}
+  ${PURPLE}N${NC} = ${LIGHT}Stop AutoBackup${NC}
+  ${CYAN}S${NC} = ${LIGHT}Settings UserID${NC}"
+echo -e "----------------------------------------------" | lolcat
+echo ""
+read -p "Input Your Choose : " pilihan
 echo -e ""
-read -p "Go to settings ?? Y/N : " settd
-echo -e ""
-case $settd in
+case $pilihan in
 y | Y)
-sett_data_v2
+start_autobckp_bot
 ;;
 n | N)
-backup
+stop_autobckp_bot
+;;
+s | S)
+sett_userid
 esac
 }
 
@@ -746,7 +790,7 @@ case $opt in
 3) clear ; restore_v1;;
 4) clear ; sett_data_v1;;
 5) clear ; backup_v2;;
-6) clear ; auto_backup_v2;;
+6) clear ; backup_bot;;
 7) clear ; restore_v2;;
 8) clear ; sett_data_v2;;
 x) exit ;;
