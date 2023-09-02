@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+sleep 1
 rm -f /usr/local/bin/ws-tls
 rm -f /usr/local/bin/ws-nontls
 rm -f /usr/local/bin/ws-ovpn
@@ -12,3 +13,4 @@ chmod +x /usr/local/bin/ws-tls
 systemctl restart ws-tls.service
 systemctl restart ws-nontls.service
 systemctl restart ws-ovpn.service
+rm ws.sh
