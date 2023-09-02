@@ -564,10 +564,11 @@ if [ -f "/etc/bckp-bot/userid.conf" ]; then
 clear
 sleep 1
 echo "# Autobackup" >>/etc/cron.d/bckpbot
-echo "18 0 * * * root autobckpbot" >>/etc/cron.d/bckpbot
+echo "0 18 * * * root autobckpbot" >>/etc/cron.d/bckpbot
 systemctl restart cron.service
-echo -e "   ${LIGHT}Autobackup started on 18:00${NC}"
-echo -e " ${LIGHT}Check notif your bot after 18:00${NC}"
+echo -e "         ${LIGHT}Autobackup started on 18:00${NC}"
+echo -e " ${LIGHT}Type /start in bot @skuyrun_bot to get notif${NC}"
+echo -e "   ${LIGHT}Check notif bot @skuyrun_bot after 18:00${NC}"
 echo ""
 read -n 1 -s -r -p "Press any key to back menu"
 backup
@@ -761,6 +762,67 @@ echo "Settings done"
 echo ""
 }
 
+function restore_from_bot(){
+clear
+echo -e "
+${LIGHT}Upload files backup to your github accounts
+        And get your link backup${NC}"
+echo ""
+read -p "Input Your Link Backup   : " your_url
+sleep 0.3
+read -p "Input Your Passwd Backup : " pw_exstrak
+sleep 1
+rm -rf /root/backup
+mkdir -p /root/backup
+wget -q -O /root/backup/backup.zip "${your_url}"
+sleep 0.5
+echo -e "${CYAN}Progress extstrak backup files...${NC}"
+unzip -P $pw_exstrak /root/backup/backup.zip
+echo -e "${LIGHT}Starting restore your data..."
+rm -f /root/backup/backup.zip
+sleep 1.5
+cd /root/backup
+echo -e "${LIGHT}Restoring passwd data..."
+sleep 1
+cp -r /root/backup/passwd /etc/ &> /dev/null
+echo -e "${LIGHT}Restoring group data..."
+sleep 1
+cp -r /root/backup/group /etc/ &> /dev/null
+echo -e "${LIGHT}Restoring shadow data..."
+sleep 1
+cp -r /root/backup/shadow /etc/ &> /dev/null
+echo -e "${LIGHT}Restoring gshadow data..."
+sleep 1
+cp -r /root/backup/gshadow /etc/ &> /dev/null
+echo -e "${LIGHT}Restoring chap-secrets data..."
+sleep 1
+cp -r /root/backup/chap-secrets /etc/ppp/ &> /dev/null
+echo -e "${LIGHT}Restoring passwd1 data..."
+sleep 1
+cp -r /root/backup/passwd1 /etc/ipsec.d/passwd &> /dev/null
+sleep 1
+echo -e "${LIGHT}Restoring xray data..."
+cp -r /root/backup/xray /etc/ &> /dev/null
+sleep 1
+echo -e "${LIGHT}Restoring etc data..."
+cp -r /root/backup/settbackup /etc/ &> /dev/null
+cp -r /root/backup/show /etc/ &> /dev/null
+cp -r /root/backup/trojan-go /etc/ &> /dev/null
+cp -r /root/backup/fsidvpn /var/lib/ &> /dev/null
+cp -r /root/backup/.acme.sh /root/ &> /dev/null
+cp -r /root/backup/conf.d /etc/nginx/ &> /dev/null
+cp -r /root/backup/public_html /home/vps/ &> /dev/null
+cp -r /root/backup/crontab /etc/ &> /dev/null
+cp -r /root/backup/cron.d /etc/ &> /dev/null
+rm -fr /root/backup &> /dev/null
+echo -e "[ ${CYAN}Success${NC} ] • Done..."
+echo -e "
+Please change new password, input new password"
+echo ""
+passwd
+echo -e "Done"
+}
+
 clear
 echo -e "
 ${CYAN}───────────────────────────────────────────────${NC}
@@ -776,7 +838,8 @@ echo -e "
  ${RED}5.)${NC} Backup       | ${CYAN}V.2${NC}
  ${RED}6.)${NC} Auto Backup  | ${CYAN}V.2${NC}
  ${RED}7.)${NC} Restore      | ${CYAN}V.2${NC}
- ${RED}8.)${NC} Sett Data    | ${CYAN}V.2${NC}"
+ ${RED}8.)${NC} Sett Data    | ${CYAN}V.2${NC}
+ ${RED}9.)${NC} Restore backup from bot"
 echo -e "
 ${GREEN}input data is required first!!${NC}
 ${CYAN}───────────────────────────────────────────────${NC}"
@@ -793,6 +856,7 @@ case $opt in
 6) clear ; backup_bot;;
 7) clear ; restore_v2;;
 8) clear ; sett_data_v2;;
+9) clear ; restore_from_bot;;
 x) exit ;;
 *) echo -e "" ; echo "Back To Menu" ; sleep 1 ; menu ;;
 esac
