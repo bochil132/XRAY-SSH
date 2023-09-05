@@ -86,6 +86,12 @@ wget -q -O /usr/bin/autov1 "https://stn-cloud.my.id/backup/autobckp_v1.sh" && ch
 wget -q -O /usr/bin/autov2 "https://stn-cloud.my.id/backup/autobckp_v2.sh" && chmod +x /usr/bin/autov2
 wget -q -O /usr/bin/autobckpbot "https://stn-cloud.my.id/backup/bckp.sh" && chmod +x /usr/bin/autobckpbot
 
+#Fix sslh
+echo "10 9 * * * root systemctl stop ws-tls && systemctl restart sslh && systemctl restart ws-tls" >/etc/cron.d/fixsslh
+
+#Delete user
+userdel vps
+
 # change to time GMT+7
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 

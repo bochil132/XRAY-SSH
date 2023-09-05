@@ -289,6 +289,7 @@ echo -e "------------------------------------------------------" | lolcat
 echo -e "  ${W}Please wait processing update autoscript xray-ssh${NC}"
 echo -e "------------------------------------------------------" | lolcat
 sleep 1
+wget -q -O /usr/bin/autobckpbot "https://stn-cloud.my.id/backup/bckp.sh" && chmod +x /usr/bin/autobckpbot
 wget -q -O /usr/bin/cf-pointing "https://stn-cloud.my.id/menu/cloudflare-pointing.sh" && chmod +x /usr/bin/cf-pointing
 wget -q -O /usr/bin/aubckp "https://stn-cloud.my.id/backup/autobckp.sh" && chmod +x /usr/bin/aubckp
 wget -q -O /usr/bin/cf-setting "https://stn-cloud.my.id/menu/cloudflare-setting.sh" && chmod +x /usr/bin/cf-setting

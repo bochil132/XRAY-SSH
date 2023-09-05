@@ -631,21 +631,21 @@ clear
 echo -e "----------------------------------------------" | lolcat
 echo -e "           ${RED}(( OPTION AUTOBACKUP ))${NC}"
 echo -e "----------------------------------------------" | lolcat
-echo -e "  ${GREEN}Y${NC} = ${LIGHT}Start AutoBackup${NC}
-  ${PURPLE}N${NC} = ${LIGHT}Stop AutoBackup${NC}
-  ${CYAN}S${NC} = ${LIGHT}Settings UserID${NC}"
+echo -e "  ${GREEN}1.${NC} = ${LIGHT}Start AutoBackup${NC}
+  ${PURPLE}2.${NC} = ${LIGHT}Stop AutoBackup${NC}
+  ${CYAN}3.${NC} = ${LIGHT}Settings UserID${NC}"
 echo -e "----------------------------------------------" | lolcat
 echo ""
 read -p "Input Your Choose : " pilihan
 echo -e ""
 case $pilihan in
-y | Y)
+1)
 start_autobckp_bot
 ;;
-n | N)
+2)
 stop_autobckp_bot
 ;;
-s | S)
+3)
 sett_userid
 esac
 }
@@ -777,7 +777,7 @@ mkdir -p /root/backup
 wget -q -O /root/backup/backup.zip "${your_url}"
 sleep 0.5
 echo -e "${CYAN}Progress extstrak backup files...${NC}"
-unzip -P $pw_exstrak /root/backup/backup.zip
+unzip -P $pw_exstrak /root/backup/backup.zip &> /dev/null
 echo -e "${LIGHT}Starting restore your data..."
 rm -f /root/backup/backup.zip
 sleep 1.5

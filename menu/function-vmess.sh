@@ -460,6 +460,7 @@ menu-vmess
 else
 exp=$(grep -wE "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
 sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+rm -f /home/vps/public_html/vmess-$user.txt
 systemctl restart xray > /dev/null 2>&1
 clear
 echo -e "------------------------------------------------------" | lolcat
