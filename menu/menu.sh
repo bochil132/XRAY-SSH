@@ -594,7 +594,7 @@ echo "Api Key        : $domain"
 echo -e "==============================="
 echo "Setting done"
 
-cat > /etc/systemd/system/xolpanel.service << END
+cat > /etc/systemd/system/botpanel.service << END
 [Unit]
 Description=@XolPanel - Mod By @WaanSuka_Turu
 After=network.target
@@ -608,8 +608,8 @@ Restart=always
 WantedBy=multi-user.target
 END
 
-systemctl start xolpanel 
-systemctl enable xolpanel
+systemctl start botpanel 
+systemctl enable botpanel
 rm -rf XRAY-SSH
 cd
 clear
