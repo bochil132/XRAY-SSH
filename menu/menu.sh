@@ -594,7 +594,7 @@ echo "Api Key        : $domain"
 echo -e "==============================="
 echo "Setting done"
 
-cat > /etc/systemd/system/botpanel.service << END
+cat > /etc/systemd/system/xolpanel.service << END
 [Unit]
 Description=@XolPanel - Mod By @WaanSuka_Turu
 After=network.target
