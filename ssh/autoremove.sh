@@ -1,5 +1,8 @@
 #!/bin/bash
-
+KEY='6296920647:AAH1ZmEzgCZnlL6QpeIXhOUz7l3mVUaxw4c'
+CHATID='1668998643'
+TIME="10"
+URL="https://api.telegram.org/bot$KEY/sendMessage"
 #Autoremove expired accounts for Xray Vmess
 data=( `cat /etc/xray/config.json | grep '^###' | cut -d ' ' -f 2 | sort | uniq`);
 now=`date +"%Y-%m-%d"`
@@ -12,6 +15,14 @@ exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
 sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
 sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+LogVmess="
+<b>User Vmess Expired</b>
+===========================
+<i>User : $user</i>
+<i>Exp  : $exp</i>
+===========================
+"
+curl -s --max-time ${TIME} -d "chat_id=${CHATID}&disable_web_page_preview=1&text=$LogVmess&parse_mode=html" ${URL} >/dev/null
 rm -f /etc/xray/$user-tls.json /etc/xray/$user-none.json
 rm -f /home/vps/public_html/vmess-$user.txt
 fi
@@ -29,6 +40,14 @@ d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" = "0" ]]; then
 sed -i "/^### $user $exp/,/^},{/d" /etc/trojan-go/akun.conf
+LogTrojanGo="
+<b>User TrojanGo Expired</b>
+===========================
+<i>User : $user</i>
+<i>Exp  : $exp</i>
+===========================
+"
+curl -s --max-time ${TIME} -d "chat_id=${CHATID}&disable_web_page_preview=1&text=$LogTrojanGo&parse_mode=html" ${URL} >/dev/null
 rm -f /home/vps/public_html/trojanGO-$user.txt
 fi
 done
@@ -62,6 +81,14 @@ hariini=`date +%d-%m-%Y`
 		    	:
                else
                userdel $username
+LogSsh="
+<b>User Ssh Expired</b>
+===========================
+<i>User : $username</i>
+<i>Exp  : $tgl $bulantahun</i>
+===========================
+"
+curl -s --max-time ${TIME} -d "chat_id=${CHATID}&disable_web_page_preview=1&text=$LogSsh&parse_mode=html" ${URL} >/dev/null
                fi
                done
 systemctl restart ws-tls

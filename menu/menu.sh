@@ -579,7 +579,7 @@ pip3 install -r xolpanel/requirements.txt
 #isi data
 echo ""
 read -e -p "[*] Input your Bot Token : " bottoken
-read -e -p "[*] Input Your Id Telegram :" admin
+read -e -p "[*] Input Your Id Telegram : " admin
 domain=$(cat /etc/xray/domain)
 echo -e BOT_TOKEN='"'$bottoken'"' > /root/xolpanel/var.txt
 echo -e ADMIN='"'$admin'"' >> /root/xolpanel/var.txt
@@ -619,7 +619,6 @@ cp /root/xolpanel/ssh/cekssh.sh /usr/bin/cekssh ; chmod +x /usr/bin/cekssh
 cp /root/xolpanel/ssh/delssh.sh /usr/bin/delssh ; chmod +x /usr/bin/delssh
 cp /root/xolpanel/ssh/list.sh /usr/bin/listssh ; chmod +x /usr/bin/listssh
 cp /root/xolpanel/ssh/renewssh.sh /usr/bin/renewssh ; chmod +x /usr/bin/renewssh
-cp /root/xolpanel/ssh/view-multilogin.sh /usr/bin/view-multilogin ; chmod +x /usr/bin/view-multilogin
 cp /root/xolpanel/ssh/restartmanual.sh /usr/bin/restartmanual ; chmod +x /usr/bin/restartmanual
 
 #Create Vmess
