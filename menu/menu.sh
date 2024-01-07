@@ -654,11 +654,11 @@ script_info=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/ma
 totalram=$(free -m | awk 'NR==2 {print $2}')
 usageram=$(free -m | awk 'NR==2 {print $3}')
 ip=$(curl -sS ipv4.icanhazip.com)
-expscript=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $ip | awk '{print $3}')
+expscript=$(curl -sS https://sc22x.stn-cloud.my.id/ipmini | grep $ip | awk '{print $3}')
 d2=$(date -d "$biji" +"+%s")
 d1=$(date -d "$expscript" +"+%s")
 dayleft=$(( ($d1 - $d2) / 86400 ))
-client=$(curl -sS https://raw.githubusercontent.com/bochil132/permission/main/ipmini | grep $ip | awk '{print $2}')
+client=$(curl -sS https://sc22x.stn-cloud.my.id/ipmini | grep $ip | awk '{print $2}')
 datainfo=$(date)
 upusage="$(vnstat -i eth0 | grep "today" | awk '{print $5" "substr ($6, 1, 1)}')"
 tousage="$(vnstat -i eth0 | grep "today" | awk '{print $8" "substr ($9, 1, 1)}')"
