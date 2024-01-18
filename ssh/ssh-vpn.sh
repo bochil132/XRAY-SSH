@@ -468,7 +468,12 @@ echo "unset HISTFILE" >> /etc/profile
 cd
 rm -f /root/key.pem
 rm -f /root/cert.pem
-rm -f /root/ssh-vpn.sh
+rm -f /root/ssh-vpn.ah
+
+sed -i "s/8442/2087/g" /etc/xray/config.json
+sed -i "s/85/2082/g" /etc/xray/config.json
+sed -i "s/off/vless-tls/g" /etc/xray/config.json
+sed -i "s/vless-tlsf/vless-ntls/g" /etc/xray/config.json
 
 # finihsing
 clear

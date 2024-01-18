@@ -634,6 +634,13 @@ cp /root/xolpanel/trojan/deltr.sh /usr/bin/deltr ; chmod +x /usr/bin/deltr
 cp /root/xolpanel/trojan/renewtr.sh /usr/bin/renewtr ; chmod +x /usr/bin/renewtr
 cp /root/xolpanel/trojan/list.sh /usr/bin/listtr ; chmod +x /usr/bin/listtr
 
+#Create Vless
+cp /root/xolpanel/vless/addvless.sh /usr/bin/add-vless ; chmod +x /usr/bin/add-vless
+cp /root/xolpanel/vless/deletevless.sh /usr/bin/delete-vless ; chmod +x /usr/bin/delete-vless
+cp /root/xolpanel/vless/member.sh /usr/bin/list-vless ; chmod +x /usr/bin/list-vless
+cp /root/xolpanel/vless/renewvless.sh /usr/bin/renew-vless ; chmod +x /usr/bin/renew-vless
+cp /root/xolpanel/vless/trialvless.sh /usr/bin/trial-vless ; chmod +x /usr/bin/trial-vless
+
 #other menu
 cp /root/xolpanel/trojan/backup.sh /usr/bin/backupbot ; chmod +x /usr/bin/backupbot
 cp /root/xolpanel/trojan/restore.sh /usr/bin/restorebot ; chmod +x /usr/bin/restorebot
@@ -666,6 +673,7 @@ downusage="$(vnstat -i eth0 | grep "today" | awk '{print $2" "substr ($3, 1, 1)}
 trojanws=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
 sshws="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
 vmess=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
+vmess=$(grep -E "^#### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
 echo -e "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
 echo -e " ${C}│${NC}         ${yl}Hi, Wellcome To AutoScript SSH & Xray Only${NC}         ${C}│${NC}
  ${C}│${NC}            ${yl}Thanks You For Using This AutoScript${NC}            ${C}│${NC}
@@ -694,7 +702,8 @@ echo -e "   ${O}Tanggal :${NC} ${light}${biji}${NC}   ${O}Waktu :${NC} ${light}$
   ${C}│${NC}   ${yl}Sisa Aktif   :${NC} $dayleft Days
   ${C}│${NC}
   ${C}│${NC}   ${O}• Accounts Info •${NC}
-  ${C}│${NC}   ${yl}SSH-WS      :${NC} $sshws
+  ${C}│${NC}   ${yl}SSH-WS      :${NC} $ssh ws
+  ${C}│${NC}   ${yl}VLESS-WS    :${NC} $vless
   ${C}│${NC}   ${yl}TROJAN-WS   :${NC} $trojanws
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess
   ${C}└─────────────────────────────────────┘${NC}"
