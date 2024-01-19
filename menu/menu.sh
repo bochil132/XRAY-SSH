@@ -608,12 +608,12 @@ Restart=always
 WantedBy=multi-user.target
 END
 
-systemctl start botpanel 
-systemctl enable botpanel
 rm -rf XRAY-SSH
 cd
 clear
-#Create Ssh
+#Create Sh
+cp /root/xolpanel/ssh/unlock.sh /usr/bin/unlockssh ; chmod +x /usr/bin/unlockssh
+cp /root/xolpanel/ssh/lock.sh /usr/bin/lockssh ; chmod +x /usr/bin/lockssh
 cp /root/xolpanel/ssh/addssh.sh /usr/bin/addssh ; chmod +x /usr/bin/addssh
 cp /root/xolpanel/ssh/cekssh.sh /usr/bin/cekssh ; chmod +x /usr/bin/cekssh
 cp /root/xolpanel/ssh/delssh.sh /usr/bin/delssh ; chmod +x /usr/bin/delssh
@@ -649,6 +649,8 @@ cp /root/xolpanel/trojan/infoaja.sh /usr/bin/infobot ; chmod +x /usr/bin/infobot
 cp /root/xolpanel/trojan/infoservice.sh /usr/bin/infoservice ; chmod +x /usr/bin/infoservice
 cp /root/xolpanel/trojan/list-accounts.sh /usr/bin/list-accounts ; chmod +x /usr/bin/list-accounts
 cp /root/xolpanel/trojan/bandwidth-usage.sh /usr/bin/bandwidth-usage ; chmod +x /usr/bin/bandwidth-usage
+systemctl start xolpanel 
+systemctl enable x xolpanel
 systemctl restart xolpanel
 clear
 echo " Installations complete, type /menu on your bot"
@@ -671,9 +673,9 @@ upusage="$(vnstat -i eth0 | grep "today" | awk '{print $5" "substr ($6, 1, 1)}')
 tousage="$(vnstat -i eth0 | grep "today" | awk '{print $8" "substr ($9, 1, 1)}')"
 downusage="$(vnstat -i eth0 | grep "today" | awk '{print $2" "substr ($3, 1, 1)}')"
 trojanws=$(grep -E "^### " "/etc/trojan-go/akun.conf" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
-sshws="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
+sshws=$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)
 vmess=$(grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
-vmess=$(grep -E "^#### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
+vless=$(grep -E "^#### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | wc -l)
 echo -e "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" | lolcat
 echo -e " ${C}│${NC}         ${yl}Hi, Wellcome To AutoScript SSH & Xray Only${NC}         ${C}│${NC}
  ${C}│${NC}            ${yl}Thanks You For Using This AutoScript${NC}            ${C}│${NC}
@@ -702,7 +704,7 @@ echo -e "   ${O}Tanggal :${NC} ${light}${biji}${NC}   ${O}Waktu :${NC} ${light}$
   ${C}│${NC}   ${yl}Sisa Aktif   :${NC} $dayleft Days
   ${C}│${NC}
   ${C}│${NC}   ${O}• Accounts Info •${NC}
-  ${C}│${NC}   ${yl}SSH-WS      :${NC} $ssh ws
+  ${C}│${NC}   ${yl}SSH-WS      :${NC} $sshws
   ${C}│${NC}   ${yl}VLESS-WS    :${NC} $vless
   ${C}│${NC}   ${yl}TROJAN-WS   :${NC} $trojanws
   ${C}│${NC}   ${yl}VMESS-WS    :${NC} $vmess

@@ -407,6 +407,7 @@ wget -O menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh"
 wget -O menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh"
 wget -O menu-vmess "https://stn-cloud.my.id/menu/function-vmess.sh"
 wget -O license "https://stn-cloud.my.id/menu/license.sh"
+wget -O expiw "https://stn-cloud.my.id/ssh/autoremove-v2.sh"
 chmod +x cf-pointing
 chmod +x cf-setting
 chmod +x banner
@@ -426,10 +427,11 @@ chmod +x license
 chmod +x menu-ssh
 chmod +x menu-vmess
 chmod +x menu-trgo
-chmod +x bkp
+chmod +x tkp
+chmod +x expiw
 
 echo "0 9 * * * root clearlog && reboot" >> /etc/crontab
-echo "0 7 * * * root exp" >> /etc/crontab
+echo "0 7 * * * root exp && expiw" >> /etc/crontab
 # remove unnecessary files
 cd
 apt autoclean -y
