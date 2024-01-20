@@ -15,16 +15,16 @@ exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
 sed -i "/^#&&# $user $exp/,/^},{/d" /etc/xray/config.json
 sed -i "/^#&&# $user $exp/,/^},{/d" /etc/xray/config.json
-LogVmess="
+LogVless="
 <b>User Vless Expired</b>
 ===========================
 <i>User : $user</i>
 <i>Exp  : $exp</i>
 ===========================
 "
-curl -s --max-time ${TIME} -d "chat_id=${CHATID}&disable_web_page_preview=1&text=$LogVmess&parse_mode=html" ${URL} >/dev/null
+curl -s --max-time ${TIME} -d "chat_id=${CHATID}&disable_web_page_preview=1&text=$LogVless&parse_mode=html" ${URL} >/dev/null
 rm -f /etc/xray/$user-tls.json /etc/xray/$user-none.json
-rm -f /home/vps/public_html/vmess-$user.txt
+rm -f /home/vps/public_html/vless-$user.txt
 fi
 done
 systemctl restart xray

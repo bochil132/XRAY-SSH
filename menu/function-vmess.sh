@@ -524,6 +524,22 @@ read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
 }
 
+function createvless(){
+clear
+}
+
+function trialvless(){
+clear
+}
+
+function renew-vless(){
+clear
+}
+
+function delete-vless(){
+clear
+}
+
 clear
 # // Status Nginx
 ssh_ws=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
@@ -542,16 +558,22 @@ else
 fi
 echo ""
 echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
-echo -e " ${multi}                    ${rd}XRAY VMESS MENU                  ${NC}"
+echo -e " ${multi}                ${rd}XRAY VMESS/VLESS MENU               ${NC}"
 echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
 echo -e " XRAY VMESS : $xvm"
+echo -e " XRAY VLESS : $xvm"
 echo -e " NGINX      : $nx"
 echo -e "
  ${rd}1.)${NC}  Create Accounts Xray/Vmess
  ${rd}2.)${NC}  Create Accounts Trial Xray/Vmess
  ${rd}3.)${NC}  Renew Accounts Xray/Vmess
  ${rd}4.)${NC}  Remove Accounts Xray/Vmess
- ${rd}5.)${NC}  Check User Online Xray/Vmess"
+ ${rd}5.)${NC}  Check User Online Xray/Vless
+
+ ${rd}6.)${NC}  Create Accounts Xray/Vless
+ ${rd}7.)${NC}  Create Trial Xray/Vless
+ ${rd}8.)${NC}  Renew Accounts Xray/Vless
+ ${rd}9.)${NC}  Remove Accounts Xray/Vless"
 echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
 echo -e "Press enter to return to the menu"
 echo -e ""
@@ -563,5 +585,9 @@ case $opt in
 03 | 3) clear ; renew ;;
 04 | 4) clear ; hapus ;;
 05 | 5) clear ; cek ;;
+06 | 6) clear ; createvless ;;
+07 | 7) clear ; trialvless ;;
+08 | 8) clear ; renewvless ;;
+09 | 9) clear ; deletevless ;;
 *) clear ; menu ;;
 esac

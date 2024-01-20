@@ -407,7 +407,6 @@ wget -O menu-ssh "https://stn-cloud.my.id/menu/function-ssh.sh"
 wget -O menu-trgo "https://stn-cloud.my.id/menu/function-trgo.sh"
 wget -O menu-vmess "https://stn-cloud.my.id/menu/function-vmess.sh"
 wget -O license "https://stn-cloud.my.id/menu/license.sh"
-wget -O expiw "https://stn-cloud.my.id/ssh/autoremove-v2.sh"
 chmod +x cf-pointing
 chmod +x cf-setting
 chmod +x banner
@@ -427,11 +426,10 @@ chmod +x license
 chmod +x menu-ssh
 chmod +x menu-vmess
 chmod +x menu-trgo
-chmod +x tkp
-chmod +x expiw
+chmod +x bkp
 
 echo "0 9 * * * root clearlog && reboot" >> /etc/crontab
-echo "0 7 * * * root exp && expiw" >> /etc/crontab
+echo "0 7 * * * root exp" >> /etc/crontab
 # remove unnecessary files
 cd
 apt autoclean -y
@@ -475,7 +473,8 @@ rm -f /root/ssh-vpn.ah
 sed -i "s/8442/2087/g" /etc/xray/config.json
 sed -i "s/85/2082/g" /etc/xray/config.json
 sed -i "s/off/vless-tls/g" /etc/xray/config.json
-sed -i "s/vless-tlsf/vless-ntls/g" /etc/xray/config.json
+sed -i "s/vless-tlsf/vless-ntls/g" /etc/xray/config.join
+sed -i "s/2087/2097/g" /etc/trojan-go/config.json
 
 # finihsing
 clear
