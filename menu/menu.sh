@@ -651,6 +651,7 @@ cp /root/xolpanel/trojan/list-accounts.sh /usr/bin/list-accounts ; chmod +x /usr
 cp /root/xolpanel/trojan/bandwidth-usage.sh /usr/bin/bandwidth-usage ; chmod +x /usr/bin/bandwidth-usage
 systemctl start xolpanel 
 systemctl enable x xolpanel
+systemctl daemon-reload
 systemctl restart xolpanel
 clear
 echo " Installations complete, type /menu on your bot"

@@ -526,18 +526,253 @@ menu-vmess
 
 function createvless(){
 clear
+domain=$(cat /etc/xray/domain)
+tls="2087"
+nontls="2082"
+until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+		read -rp "Username : " -e user
+		CLIENT_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
+
+		if [[ ${CLIENT_EXISTS} == '1' ]]; then
+			echo ""
+			echo -e "Username ${RED}${user}${NC} Already On VPS Please Choose Another"
+			exit 1
+		fi
+	done
+uuid=$(cat /proc/sys/kernel/random/uuid)
+read -p "Expired (Days) : " masaaktif
+hariini=`date -d "0 days" +"%Y-%m-%d"`
+exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
+sed -i '/#xray-vless-tls$/a\#&&# '"$user $exp"'\
+},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
+sed -i '/#xray-vless-nontls$/a\#&&# '"$user $exp"'\
+},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
+xrayvless1="vless://${uuid}@${domain}:$tls?path=/vless-tls&security=tls&encryption=none&type=ws#${user}"
+xrayvless2="vless://${uuid}@${domain}:$nontls?path=/vless-ntls&encryption=none&type=ws#${user}"
+cat >/home/vps/public_html/vless-$user.txt <<-END
+====================================================================
+                  AUTOSCRIPT INSTALLER XRAY-SSH
+====================================================================
+            Berikut dibawah ini adalah format OpenClash
+====================================================================
+_______________________________________________________
+              Format Vless WS (CDN) TLS
+_______________________________________________________
+
+- name: Vless-TLS-${user}
+  server: ${domain}
+  type: vless
+  port: 2087
+  uuid: ${uuid}
+  tls: true
+  skip-cert-verify: true
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /vless-tls
+    headers:
+      Host: ${domain}
+  udp: true
+_______________________________________________________
+              Format Vless WS (CDN) Non TLS
+_______________________________________________________
+
+- name: Vless-NTLS-${user}
+  server: ${domain}
+  type: vless
+  port: 2082
+  uuid: ${uuid}
+  tls: false
+  network: ws
+  ws-opts:
+    path: /vless-ntls
+    headers:
+      Host: ${domain}
+  udp: terus
+_______________________________________________________
+                Link Vless Account
+_______________________________________________________
+Link TLS : ${xrayvless1}
+_______________________________________________________
+Link None TLS : ${xrayvless2}
+_______________________________________________________
+END
+systemctl restart xray.service
+service cron restart
+sleep 0.5
+clear
+echo -e ""
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "    Xray/Vless Account"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Remarks     : ${user}"
+echo -e "Address     : ${domain}"
+echo -e "Port TLS    : $tls"
+echo -e "Port NTLS   : $nontls"
+echo -e "User ID     : ${uuid}"
+echo -e "Encryption  : none"
+echo -e "Network     : ws"
+echo -e "Path NTLS   : /vless-ntls"
+echo -e "Path TLS    : /gle ws-tls"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Link TLS    : ${xrayvless1}"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Link NTLS : ${xrayvless2}"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Created     : $hariini"
+echo -e "Expired     : $exp"
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
 }
 
 function trialvless(){
 clear
+domain=$(cat /etc/xray/domain)
+tls="2087"
+nontls="2082"
+until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+		user=Trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+		CLIENT_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
+
+		if [[ ${CLIENT_EXISTS} == '1' ]]; then
+			echo ""
+			echo -e "Username ${RED}${user}${NC} Already On VPS Please Choose Another"
+			exit 1
+		fi
+	done
+uuid=$(cat /proc/sys/kernel/random/uuid)
+masaaktif="1"
+hariini=`date -d "0 days" +"%Y-%m-%d"`
+exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
+sed -i '/#xray-vless-tls$/a\#&&# '"$user $exp"'\
+},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
+sed -i '/#xray-vless-nontls$/a\#&&# '"$user $exp"'\
+},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
+xrayvless1="vless://${uuid}@${domain}:$tls?path=/vless-tls&security=tls&encryption=none&type=ws#${user}"
+xrayvless2="vless://${uuid}@${domain}:$nontls?path=/vless-ntls&encryption=none&type=ws#${user}"
+cat >/home/vps/public_html/vless-$user.txt <<-END
+====================================================================
+                  AUTOSCRIPT INSTALLER XRAY-SSH
+====================================================================
+            Berikut dibawah ini adalah format OpenClash
+====================================================================
+_______________________________________________________
+              Format Vless WS (CDN) TLS
+_______________________________________________________
+
+- name: Vless-TLS-${user}
+  server: ${domain}
+  type: vless
+  port: 2087
+  uuid: ${uuid}
+  tls: true
+  skip-cert-verify: true
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /vless-tls
+    headers:
+      Host: ${domain}
+  udp: true
+_______________________________________________________
+              Format Vless WS (CDN) Non TLS
+_______________________________________________________
+
+- name: Vless-NTLS-${user}
+  server: ${domain}
+  type: vless
+  port: 2082
+  uuid: ${uuid}
+  tls: false
+  network: ws
+  ws-opts:
+    path: /vless-ntls
+    headers:
+      Host: ${domain}
+  udp: true
+_______________________________________________________
+                Link Vless Account
+_______________________________________________________
+Link TLS : ${xrayvless1}
+_______________________________________________________
+Link None TLS : ${xrayvless2}
+_______________________________________________________
+END
+systemctl restart xray.service
+service cron restart
+sleep 0.5
+clear
+echo -e ""
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "    Xray/Vless Account"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Remarks     : ${user}"
+echo -e "Address     : ${domain}"
+echo -e "Port TLS    : $tls"
+echo -e "Port NTLS   : $nontls"
+echo -e "User ID     : ${uuid}"
+echo -e "Encryption  : none"
+echo -e "Network     : ws"
+echo -e "Path NTLS   : /vless-ntls"
+echo -e "Path TLS    : /vless-tls"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Link TLS    : ${xrayvless1}"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Link NTLS : ${xrayvless2}"
+echo -e "•━━━━━━━━━━━━━━━━━━━━━━•"
+echo -e "Created     : $hariini"
+echo -e "Expired     : $exp"
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
 }
 
-function renew-vless(){
+function renewvless(){
 clear
+grep -E "^#&&# " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
+echo ""
+read -rp "Input Username : " user
+read -p "Expired (days): " masaaktif
+exp=$(grep -E "^#&&# $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+now=$(date +%Y-%m-%d)
+d1=$(date -d "$exp" +%s)
+d2=$(date -d "$now" +%s)
+exp2=$(( (d1 - d2) / 86400 ))
+exp3=$(($exp2 + $masaaktif))
+exp4=`date -d "$exp3 days" +"%Y-%m-%d"`
+sed -i "/#&&# $user/c\#&&# $user $exp4" /etc/xray/config.json
+sleep 0.5
+systemctl restart xray
+clear
+echo -e "--------------------------------------------------------------" | lolcat
+echo -e "$user Account Renewed Successfully"
+echo -e ""
+echo -e "Username   : $user"
+echo -e "Days Added : $masaaktif Days"
+echo -e "Expired On : $exp4"
+echo -e "--------------------------------------------------------------" | lolcat
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
 }
 
-function delete-vless(){
+function deletevless(){
 clear
+grep -E "^#&&# " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq | nl
+echo ""
+read -rp "Input Username : " user
+sleep 0.5
+exp=$(grep -wE "^#&&# $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+sed -i "/^#&&# $user $exp/,/^},{/d" /etc/xray/config.json
+systemctl restart xray
+echo -e "------------------------------------------------------" | lolcat
+echo -e "Username   : $user"
+echo -e "Expired On : $exp"
+echo -e "------------------------------------------------------" | lolcat
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
 }
 
 clear
