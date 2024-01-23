@@ -473,7 +473,7 @@ rm -f /root/ssh-vpn.ah
 sed -i "s/8442/2087/g" /etc/xray/config.json
 sed -i "s/85/2082/g" /etc/xray/config.json
 sed -i "s/off/vless-tls/g" /etc/xray/config.json
-sed -i "s/vless-tlsf/vless-ntls/g" /etc/xray/config.join
+sed -i "s/vless-tlsf/vless-ntls/g" /etc/xray/config.json
 sed -i "s/2087/2097/g" /etc/trojan-go/config.json
 
 # finihsing
