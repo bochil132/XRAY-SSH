@@ -775,6 +775,52 @@ read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
 menu-vmess
 }
 
+function addblocksite(){
+clear
+read -p "Enter domain for blocked : " domain
+sleep 1
+  if [[ -z "$domain" ]]; then
+    echo -e "${rd}Error: Domain cannot be empty${NC}"
+  elif grep -q "\"domain\": \[\"$domain\"\]" "/etc/xray/config.json"; then
+    echo -e "${or}Domain '$domain' is already blocked.${NC}"
+  else
+    echo -e "${C}Adding domain '$domain' to be blocked...${NC}"
+    sed -i "/\"rules\": \[/a \\\t{ \"type\": \"field\", \"domain\": [\"$domain\"], \"outboundTag\": \"blocked\" }," "etc/xray/config.json"
+    echo -e "${C}Domain '$domain' added to be blocked.${NC}"
+    systemctl restart xray
+  fi
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
+}
+
+function listblocked(){
+clear
+sleep 0.5
+grep -oP '(?<=domain": \[")[^"]*' "/etc/xray/config.json" | nl -w2 -s". "
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
+}
+
+function unblocksite(){
+clear
+read -p "Enter domain to unblock : " index
+sleep 1
+  domain=$(grep -oP '(?<=domain": \[")[^"]*' "/etc/xray/config.json" | sed -n "${index}p")
+  if [ -z "$domain" ]; then
+    echo -e "${rd}Invalid selection.${NC}"
+  else
+    echo -e "Removing domain '$domain' from blocked list..."
+    sed -i "/\"domain\": \[\"$domain\"\],/d" "/etc/xray/config.json"
+    echo -e "${or}Domain '$domain' removed from blocked list${NC}"
+    systemctl restart xray
+  fi
+echo -e ""
+read -n 1 -s -r -p "Tap Enter To Back Menu-Vmess"
+menu-vmess
+}
+
 clear
 # // Status Nginx
 ssh_ws=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
@@ -808,7 +854,11 @@ echo -e "
  ${rd}6.)${NC}  Create Accounts Xray/Vless
  ${rd}7.)${NC}  Create Trial Xray/Vless
  ${rd}8.)${NC}  Renew Accounts Xray/Vless
- ${rd}9.)${NC}  Remove Accounts Xray/Vless"
+ ${rd}9.)${NC}  Remove Accounts Xray/Vless
+ 
+ ${rd}10.)${NC} Add Block Site
+ ${rd}11.)${NC} List Site Blockled
+ ${rd}12.)${NC} Unblock Site"
 echo -e "${cyan}───────────────────────────────────────────────────────${NC}"
 echo -e "Press enter to return to the menu"
 echo -e ""
@@ -824,5 +874,8 @@ case $opt in
 07 | 7) clear ; trialvless ;;
 08 | 8) clear ; renewvless ;;
 09 | 9) clear ; deletevless ;;
+10) clear ; addblocksite ;;
+11) clear ; listblocked ;;
+12) clear ; unblocksite ;;
 *) clear ; menu ;;
 esac
